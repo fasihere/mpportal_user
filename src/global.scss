@@ -1,0 +1,11 @@
+$mainColora: #15023a;
+$mainColor: #15023a;
+$secColor: crimson;
+$bgmain: white;
+$width: 768px;
+
+@mixin mobile {
+    @media (max-width: #{$width}){
+        @content
+    }
+}

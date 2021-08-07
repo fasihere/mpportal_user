@@ -1,0 +1,39 @@
+.intro{
+    background: url("https://img1.wsimg.com/isteam/ip/efa9dcdc-1bc9-4ff1-b06d-47360fa98bab/KOMA4409%20copy.jpg/:/rs=w:2046,m"), whitesmoke;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+
+    .left{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h1{
+            font-size: 30px;
+            font-family: 'Roboto', sans-serif;
+            margin: 10px;
+            color: rgb(94, 94, 94);
+            span{
+                font-size: 50px;
+                color: rgb(43, 43, 43);
+            }
+        }
+        .btn{
+            background-color: rgb(34, 128, 228);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 5px 30px;
+            margin-top: 20px;
+            margin: 10px;
+            font-family: 'Caveat', cursive;
+            font-weight: 500;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    }
+    .right{
+        flex: 1;
+    }
+}

@@ -1,0 +1,98 @@
+.register{
+    background: url("https://img1.wsimg.com/isteam/ip/efa9dcdc-1bc9-4ff1-b06d-47360fa98bab/KOMA4409%20copy.jpg/:/rs=w:2046,m"), whitesmoke;
+    background-size: cover;
+    height: calc(100vh - 100px);
+    top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .wrapper{
+        width: 90%;
+        height: 90%;
+        display: flex;
+        .left{
+            flex: 1;
+            position: relative;
+            background-color: white;
+            border-radius: 2px;
+            border: 1px solid rgb(135, 134, 134);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            .info{
+                width: 90%;
+                font-size: 15px;
+                font-family: 'Josefin Sans', sans-serif;
+                margin-top: 20px;
+            }
+            form{
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                width: 100%;
+                height: 500px;
+                overflow: scroll;
+                h2{
+                    margin: 10px 50px;
+                    font-family: 'Josefin Sans', sans-serif;
+                }
+                .inputContainer{
+                    width: 90%;
+                    margin: 5px 20px;
+                    .inputItem{
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin: 5px;
+                        label{
+                            font-family: 'Josefin Sans', sans-serif;
+                            font-size: 15px;
+                        }
+                        span{
+                            font-family: 'Josefin Sans', sans-serif;
+                            font-size: 15px;
+                        }
+                        input{
+                            font-size: 15px;
+                            width: 225px;
+                            height: 22px;
+                            border: 1px solid rgb(53, 53, 53);
+                            border-radius: 2px;
+                            margin-left: 20px;
+                            padding: 5px 10px;
+                            
+                            &:focus{
+                                outline: none;
+                            }
+                        }
+                        select{
+                            width: 200px;
+                            height: 22px;
+                        }
+                    }
+                }
+                
+                .btn{
+                    position: absolute;
+                    left: 40%;
+                    bottom: 20px;
+                    background-color: rgb(34, 128, 228);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    padding: 2px 20px;
+                    margin-top: 40px;
+                    margin: 10px;
+                    font-family: 'Roboto', sans-serif;
+                    font-size: 20px;
+                    cursor: pointer;
+                }
+            }
+        }
+        .right{
+            flex: 1;
+        }
+    }
+}
