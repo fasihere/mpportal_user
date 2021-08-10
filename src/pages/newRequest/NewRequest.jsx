@@ -1,7 +1,7 @@
 import './newRequest.scss'
 import axios from 'axios'
 import { useState, useContext, useMemo, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { IDUKKI_DATA } from '../register/laList'
 
@@ -10,7 +10,7 @@ export default function NewRequest() {
     const { pending, isSignedIn, user, auth } = useAuth()
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
-    const [mobileNo, setMobileNo] = useState(user.phoneNumber)
+    const [mobileNo, setMobileNo] = useState("")
     const [address, setAddress] = useState("")
     const [pincode, setPincode] = useState(null)
     const [error, setError] = useState(false)
@@ -22,13 +22,35 @@ export default function NewRequest() {
     const [selectedWard, setSelectedWard] = useState()
     const [requestSubject, setRequestSubject] = useState()
     const [requestBody, setRequestBody] = useState()
-    const [rid, setRid] = useState()
-    const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests'
-    
+    const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/'
+    const location = useLocation()
+    const path = location.pathname.split("/")[2];
+
+    useEffect(() => {
+        const getReq = async() => {
+            try{
+                const config = {
+                    headers: {
+                      'Authorization':'Bearer '+ await user.getIdToken()
+                    }
+                }
+                console.log(await user.getIdToken())
+                const res = await axios.get(baseUrl+"users/", config);
+                setName(res.data.name)
+                setEmail(res.data.email)
+                setMobileNo(res.data.mobileNo)
+                setAddress(res.data.address)
+                setPincode(res.data.pincode)
+             } catch(err){
+                console.log(err)
+            }
+        }
+         getReq()
+    },[])
     const handleSubmit = async (e) => {
         e.preventDefault();
         const body = {
-            name:name,
+            name,
             email,
             mobileNo: mobileNo,
             address,
@@ -40,7 +62,7 @@ export default function NewRequest() {
             requestSubject,
             requestBody,
             status: "UNREAD",
-            statusUser: "UNREAD"
+            statusUser: "PENDING"
         }
         const config = {
             headers: {
@@ -48,15 +70,15 @@ export default function NewRequest() {
             }
         }
         try{
-            const res =  await axios.post(baseUrl+'/new', body, config);
-            setRid(res.data.rid)
-            window.location.replace('/request/'+res.data.rid)
-        } catch(err){ 
-            console.log(err)
+            const res =  await axios.post(baseUrl+'requests/new', body, config);
+            console.log(res.data)
+            res.data && window.location.replace('/request/'+res.data.rid+'/submit')
+        } catch(err){
+            console.log(err.response.data)
             setError(true)
         }
     };
-    
+
     const laList = useMemo(() => IDUKKI_DATA)
     useEffect(() => {
         setLa(laList)
@@ -91,15 +113,15 @@ export default function NewRequest() {
                         <div className="inputContainer">
                             <div className="inputItem">
                                 <label>Name :</label>
-                                <input type="text" required="true" placeholder="Enter Full Name" onChange={(e) => setName(e.target.value)}/>
+                                <input type="text" required="true" defaultValue={name} onChange={(e) => setName(e.target.value)}/>
                             </div>
                             <div className="inputItem">
-                                <label>Email :</label>
-                                <input type="text" required="true" onChange={(e) => setEmail(e.target.value)}/>
+                                <label>Email : </label>
+                                <input type="text" required="true" defaultValue={email} onChange={(e) => setEmail(e.target.value)}/>
                             </div>
                             <div className="inputItem">
                                 <label>Phone Number: </label>
-                                <span>+91</span><input type="tel" required="true" onChange={(e) => setMobileNo(e.target.value)}/>
+                                <span>+91<input type="tel" required="true" defaultValue={mobileNo} onChange={(e) => setMobileNo(e.target.value)}/></span>
                             </div>
                             <div className="inputItem">
                                 <span>LokSabha Constituency :</span>
@@ -108,7 +130,7 @@ export default function NewRequest() {
                             <div className="inputItem">
                                 <label>LA Constituency:</label>
                                 <select value={selectedLa} onChange={(e) => changeLa(e)}>
-                                    <option selected>-- Select --</option>
+                                    <option>-- Select --</option>
                                     {la.map(x => {
                                         return <option>{x.name}</option>
                                     })}
@@ -117,7 +139,7 @@ export default function NewRequest() {
                             <div className="inputItem">
                                 <label>Panchayat:</label>
                                 <select value={selectedPanchayat} onChange={(e) => changePanchayat(e)}>
-                                    <option selected >-- Select --</option>
+                                    <option  >-- Select --</option>
                                     {panchayat.map(x => {
                                         return <option>{x.panchayat[0]}</option>
                                     })}
@@ -126,7 +148,7 @@ export default function NewRequest() {
                             <div className="inputItem">
                                 <label>Ward:</label>
                                 <select value={selectedWard} onChange={(e) => setSelectedWard(e.target.value)}>
-                                    <option selected >-- Select --</option>
+                                    <option >-- Select --</option>
                                     {wards.map(x => {
                                         return <option>{x}</option>
                                     })}
@@ -134,22 +156,22 @@ export default function NewRequest() {
                             </div>
                             <div className="inputItem">
                                 <label>Address :</label>
-                                <input type="text" required="true" onChange={(e) => setAddress(e.target.value)}/>
+                                <input type="text" required="true" defaultValue={address} onChange={(e) => setAddress(e.target.value)}/>
                             </div>
                             <div className="inputItem">
                                 <label>Pincode :</label>
-                                <input type="tel" required="true" onChange={(e) => setPincode(e.target.value)}/>
+                                <input className="pincode" type="tel" required="true" defaultValue={pincode} onChange={(e) => setPincode(e.target.value)}/>
                             </div>
                         </div>
                     </div>
                     <div className="requestDetails">
                         <div className="subjectContainer">
                             <label>Subject: </label>
-                            <input className="requestSubject" required="true"/>
+                            <input className="requestSubject" required="true" onChange={(e) => setRequestSubject(e.target.value)}/>
                         </div>
-                        <textarea className="requestContent" placeholder="Enter your request ..."></textarea>
+                        <textarea className="requestContent" placeholder="Enter your request ..." onChange={(e) => setRequestBody(e.target.value)}></textarea>
                     </div>
-                    <Link to={"/request/"+rid+"/submit"} className="btn link">Add Request</Link>
+                    <button onClick={handleSubmit} className="btn link">Add Request</button>
                 </form>
             </div>
         </div>

@@ -11,9 +11,10 @@ export default function PrivateRoute({ component: RouteComponent, ...others }) {
             <span className="second"></span>
         </div>
     )}
+
     return (
         <Route {...others}
-        render={ routeProps => 
+        render={ routeProps =>
         isSignedIn ? (
             <RouteComponent {...routeProps} />
         ) : (

@@ -20,7 +20,8 @@ export default function SubmitRequest() {
                 }
             }
             const res = await axios.get(baseUrl+path, config);
-            setReq(res.data)
+            res.data && setReq(res.data)
+
          }
          getReq()
     },[path])
@@ -34,51 +35,51 @@ export default function SubmitRequest() {
                     <div className="inputContainer">
                         <div className="inputItem">
                             <span>Name :</span>
-                            <span>{req.name}</span>
+                            <span>{req && req.name}</span>
                         </div>
                         <div className="inputItem">
                             <span>Email :</span>
-                            <span>{req.email}</span>
+                            <span>{req && req.email}</span>
                         </div>
                         <div className="inputItem">
                             <span>Phone Number :</span>
-                            <span>+91</span><span>{req.mobileNo}</span>
+                            <span>+91 {req && req.mobileNo}</span>
                         </div>
                         <div className="inputItem">
                             <span>LokSabha Constituency :</span>
-                            <span>{req.loksabha}</span>
+                            <span>{req && req.loksabha}</span>
                         </div>
                         <div className="inputItem">
                             <span>LA Constituency :</span>
-                            <span>{req.assembly}</span>
+                            <span>{req && req.assembly}</span>
                         </div>
                         <div className="inputItem">
                             <span>Panchayat :</span>
-                            <span>{req.panchayat}</span>
+                            <span>{req && req.panchayat}</span>
                         </div>
                         <div className="inputItem">
                             <span>Ward :</span>
-                            <span>{req.ward}</span>
+                            <span>{req && req.ward}</span>
                         </div>
                         <div className="inputItem">
                             <span>Address :</span>
-                            <p>{req.address}</p>
+                            <p>{req && req.address}</p>
                         </div>
                         <div className="inputItem">
                             <span>Pincode :</span>
-                            <span>{req.pincode}</span>
+                            <span>{req && req.pincode}</span>
                         </div>
                     </div>
                 </div>
                 <div className="requestDetails">
                     <div className="subjectContainer">
                         <span>Subject: </span>
-                        <p className="requestSubject">{req.requestSubject}</p>
+                        <p className="requestSubject">{req && req.requestSubject}</p>
                     </div>
-                    <p className="requestContent">{req.requestBody}</p>
+                    <p className="requestContent">{req && req.requestBody}</p>
                 </div>
-                <Link to={"/request/"+req.rid+"/view"} className="btn submit link">Submit</Link>
-                <Link to={"/request/"+req.rid+"/edit"} className="btn edit link">Edit <i className="fas fa-edit"></i></Link>
+                <Link to={"/request/"+path+"/view"} className="btn submit link">Submit</Link>
+                <Link to={"/request/"+path+"/edit"} className="btn edit link">Edit <i className="fas fa-edit"></i></Link>
             </div>
         </div>
     )

@@ -30,17 +30,20 @@ export default function EditRequest() {
 
     useEffect(() => {
         const getReq = async() => {
-            const res = await axios.get(baseUrl + path);
-            setReq(res.data)
+            const config = {
+                headers: {
+                  'Authorization':'Bearer '+ await user.getIdToken()
+                }
+            }
+            const res = await axios.get(baseUrl+path, config);
+            res.data && setReq(res.data)
+            console.log(res.data)
             setName(res.data.name)
             setEmail(res.data.email)
             setMobileNo(res.data.mobileNo)
             setAddress(res.data.address)
             setPincode(res.data.pincode)
-            setSelectedLa(res.data.assembly)
-            setSelectedPanchayat(res.data.panchayat)
-            setSelectedWard(res.data.ward)
-            setRequestSubject(res.data.subject)
+            setRequestSubject(res.data.requestSubject)
             setRequestBody(res.data.requestBody)
          }
          getReq()
@@ -69,8 +72,9 @@ export default function EditRequest() {
                 }
             }
             const res =  await axios.post(baseUrl+'new', body, config);
-            window.location.replace('/dashboard')
-        } catch(err){ 
+            console.log(res)
+            res && window.location.replace('/dashboard')
+        } catch(err){
             console.log(err)
             setError(true)
         }
@@ -79,7 +83,7 @@ export default function EditRequest() {
 
     const handleUpdate = async () => {
         try{
-            await axios.put(baseUrl+ path, {
+            const res = await axios.put(baseUrl+ path, {
                 token: user.getIdToken(),
                 name,
                 email,
@@ -94,7 +98,8 @@ export default function EditRequest() {
                 status: "UNREAD",
                 statusUser: "PENDING"
             });
-            window.location.replace('/dashboard')
+            console.log(res)
+            res && window.location.replace('/dashboard')
         } catch(err){
             console.log(err)
         }
@@ -107,8 +112,9 @@ export default function EditRequest() {
                   'Authorization':'Bearer '+ await user.getIdToken()
                 }
             }
-            await axios.delete(baseUrl+path,config);
-            window.location.replace("/dashboard");
+            const res = await axios.delete(baseUrl+path,config);
+            console.log(res)
+            res && window.location.replace("/dashboard");
         } catch(err){
             console.log(err)
         }
@@ -147,15 +153,15 @@ export default function EditRequest() {
                     <div className="inputContainer">
                             <div className="inputItem">
                                 <label>Name :</label>
-                                <input type="text" required="true" placeholder="Enter Full Name" onChange={(e) => setName(e.target.value)}/>
+                                <input type="text" required="true" placeholder="Enter Full Name" defaultValue={name} onChange={(e) => setName(e.target.value)}/>
                             </div>
                             <div className="inputItem">
                                 <label>Email :</label>
-                                <input type="text" required="true" onChange={(e) => setEmail(e.target.value)}/>
+                                <input type="text" required="true" defaultValue={email} onChange={(e) => setEmail(e.target.value)}/>
                             </div>
                             <div className="inputItem">
-                                <label>Phone Numeber:</label>
-                                <span>+91</span><input type="tel" required="true" onChange={(e) => setMobileNo(e.target.value)}/>
+                                <label>Phone Number: +91</label>
+                                <input type="tel" required="true" defaultValue={mobileNo} onChange={(e) => setMobileNo(e.target.value)}/>
                             </div>
                             <div className="inputItem">
                                 <span>LokSabha Constituency :</span>
@@ -190,11 +196,11 @@ export default function EditRequest() {
                             </div>
                             <div className="inputItem">
                                 <label>Address :</label>
-                                <input type="text" required="true" onChange={(e) => setAddress(e.target.value)}/>
+                                <input type="text" required="true" defaultValue={address} onChange={(e) => setAddress(e.target.value)}/>
                             </div>
                             <div className="inputItem">
                                 <label>Pincode :</label>
-                                <input type="tel" required="true" onChange={(e) => setPincode(e.target.value)}/>
+                                <input type="tel" required="true" defaultValue={pincode} onChange={(e) => setPincode(e.target.value)}/>
                             </div>
                         </div>
                 </div>
@@ -202,19 +208,19 @@ export default function EditRequest() {
                     <div className="subjectContainer">
                         <label>Subject: </label>
                         <input
-                         value={requestSubject} 
-                         onChange={(e) => setRequestSubject(e.target.value)} 
-                         className="requestSubject" 
+                         defaultValue={requestSubject}
+                         onChange={(e) => setRequestSubject(e.target.value)}
+                         className="requestSubject"
                          required="true"
                          />
                     </div>
-                    <textarea className="requestContent" 
-                     value={requestBody}
+                    <textarea className="requestContent"
+                     defaultValue={requestBody}
                     onChange={(e) => setRequestBody(e.target.value)}
                     ></textarea>
                 </div>
-                <Link to="/dashboard" className="btn draft link" onClick={handleDraft}>Save Draft <i className="fas fa-file-download"></i></Link>
-                <Link to="/dashboard" className="btn delete link" onClick={handleDelete}> Delete <i className="fas fa-trash"></i></Link>
+                <button  className="btn draft" onClick={handleDraft}>Save Draft <i className="fas fa-file-download"></i></button>
+                <button to="/dashboard" className="btn delete" onClick={handleDelete}> Delete <i className="fas fa-trash"></i></button>
                 <button  className="btn submit" onClick={handleUpdate}>Submit</button>
             </div>
         </div>

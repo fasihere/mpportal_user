@@ -9,9 +9,17 @@
         font-size: calc(10px + 2vmin);
         color: white;
       }
-      
+
       .App-link {
         color: #61dafb;
       }
-      
+      .btn{
+        background-color: teal;
+        color: white;
+        padding: 5px;
+        &:hover{
+          background-color: #118080;
+        }
+      }
+
 }

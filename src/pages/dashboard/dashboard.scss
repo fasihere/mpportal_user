@@ -50,6 +50,21 @@
                 }
             }
             .bottom{
+                .filter{
+                    display: flex;
+                    justify-content: start;
+                    width: 800px;
+                    margin: 30px;
+                    label{
+                        font-size: 20px;
+                        font-weight: 500;
+                        width: 300px;
+                    }
+                    select{
+                        width: 100px;
+                        height: 25px;
+                    }
+                }
                 margin-top: 50px;
                 width: 100%;
             }

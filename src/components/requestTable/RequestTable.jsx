@@ -5,35 +5,50 @@ import { COLUMNS } from './Columns'
 import { useMemo } from 'react'
 import { ColumnFilter } from './ColumnFilter'
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuth } from '../../context/AuthContext'
 
 export default function RequestTable({selected}) {
     const { user } = useAuth()
     const columns = useMemo(() => COLUMNS,[])
-    const data = useMemo((selected) => MOCK_DATA)
-    // const [data, setData] = useState()
-    // const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests'
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try{
-    //             const res = await axios.get(baseUrl,{token:user.getIdToken(),statusUser:"selected"})
-    //             setData(res.data)
-    //         } catch (err) {
-    //             console.log(err)
-    //         }
-    //     }
-    //     console.log('Hello')
-    // },[])
+    const mock = useMemo(() => MOCK_DATA,[])
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(true)
+
+    const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests/'
+    useEffect(() => {
+        const fetchData = async () => {
+            try{
+                const config = {
+                    headers: {
+                      'Authorization':'Bearer '+ await user.getIdToken()
+                    }
+                }
+                const body = {
+                    statusUser: selected.toUpperCase()
+                }
+                const res = await axios.post(baseUrl, body, config)
+                setData(res.data.details)
+                setLoading(false)
+                console.log(res.data.details)
+                console.log(data)
+                res && console.log('Yes')
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchData()
+        console.log('Hello')
+    },[])
 
     const tableInstance = useTable({
         columns,
-        data,
+        data: mock,
         defaultColumn: { Filter: ColumnFilter }
     }, useFilters, usePagination)
-    const { 
-        getTableProps, 
-        getTableBodyProps, 
+    const {
+        getTableProps,
+        getTableBodyProps,
         headerGroups,
         page,
         pageCount,
@@ -46,7 +61,7 @@ export default function RequestTable({selected}) {
         prepareRow
     } = tableInstance
     const { pageIndex, pageSize } = state
-    
+
     return (
         <div className="requestTable">
             <h1>{selected.toUpperCase()}</h1>
@@ -66,7 +81,7 @@ export default function RequestTable({selected}) {
                             </tr>
                         ))
                     }
-                    
+
                 </thead>
                 <tbody {...getTableBodyProps()}>
                     {
@@ -76,7 +91,7 @@ export default function RequestTable({selected}) {
                                 <tr {...row.getRowProps()}>
                                     {
                                         row.cells.map((cell) => {
-                                            return <td {...cell.getCellProps("/dashboard/view/123")}>{
+                                            return <td {...cell.getCellProps()}>{
                                                 cell.render('Cell')
                                             }</td>
                                         })}

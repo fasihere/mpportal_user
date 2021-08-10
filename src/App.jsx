@@ -19,6 +19,7 @@ import PrivateRoute from './components/PrivateRoute'
 import NewLogin from './pages/login/NewLogin';
 import EditRequest from './pages/editRequest/EditRequest';
 import ViewRequest from './pages/viewRequest/ViewRequest';
+import RequestTable from './components/requestTable/requestNewTable/RequestTable'
 
 function App() {
   return (
@@ -33,8 +34,8 @@ function App() {
             <Route path="/login"><NewLogin /></Route>
             <PrivateRoute exact path="/register" component={Register}/>
             <PrivateRoute exact path="/dashboard" component={Dashboard}/>
-            <PrivateRoute path="/newRequest" component={NewRequest} />
-            <PrivateRoute path="/request/:rid/print" component={PrintRequest} />
+            <PrivateRoute exact path="/table" component={RequestTable}/>
+            <PrivateRoute path="/request/new" component={NewRequest} />
             <PrivateRoute path="/request/:rid/edit" component={EditRequest} />
             <PrivateRoute path="/request/:rid/submit" component={SubmitRequest} />
             <PrivateRoute path="/request/:rid/view" component={ViewRequest} />
@@ -43,7 +44,7 @@ function App() {
           <Footer />
           </AuthProvider>
         </Router>
-      
+
     </div>
   );
 }

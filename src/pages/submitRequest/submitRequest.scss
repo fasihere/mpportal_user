@@ -14,13 +14,13 @@
     }
     .wrapper{
         width: 95%;
-        padding: 10px;
-        padding-bottom: 40px;
+        padding: 60px 10px;
         margin: 20px;
         position: relative;
         display: flex;
         justify-content: center;
         .personalDetails{
+            display: flex;
             border: 1px solid black;
             border-radius: 3px;
             display: flex;
@@ -28,9 +28,11 @@
             margin-top: 20px;
             width: 95%;
             min-height: 200px;
+            padding: 20px;
 
             h2{
-                flex: 1;
+                position: absolute;
+                top: 0;
                 margin: 20px;
                 font-family: 'Josefin Sans', sans-serif;
                 font-weight: 400;
@@ -43,12 +45,6 @@
                 .inputItem{
                     display: flex;
                     margin: 10px;
-                    &:nth-child(1){
-                        flex: 1;
-                    }
-                    &:nth-child(2){
-                        flex: 3;
-                    }
                     span{
                         font-size: 16px;
                         width: 225px;
@@ -58,6 +54,27 @@
                     }
                     p{
                         width: 200px;
+                    }
+                    label{
+                        font-family: 'Josefin Sans', sans-serif;
+                        font-size: 15px;
+                    }
+                    input{
+                        font-size: 15px;
+                        width: 225px;
+                        height: 22px;
+                        border: 1px solid rgb(53, 53, 53);
+                        border-radius: 2px;
+                        margin-left: 20px;
+                        padding: 5px 10px;
+
+                        &:focus{
+                            outline: none;
+                        }
+                    }
+                    select{
+                        width: 200px;
+                        height: 22px;
                     }
                 }
             }

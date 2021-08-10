@@ -53,47 +53,47 @@ export default function ViewRequest() {
                 marginRight: 'auto'
             }}>
                 <h2 className="title">Issue: {path}</h2>
-                <span className="date">{req.postedTime}</span>
+                <span className="date">{req && req.postedTime.slice(0,10).split("-").reverse().join("-")}</span>
                 <div className="wrapper">
                     <div className="personalDetails">
                         <h2>Personal Details</h2>
                         <div className="inputContainer">
                             <div className="inputItem">
                                 <span>Name :</span>
-                                <span>{req.name}</span>
+                                <span>{req && req.name}</span>
                             </div>
                             <div className="inputItem">
                                 <span>LokSabha Constituency :</span>
-                                <span>{req.loksabha}</span>
+                                <span>{req && req.loksabha}</span>
                             </div>
                             <div className="inputItem">
                                 <span>LA Constituency :</span>
-                                <span>{req.assembly}</span>
+                                <span>{req && req.assembly}</span>
                             </div>
                             <div className="inputItem">
                                 <span>Panchayat :</span>
-                                <span>{req.panchayat}</span>
+                                <span>{req && req.panchayat}</span>
                             </div>
                             <div className="inputItem">
                                 <span>Ward :</span>
-                                <span>{req.ward}</span>
+                                <span>{req && req.ward}</span>
                             </div>
                             <div className="inputItem">
                                 <span>Address :</span>
-                                <p>{req.address}</p>
+                                <p>{req && req.address}</p>
                             </div>
                             <div className="inputItem">
                                 <span>Pincode :</span>
-                                <span>{req.pincode}</span>
+                                <span>{req && req.pincode}</span>
                             </div>
                         </div>
                     </div>
                     <div className="requestDetails">
                         <div className="subjectContainer">
                             <span>Subject: </span>
-                            <p className="requestSubject">{req.requestSubject}</p>
+                            <p className="requestSubject">{req && req.requestSubject}</p>
                         </div>
-                        <p className="requestContent">{req.requestBody}</p>
+                        <p className="requestContent">{req && req.requestBody}</p>
                     </div>
                 </div>
             </div>

@@ -23,7 +23,6 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-
             const body = {
                 name,
                 mobileNo: user.phoneNumber.slice(3,13),
@@ -43,15 +42,15 @@ export default function Register() {
             
             console.log(await user.getIdToken())
             const res = await axios.post(baseUrl + '/new', body, config);
-            console.log(res.data)
-            res.data && auth.currentUser.updateProfile({
+            console.log(res)
+            res && await auth.currentUser.updateProfile({
                 displayName: name,
               }).then(() => {
                 console.log("User has been registered")
               }).catch((error) => {
                 console.log(error)
               });  
-            res.data && window.location.replace("/dashboard")
+            res && window.location.replace("/dashboard")
         }
         catch(err){
             setError(true)

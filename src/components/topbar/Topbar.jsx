@@ -31,12 +31,12 @@ export default function Topbar() {
                         <Link className="link" to="/#intro">HOME</Link>
                     </li>
                     <li className="item">
-                        <Link className="link" to="/#about">ABOUT</Link>                  
+                        <Link className="link" to="/#about">ABOUT</Link>
                     </li>
-                    {  
+                    {
                     isSignedIn ? (
                         <li className="item">
-                            <Link className="link" to="/dashboard">PORTAL</Link>
+                            <Link className="link" to="/dashboard">DASHBOARD</Link>
                         </li>
                     ) : (<></>)
                         }
@@ -46,11 +46,11 @@ export default function Topbar() {
                 </ul>
             </div>
             <div className="right">
-                {  
+                {
                     isSignedIn ? (
                         <ul className="list">
                             <div className="iconContainer item">
-                                <Link className="link" to={"/user/" + user.uid}>
+                                <Link className="link" to="/user/">
                                     <i class="fas fa-user"></i>
                                 </Link>
                             </div>

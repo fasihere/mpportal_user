@@ -19,9 +19,12 @@ export default function Profile() {
     const [la, setLa] = useState([])
     const [panchayat, setPanchayat] = useState([])
     const [wards, setWards] = useState([])
-    const [selectedLa, setSelectedLa] = useState("")
-    const [selectedPanchayat, setSelectedPanchayat] = useState("")
+    const [selectedLa, setSelectedLa] = useState()
+    const [selectedPanchayat, setSelectedPanchayat] = useState()
     const [selectedWard, setSelectedWard] = useState()
+    const [storedLa, setStoredLa] = useState("")
+    const [storedPanchayat, setStoredPanchayat] = useState("")
+    const [storedWard, setStoredWard] = useState()
 
     useEffect(() => {
         const getUser = async() => {
@@ -36,24 +39,43 @@ export default function Profile() {
             setMobileNo(res.data.mobileNo)
             setAddress(res.data.address)
             setPincode(res.data.pincode)
-            setSelectedLa(res.data.assembly)
-            setSelectedPanchayat(res.data.panchayat)
-            setSelectedWard(res.data.ward)
+            setStoredLa(res.data.assembly)
+            setStoredPanchayat(res.data.panchayat)
+            setStoredWard(res.data.ward)
          }
          getUser()
     },[])
 
+    const handleEdit = async (e) => {
+        e.preventDefault()
+        setEdit(!edit)
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setEdit(!edit)
         //dispatch({ type: "UPDATE_START" });
+        setEdit(!edit)
+        const assembly = selectedLa
+        const panch = selectedPanchayat
+        const ward = selectedWard
+        if(!assembly){
+            assembly = storedLa
+        }
+        if(!panch){
+            panch = storedPanchayat
+        }
+        if(!ward){
+            ward = storedWard
+        }
+        setStoredLa(assembly)
+        setStoredPanchayat(panch)
+        setStoredWard(ward)
         const body = {
             name,
             email,
             address,
-            assembly: selectedLa,
-            panchayat: selectedPanchayat,
-            ward: selectedWard,
+            assembly,
+            panchayat:panch,
+            ward,
             pincode
         };
         const config = {
@@ -62,13 +84,14 @@ export default function Profile() {
             }
         }
         try {
-         const res = await axios.put(baseUrl, body, config);
+         const res = await axios.patch(baseUrl, body, config);
+         console.log(res)
          setSuccess(true);
         } catch (err) {
             console.log(err)
         }
     };
-    
+
     const laList = useMemo(() => IDUKKI_DATA)
     useEffect(() => {
         setLa(laList)
@@ -95,20 +118,20 @@ export default function Profile() {
 
     return (
         <div className="profile">
-            <h2 className="title">Profile <i className="fas fa-check-circle"></i></h2>
+            <h2 className="title">Profile</h2>
             <div className="wrapper">
                 <div className="left">
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         {
                             edit?(
                                 <div className="inputContainer">
                                     <div className="inputItem">
                                         <label>Name :</label>
-                                        <input type="text" required="true" placeholder="Enter Full Name" onChange={(e) => setName(e.target.value)}/>
+                                        <input type="text" required="true" placeholder="Enter Full Name" defaultValue={name} onChange={(e) => setName(e.target.value)}/>
                                     </div>
                                     <div className="inputItem">
                                         <label>Email :</label>
-                                        <input type="text" required="true" onChange={(e) => setEmail(e.target.value)}/>
+                                        <input type="text" required="true" defaultValue={email} onChange={(e) => setEmail(e.target.value)}/>
                                     </div>
                                     <div className="inputItem">
                                         <span>LokSabha Constituency :</span>
@@ -117,7 +140,7 @@ export default function Profile() {
                                     <div className="inputItem">
                                         <label>LA Constituency:</label>
                                         <select value={selectedLa} onChange={(e) => changeLa(e)}>
-                                            <option selected>-- Select --</option>
+                                            <option selected disabled>-- Select --</option>
                                             {la.map(x => {
                                                 return <option>{x.name}</option>
                                             })}
@@ -126,7 +149,7 @@ export default function Profile() {
                                     <div className="inputItem">
                                         <label>Panchayat:</label>
                                         <select value={selectedPanchayat} onChange={(e) => changePanchayat(e)}>
-                                            <option selected >-- Select --</option>
+                                            <option selected disabled>-- Select --</option>
                                             {panchayat.map(x => {
                                                 return <option>{x.panchayat[0]}</option>
                                             })}
@@ -135,7 +158,7 @@ export default function Profile() {
                                     <div className="inputItem">
                                         <label>Ward:</label>
                                         <select value={selectedWard} onChange={(e) => setSelectedWard(e.target.value)}>
-                                            <option selected >-- Select --</option>
+                                            <option selected disabled>-- Select --</option>
                                             {wards.map(x => {
                                                 return <option>{x}</option>
                                             })}
@@ -143,11 +166,11 @@ export default function Profile() {
                                     </div>
                                     <div className="inputItem">
                                         <label>Address :</label>
-                                        <input type="text" required="true" onChange={(e) => setAddress(e.target.value)}/>
+                                        <input type="text" required="true" defaultValue={address} onChange={(e) => setAddress(e.target.value)}/>
                                     </div>
                                     <div className="inputItem">
                                         <label>Pincode :</label>
-                                        <input type="tel" required="true" onChange={(e) => setPincode(e.target.value)}/>
+                                        <input type="tel" required="true" defaultValue={pincode} onChange={(e) => setPincode(e.target.value)}/>
                                     </div>
                                 </div>
                             ) : (
@@ -166,15 +189,15 @@ export default function Profile() {
                                 </div>
                                 <div className="inputItem">
                                     <span>LA Constituency :</span>
-                                    <span>{selectedLa}</span>
+                                    <span>{storedLa}</span>
                                 </div>
                                 <div className="inputItem">
                                     <span>Panchayat :</span>
-                                    <span>{selectedPanchayat}</span>
+                                    <span>{storedPanchayat}</span>
                                 </div>
                                 <div className="inputItem">
                                     <span>Ward :</span>
-                                    <span>{selectedWard}</span>
+                                    <span>{storedWard}</span>
                                 </div>
                                 <div className="inputItem">
                                     <span>Address :</span>
@@ -191,15 +214,15 @@ export default function Profile() {
                     edit ? (
                         <button className="btn save" onClick={handleSubmit}>Save <i className="fas fa-edit"></i></button>
                     ) : (
-                        <button className="btn edit" onClick={handleSubmit}>Edit <i className="fas fa-edit"></i></button>
+                        <button className="btn edit" onClick={handleEdit}>Edit <i className="fas fa-edit"></i></button>
                     )
                 }
                     </form>
                     {success && (
                         <span
-                        style={{ color: "green", textAlign: "center", marginTop: "20px" }}
+                        style={{ color: "green", textAlign: "center", marginTop: "20px", marginLeft:"200px" }}
                         >
-                        Profile has been updated...
+                        Profile has been updated <i className="fas fa-check-circle" style={{ color: "green",marginLeft:"10px" }}></i>
                         </span>
                     )}
                 </div>
@@ -212,5 +235,5 @@ export default function Profile() {
                 </div> */}
             </div>
         </div>
-    ) 
+    )
 }
