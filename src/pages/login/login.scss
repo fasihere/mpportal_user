@@ -1,0 +1,82 @@
+.login{
+    background: url("https://img1.wsimg.com/isteam/ip/efa9dcdc-1bc9-4ff1-b06d-47360fa98bab/KOMA4409%20copy.jpg/:/rs=w:2046,m"), whitesmoke;
+    background-size: cover;
+    height: calc(100vh - 100px);
+    top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .wrapper{
+        width: 90%;
+        height: 95%;
+        display: flex;
+        .left{
+            flex: 1;
+            position: relative;
+            background-color: white;
+            border-radius: 2px;
+            border: 1px solid rgb(135, 134, 134);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            .info{
+                width: 90%;
+                font-size: 15px;
+                font-family: 'Josefin Sans', sans-serif;
+                margin-top: 20px;
+            }
+            .signin{
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                margin-top: 20px;
+                height: 400px;
+                .inputContainer{
+                    
+                    .inputItem{
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin: 10px;
+                        label{
+                            font-family: 'Josefin Sans', sans-serif;
+                        }
+                        input{
+                            font-size: 15px;
+                            width: 200px;
+                            height: 15px;
+                            border: 1px solid rgb(53, 53, 53);
+                            border-radius: 2px;
+                            margin-left: 20px;
+                            padding: 5px 10px;
+                            &:focus{
+                                outline: none;
+                            }
+                        }
+                    }
+                }
+                
+                .btn{
+                    position: absolute;
+                    left: 50%;
+                    bottom: 20%;
+                    background-color: rgb(34, 128, 228);
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    padding: 5px 20px;
+                    margin-top: 40px;
+                    margin: 10px;
+                    font-family: 'Roboto', sans-serif;
+                    font-size: 20px;
+                    cursor: pointer;
+                }
+            }
+        }
+        .right{
+            flex: 1;
+        }
+    }
+}
