@@ -21,19 +21,22 @@ import NewLogin from './pages/login/NewLogin';
 import EditRequest from './pages/editRequest/EditRequest';
 import ViewRequest from './pages/viewRequest/ViewRequest';
 import RequestTable from './components/requestTable/requestNewTable/RequestTable'
+import NewDashboard from './pages/dashboard/NewDashboard'
+import Checkout from './pages/newRequest/Checkout';
 
 function App() {
   return (
     <div className="app">
         <Router>
         <AuthProvider>
-          <Topbar /> 
+          {/* <Topbar />  */}
           <Switch>
             <Route exact path="/">
               <Home />
             </Route>
+            <Route exact path="/dashboardnew" component={NewDashboard}/>
             <Route path="/login"><NewLogin /></Route>
-            <Route path="/request/new" component={NewRequest} />
+            <Route path="/request/new" component={Checkout} />
             <Route path="/request/neworg" component={NewRequestorg} />
             <PrivateRoute exact path="/register" component={Register}/>
             <PrivateRoute exact path="/dashboard" component={Dashboard}/>
@@ -45,7 +48,7 @@ function App() {
             <PrivateRoute path="/request/:rid/view" component={ViewRequest} />
             <PrivateRoute path="/user/" component={Profile} />
           </Switch>
-          <Footer />
+          {/* <Footer /> */}
           </AuthProvider>
         </Router>
 
