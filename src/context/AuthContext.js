@@ -13,6 +13,7 @@ export function AuthProvider({ children }) {
     pending: true,
     user: null,
   })
+  const [selected, setSelected] = useState('Pending')
 
   useEffect(() => {
     const unregisterAuthObserver = auth.onAuthStateChanged(user =>
@@ -26,7 +27,9 @@ export function AuthProvider({ children }) {
 
   const value = {
     auth,
-    ...authState
+    ...authState,
+    selected,
+    setSelected
   }
 
   return (

@@ -3,6 +3,8 @@ import { useEffect, useState, useMemo } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { IDUKKI_DATA } from '../register/laList'
 import axios from 'axios'
+import { makeStyles } from '@material-ui/core/styles'
+
 
 export default function Profile() {
     const [success,setSuccess] = useState(false)
