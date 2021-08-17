@@ -1,74 +1,181 @@
-@import '../../global.scss';
+@import "../../global.scss";
 
 .topbar {
-    width: 100%;
-    height: 50px;
-    background-color: rgb(39, 72, 121);
-    color: white;
-    position: sticky;
-    top: 0;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 100;
+  font-family: "Poppins", sans-serif;
+  background: #2280e4;
+  width: 100%;
+  height: 50px;
+  color: white;
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  z-index: 999;
+  .left {
+    flex: 1;
     display: flex;
-    align-items: center;
-    z-index: 999;
-    .left {
-        flex: 3;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        .deanImg{
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            cursor: pointer;
-        }
-    }
-    .center{
-        flex: 6;
-    }
-    .right{
-        flex: 3;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    justify-content: start;
+    padding: 10px;
 
-        .iconContainer{
-            border-radius: 50%;
-            background-color: white;
-            width: 35px;
-            height: 35px;
-            cursor: pointer;
-            
-            i{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 15px;
-                margin: 10px;
-                color:  rgb(39, 72, 121);
-            }
-        }
+    .deanDp {
+      cursor: pointer;
     }
-    .list{
-        display: flex;
-        justify-content: center;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        .item{
-            margin-right: 20px;
-            font-size: 18px;
-            font-weight: 300;
-            cursor: pointer;
-            &.loginBtn{
-                font-weight: 500;
-                background-color: white;
-                color: rgb(39, 72, 121);
-                padding: 3px 6px;
-                border-radius: 10px;
-            }
-        }
+  }
+  .center {
+    flex: 8;
+  }
+  
+  .center {
+    position: fixed;
+    display: list-item;
+    z-index: 999;
+    width: 66%;
+    right: 0;
+    top: 0;
+    background: black;
+    height: 100vh;
+    padding: 1em;
+    visibility: hidden;
+    
+    li+li
+    { 
+     margin: 20px 0px;
     }
+    a{
+      margin: 20px;
+    }
+   
+
+    .item {
+      font-size: 18px;
+      font-weight: 300;
+      cursor: pointer;
+      list-style-type: none !important;
+      
+    }
+  }
+}
+.link {
+  padding: 5px;
+  border-radius: 5px;
+}
+.link:hover {
+  background: #1f69ca;
+  color: white !important;
+}
+
+.closeIcon {
+  width: 20px;
+  height: 20px;
+  color: white !important;
+  background: white; 
+}
+#burger-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  margin-top: 5px;
+  &:hover{
+    cursor: pointer;
+  }
+}
+.item {
+  list-style-type: none !important;
+}
+li {
+  link a {
+  font-size: 1.3em; 
+  }
+  .item{
+    padding: 0.5 em;
+
+  }  
+}
+
+
+@media only screen and (min-width: 840px) {
+  #center {
+    justify-content: space-around;
+    display: flex;
+    visibility: visible;
+    position: initial;
+    z-index: 999;
+    position: unset;
+    height: 50px !important;
+    top: initial;
+    background: #2280e4;
+    padding: 0;
+    background: none;    
+
+  }
+  .left{
+    display: none;
+    width: 0px !important;
+ 
+  }
+  .item{
+    display: flex;
+    height: auto !important;
+    align-items: center;
+  }
+  ul.item{
+    margin:0 10px !important;
+    padding: 0 !important;
+    height: 50px !important;
+    position: relative;
+    right: 60px;
+
+  }
+  ul.list{
+    margin: 0;
+    position: relative;
+    right: 60px;
+    padding-left: 16px !important;
+ 
+  }
+  a.link{
+
+      margin: 0 20px 0 0!important;
+      display: flex;
+ 
+      padding:5px;
+      
+  }
+  .loginBtn{
+    a{
+      margin: 0px !important;
+    }
+  }
+  #burger-icon{
+    display:none;
+  }
+  .closeIcon{
+    display:none
+  }
+  li.item{
+    margin-right: 10px;
+  }
+
+  .loginBtn {
+    font-weight: 500;
+    background-color: white ;
+    color: #1f69ca !important;
+    border-radius: 5px;
+  }
+  .deanDp{
+    width: 10px !important;
+    height: auto;
+
+  }
+  a span{
+    display: none;
+  }
+ .deanDp{
+   display: none;
+ }
+}
+@media only screen and (min-width: 1200px){
+  a span{
+    display:default;
+  }
 }
