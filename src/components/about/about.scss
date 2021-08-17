@@ -1,36 +1,64 @@
-.about{
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .wrapper{
-        margin: 10px;
-        height: 90%;
-        width: 90%;
-        display: flex;
-        align-items: center;
-        .left{
-            height: 100%;
-            flex: 6;
-            font-family: 'Lora', sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            h1{
-                font-size: 30px;
-                margin-bottom: 20px;
-                color: rgb(40, 39, 39);
-            }
-            .content{
-                font-size: 15px;
-                font-weight: 500;
-                margin-top: 20px;
-                color: rgb(53, 53, 53);
-            }
-        }
-        .right{
-            height: 100%;
-            flex: 4;
-        }
+.h1{ 
+    color: #1c3d65;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+img{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width:300px;
+}
+.start{
+    
+    
+    box-sizing: border-box;
+   text-align: center;
+   font-family: 'Lora', sans-serif ;
+   .sec{
+       border:1px solid #1c3d80;
+       background-color: #1c3d65;
+       box-shadow: 0px 0px 3px #1c3d65 ;
+       color:white;
+       padding: 15px; 
+       font-size:15px;
+       letter-spacing: 1px;
+       transition: background-color,transform 0.2s linear;
+       
+       .icon{
+        font-size: 30px;
+           color:#eda909;
+       }
+       .heading{
+           font-weight: 700;
+           font-size: 25px;
+           color:white;
+       }
+        
+
+   }
+   .sec:hover{
+    border:2px solid #eda909;
+       background-color:#eda909;
+       box-shadow: 0px 0px 3px #eda909 ;
+       transform: scale(1.05);
+       .icon{
+          
+           color:#1c3d65;
+       }
+       h6{
+           border-color: #1c3d65;
+       }
+   }
+}
+h6{
+    margin: 0 auto;
+    border: 4px solid #eda909;
+    width:30px; 
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+@media (max-width:768px){
+    .sec{
+     margin: 0 auto;
     }
 }
