@@ -8,23 +8,37 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HourglassFullIcon from '@material-ui/icons/HourglassFull';
 import DoneIcon from '@material-ui/icons/Done';
 import DraftsIcon from '@material-ui/icons/Drafts';
+import Tooltip from '@material-ui/core/Tooltip'
 
-export const mainListItems = (
+export const mainListItems = (setSelected, setOpen) => (
   <div>
     <ListSubheader inset>Requests</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <HourglassFullIcon />
-      </ListItemIcon>
-      <ListItemText primary="Pending" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <DoneIcon />
-      </ListItemIcon>
-      <ListItemText primary="Completed" />
-    </ListItem>
-    <ListItem button>
+    <Tooltip title="Pending Requests">
+      <ListItem button onClick={() => {
+        setSelected('Pending');
+        setOpen(false)
+        }}>
+        <ListItemIcon>
+          <HourglassFullIcon />
+        </ListItemIcon>
+        <ListItemText primary="Pending" />
+      </ListItem>
+    </Tooltip>
+    <Tooltip title="Completed Requests">
+      <ListItem button onClick={() => {
+        setSelected('Completed');
+        setOpen(false);
+        }}>
+        <ListItemIcon>
+          <DoneIcon />
+        </ListItemIcon>
+        <ListItemText primary="Completed" />
+      </ListItem>
+    </Tooltip>
+    <ListItem button onClick={() => {
+      setSelected('Draft');
+      setOpen(false)
+      }}>
       <ListItemIcon>
         <DraftsIcon />
       </ListItemIcon>
@@ -33,20 +47,24 @@ export const mainListItems = (
   </div>
 );
 
-export const secondaryListItems = (
+export const secondaryListItems = (auth) =>  (
   <div>
     <ListSubheader inset>User</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <AccountCircleIcon />
-      </ListItemIcon>
-      <ListItemText primary="User Profile" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <ExitToAppIcon />
-      </ListItemIcon>
-      <ListItemText primary="Log Out" />
-    </ListItem>
+    <Tooltip title="User profile">
+      <ListItem button onClick={() => window.location.replace('/user/')}>
+        <ListItemIcon>
+          <AccountCircleIcon />
+        </ListItemIcon>
+        <ListItemText primary="User Profile" />
+      </ListItem>
+    </Tooltip>
+    <Tooltip title="Log Out">
+    <ListItem button onClick={() => auth.signOut()}>
+        <ListItemIcon>
+          <ExitToAppIcon />
+        </ListItemIcon>
+        <ListItemText primary="Log Out" />
+      </ListItem>
+    </Tooltip>
   </div>
 );

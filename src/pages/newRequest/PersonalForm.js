@@ -5,13 +5,13 @@ import { Link, useLocation } from 'react-router-dom'
 import { Grid, makeStyles, Button, Typography, TextField,
   IconButton, Select, MenuItem, InputLabel} from "@material-ui/core";
 
-export default function PersonalForm() {
+export default function PersonalForm({values:{name, email, mobileNo, address, pincode}, handleChange}) {
   const { pending, isSignedIn, user, auth } = useAuth()
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [mobileNo, setMobileNo] = useState("")
-    const [address, setAddress] = useState("")
-    const [pincode, setPincode] = useState(0)
+    // const [name, setName] = useState("")
+    // const [email, setEmail] = useState("")
+    // const [mobileNo, setMobileNo] = useState("")
+    // const [address, setAddress] = useState("")
+    // const [pincode, setPincode] = useState(0)
     const [error, setError] = useState(false)
     const [la, setLa] = useState([])
     const [panchayat, setPanchayat] = useState([])
@@ -29,6 +29,7 @@ export default function PersonalForm() {
     },[laList])
 
     const changeLa = (e) => {
+        handleChange('ASSEMBLY')(e)
         setSelectedLa(e.target.value)
         if(la.find(x=>x.name===e.target.value)){
             setPanchayat(la.find(x=>x.name===e.target.value).panchayatList)
@@ -36,12 +37,13 @@ export default function PersonalForm() {
         setWards([])
     }
     const changePanchayat = (e) => {
+        handleChange('PANCHAYAT')(e)
         setSelectedPanchayat(e.target.value)
         if(panchayat.find(x=>x.panchayat[0]===e.target.value)){
             const ward = panchayat.find(x=>x.panchayat[0]===e.target.value).panchayat[1]
             const list = []
             for(let i=1; i<=ward; i++) {
-                list.push(i)
+                list.push(i.toString())
         }
         setWards(list)
         }
@@ -61,6 +63,8 @@ export default function PersonalForm() {
             label="Full name"
             fullWidth
             autoComplete="given-name"
+            value={name}
+            onChange={handleChange('NAME')}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -71,6 +75,8 @@ export default function PersonalForm() {
             label="Phone No"
             fullWidth
             autoComplete="phone-number"
+            value={mobileNo}
+            onChange={handleChange('PHONE')}
           />
         </Grid>
         <Grid item xs={12}>
@@ -80,6 +86,8 @@ export default function PersonalForm() {
             label="Email Id"
             fullWidth
             autoComplete="email"
+            value={email}
+            onChange={handleChange('EMAIL')}
           />
         </Grid>
         <Grid item xs={12}>
@@ -90,6 +98,8 @@ export default function PersonalForm() {
             label="Address"
             fullWidth
             autoComplete="shipping address"
+            value={address}
+            onChange={handleChange('ADDRESS')}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -100,9 +110,11 @@ export default function PersonalForm() {
             label="Pincode"
             fullWidth
             autoComplete="shipping postal-code"
+            value={pincode}
+            onChange={handleChange('PINCODE')}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm ={6}>
           <TextField
             id="loksabha"
             name="loksabha"
@@ -162,8 +174,10 @@ export default function PersonalForm() {
           fullWidth
           label="Ward"
           value={selectedWard}
-          onChange={(e) => setSelectedWard(e.target.value)}
-          >
+          onChange={(e) => {
+            setSelectedWard(e.target.value)
+            handleChange('WARD')(e)
+          }}>
             {wards.map(x => {
                 return <MenuItem value={x}>{x}</MenuItem>
             })}

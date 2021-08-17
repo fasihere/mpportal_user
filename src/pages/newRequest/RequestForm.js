@@ -1,18 +1,40 @@
-import React, {useState, useMemo, useEffect} from 'react';
+import React, {useState} from 'react';
 import { IDUKKI_DATA } from '../register/laList'
 import { useAuth } from '../../context/AuthContext'
 import { Link, useLocation } from 'react-router-dom'
 import { Grid, makeStyles, Button, Typography, TextField,
   IconButton, Select, MenuItem, InputLabel} from "@material-ui/core";
+import { AssignmentReturned } from '@material-ui/icons';
 
-export default function RequestForm() {
-    const { pending, isSignedIn, user, auth } = useAuth()
-    const [requestSubject, setRequestSubject] = useState("")
-    const [requestBody, setRequestBody] = useState("")
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+    input: {
+      display: 'none',
+    },
+  }));
+
+export default function RequestForm({values:{requestSubject, requestBody}, handleChange}) {
+    const { user } = useAuth()
     const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/'
     const location = useLocation()
     const path = location.pathname.split("/")[2];
+    const classes = useStyles()
+    const [files, setFiles] = useState([])
 
+    const handleUpload = (e) => {
+      for (let i = 0; i < e.target.files.length; i++) {
+        const newFile = e.target.files[i];
+        newFile["id"] = Math.random();
+        setFiles(prevState => [...prevState, newFile]);
+      }
+    }
+    const handleRemove = (x) => {
+      setFiles(files.filter( obj => obj.id !== x.id))
+    }
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -27,7 +49,7 @@ export default function RequestForm() {
             label="Subject"
             fullWidth
             value={requestSubject}
-            onChange={(e) => setRequestSubject(e.target.value)}
+            onChange={handleChange('SUBJECT')}
           />
         </Grid>
         <Grid item xs={12}>
@@ -42,9 +64,26 @@ export default function RequestForm() {
             multiline
             rows={10}
             value={requestBody}
-            onChange={(e) => setRequestBody(e.target.value)}
+            onChange={handleChange('BODY')}
           />
         </Grid>
+        <div className={classes.root}>
+          <input
+            className={classes.input}
+            id="contained-button-file"
+            type="file"
+            multiple
+            onChange={handleUpload}
+          />
+          <label htmlFor="contained-button-file">
+            <Button variant="contained" color="primary" component="span">
+              Upload
+            </Button>
+          </label>
+            {console.log(files)}
+            {files.map((x) => <p>{x.name}<i class="fas fa-times" onClick={(e) => handleRemove(x)} style={{marginLeft:"5px"}}></i></p>)}
+            <p>(images/audio/video less than 5MP)</p>
+        </div>
       </Grid>
     </React.Fragment>
   );

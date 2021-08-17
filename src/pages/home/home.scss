@@ -4,18 +4,6 @@
     height: calc(100vh - 50px);
 
     .sections{
-        width: 100%;
-        height: calc(100vh - 50px);
-        position: relative;
-        top: 0;
-        scroll-behavior: smooth;
-        scroll-snap-type: y mandatory;
-        overflow: scroll;
-        scrollbar-width: none;
-        &::-webkit-scrollbar{
-            display: none;
-        }
-
         > *{
             width: 100vw;
             height: calc(100vh - 50px);

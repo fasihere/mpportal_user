@@ -54,9 +54,9 @@ export default function Profile() {
         e.preventDefault();
         //dispatch({ type: "UPDATE_START" });
         setEdit(!edit)
-        const assembly = selectedLa
-        const panch = selectedPanchayat
-        const ward = selectedWard
+        var assembly = selectedLa
+        var panch = selectedPanchayat
+        var ward = selectedWard
         if(!assembly){
             assembly = storedLa
         }

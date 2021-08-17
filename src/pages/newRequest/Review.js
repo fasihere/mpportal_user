@@ -6,21 +6,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 
-const products = [
-  { name: 'Product 1', desc: 'A nice thing', price: '$9.99' },
-  { name: 'Product 2', desc: 'Another thing', price: '$3.45' },
-  { name: 'Product 3', desc: 'Something else', price: '$6.51' },
-  { name: 'Product 4', desc: 'Best thing of all', price: '$14.11' },
-  { name: 'Shipping', desc: '', price: 'Free' },
-];
-const addresses = ['1 Material-UI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
-const payments = [
-  { name: 'Card type', detail: 'Visa' },
-  { name: 'Card holder', detail: 'Mr John Smith' },
-  { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
-  { name: 'Expiry date', detail: '04/2024' },
-];
-
 const useStyles = makeStyles((theme) => ({
   listItem: {
     padding: theme.spacing(1, 0),
@@ -33,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Review() {
+export default function Review({values}) {
   const classes = useStyles();
 
   return (
@@ -43,7 +28,7 @@ export default function Review() {
       </Typography>
       <List disablePadding>
           <ListItem className="" key="">
-            <ListItemText primary="This is a very important request" secondary="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." />
+            <ListItemText primary={values.requestSubject} secondary={values.requestBody} />
           </ListItem>
       </List>
       <Grid container spacing={2}>
@@ -56,31 +41,31 @@ export default function Review() {
                 <Typography gutterBottom>Full Name</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>Faseeh Ahmed</Typography>
+                <Typography gutterBottom>{values.name}</Typography>
             </Grid>
             <Grid item xs={6}>
                 <Typography gutterBottom>Phone Number</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>+91 7034073143</Typography>
+                <Typography gutterBottom>+91 {values.mobileNo}</Typography>
             </Grid>
             <Grid item xs={6}>
                 <Typography gutterBottom>Email</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>fasihere@email.com</Typography>
+                <Typography gutterBottom>{values.email}</Typography>
             </Grid>
             <Grid item xs={6}>
                 <Typography gutterBottom>Address</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>This is my address</Typography>
+                <Typography gutterBottom>{values.address}</Typography>
             </Grid>
             <Grid item xs={6}>
                 <Typography gutterBottom>Pincode</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>000000</Typography>
+                <Typography gutterBottom>{values.pincode}</Typography>
             </Grid>
             <Grid item xs={6}>
                 <Typography gutterBottom>Loksabha Constituency</Typography>
@@ -92,19 +77,19 @@ export default function Review() {
                 <Typography gutterBottom>LA Constituency</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>Devikulam</Typography>
+                <Typography gutterBottom>{values.assembly}</Typography>
             </Grid>
             <Grid item xs={6}>
                 <Typography gutterBottom>Panchayat</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>Hellowowo</Typography>
+                <Typography gutterBottom>{values.panchayat}</Typography>
             </Grid>
             <Grid item xs={6}>
                 <Typography gutterBottom>Ward</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>8</Typography>
+                <Typography gutterBottom>{values.ward}</Typography>
             </Grid>
           </Grid>
         </Grid>

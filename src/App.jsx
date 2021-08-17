@@ -27,9 +27,9 @@ import Checkout from './pages/newRequest/Checkout';
 function App() {
   return (
     <div className="app">
-        <Router>
+      <Router>
         <AuthProvider>
-          {/* <Topbar />  */}
+          <Topbar />
           <Switch>
             <Route exact path="/">
               <Home />
@@ -41,16 +41,13 @@ function App() {
             <PrivateRoute exact path="/register" component={Register}/>
             <PrivateRoute exact path="/dashboard" component={Dashboard}/>
             <PrivateRoute exact path="/table" component={RequestTable}/>
-            {/* <PrivateRoute path="/request/new" component={NewRequest} /> */}
-            
-            <PrivateRoute path="/request/:rid/edit" component={EditRequest} />
-            <PrivateRoute path="/request/:rid/submit" component={SubmitRequest} />
+            <PrivateRoute path="/request/new" component={NewRequest} />
             <PrivateRoute path="/request/:rid/view" component={ViewRequest} />
             <PrivateRoute path="/user/" component={Profile} />
           </Switch>
-          {/* <Footer /> */}
-          </AuthProvider>
-        </Router>
+          <Footer />
+        </AuthProvider>
+      </Router>
 
     </div>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -15,11 +15,16 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
+import CreateIcon from '@material-ui/icons/Create';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './Sidebar';
 import RequestTable from '../../components/requestTable/requestNewTable/RequestTable'
+import { useAuth } from '../../context/AuthContext';
+import Fab from '@material-ui/core/Fab';
+import Hidden from '@material-ui/core/Hidden';
+
 
 function Copyright() {
   return (
@@ -113,12 +118,19 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
+  create: {
+    margin: theme.spacing(1),
+  },
+  margin: {
+    margin: theme.spacing(2),
+  }
 }));
 
 export default function Dashboard() {
+  const { user, auth } = useAuth()
   const classes = useStyles();
-  const [selected, setSelected] = React.useState("Pending")
-  const [open, setOpen] = React.useState(true);
+  const [selected, setSelected] = useState("Pending")
+  const [open, setOpen] = useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -159,18 +171,40 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <List>{mainListItems(setSelected, setOpen)}</List>
         <Divider />
-        <List>{secondaryListItems}</List>
+        <List>{secondaryListItems(auth, setOpen)}</List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
+        <Grid container spacing={3}>
+            <Grid item xs={12} lg={3} style={{textAlign: "center"}}>
+              <Fab
+                variant="extended"
+                size="large"
+                color="primary"
+                aria-label="add"
+                className={classes.margin}
+                onClick={(e) => window.location.replace('/request/new')}
+              >
+                <CreateIcon className={classes.create}/>
+                  New Request
+              </Fab>
+            </Grid>
+            <Grid item xs={12} lg={9}>
+              <Paper className={classes.paper}>
+                <Typography  color="inherit" variant="body2" component="body2" className={classes.title}>
+                  Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem 
+                </Typography>
+              </Paper>
+            </Grid>
+          </Grid>
           <Grid container spacing={3}>
-            {/* Recent Orders */}
+            {/* Requests */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <RequestTable />
+                <RequestTable selected={selected.toUpperCase()}/>
               </Paper>
             </Grid>
           </Grid>

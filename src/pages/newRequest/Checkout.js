@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
+import { useLocation } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -13,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import PersonalForm from './PersonalForm';
 import Review from './Review';
 import RequestForm from './RequestForm'
+import axios from 'axios'
+import { useAuth } from '../../context/AuthContext';
 
 function Copyright() {
   return (
@@ -32,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
   },
   layout: {
+    minHeight: 'calc(100vh - 50px)',
     width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
@@ -64,65 +68,154 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const reducer = (state, action) => {
+  switch(action.type){
+    case "NAME":
+      return { ...state, name: action.payload }
+    case "PHONE":
+      return { ...state, mobileNo: action.payload }
+    case "EMAIL":
+      return { ...state, email: action.payload }
+    case "ADDRESS":
+      return { ...state, address: action.payload }
+    case "PINCODE":
+      return { ...state, pincode: action.payload }
+    case "ASSEMBLY":
+      return { ...state, assembly: action.payload }
+    case "PANCHAYAT":
+      return { ...state, panchayat: action.payload }
+    case "WARD":
+      return { ...state, ward: action.payload }
+    case "SUBJECT":
+      return { ...state, requestSubject: action.payload}
+    case "BODY":
+      return { ...state, requestBody: action.payload}
+    case "FILES":
+      return {...state, requestFiles: action.payload}
+    case "ALL":
+      return {}
+    default: 
+      return state
+  }
+}
+const initiailValues = {
+   name: "", email: "", mobileNo: "", address: "", 
+   pincode: 0, assembly: "", panchayat: "", 
+   ward: "1", requestSubject: null, requestBody: null,
+   requestFiles: []
+  }
 
 export default function Checkout() {
+  const { user } = useAuth()
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0)
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [mobileNo, setMobileNo] = useState("")
-  const [address, setAddress] = useState("")
-  const [pincode, setPincode] = useState(0)
-  const [selectedLa, setSelectedLa] = useState("")
-  const [selectedPanchayat, setSelectedPanchayat] = useState("")
-  const [selectedWard, setSelectedWard] = useState(1)
-  const values = { name, email, mobileNo, address,
-     pincode, selectedLa,
-     selectedPanchayat, selectedWard
+  const [state, dispatch] = useReducer(reducer, initiailValues)
+  const [rid, setRid] = useState()
+  const [draft, setDraft] = useState(false)
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/'
+  const location = useLocation()
+  const path = location.pathname.split("/")[2];
+
+  useEffect(() => {
+    const getReq = async() => {
+        try{
+            const config = {
+                headers: {
+                  'Authorization':'Bearer '+ await user.getIdToken()
+                }
+            }
+            console.log(await user.getIdToken())
+            const res = await axios.get(baseUrl+"users/", config);
+            dispatch({type: "NAME", payload: res.data.name})
+            dispatch({type: "PHONE", payload: res.data.mobileNo})
+            dispatch({type: "EMAIL", payload: res.data.email})
+            dispatch({type: "ADDRESS", payload: res.data.address})
+            dispatch({type: "PINCODE", payload: res.data.pincode})
+            dispatch({type: "ASSEMBLY", payload: res.data.assembly})
+            dispatch({type: "PANCHAYAT", payload: res.data.panchayat})
+            dispatch({type: "WARD", payload: res.data.ward})
+         } catch(err){
+            console.log(err)
+        }
     }
+     getReq()
+},[])
+  const values =  {
+    name: state.name,
+    mobileNo: state.mobileNo,
+    email: state.email,
+    address: state.address,
+    pincode: state.pincode,
+    assembly: state.assembly,
+    panchayat: state.panchayat,
+    ward: state.ward,
+    requestSubject: state.requestSubject,
+    requestBody: state.requestBody,
+    requestFiles: state.files
+  }
+  const handleChange = selected => e => {
+    if(selected === 'FILES'){
+      for (let i = 0; i < e.target.files.length; i++) {
+        const newFile = e.target.files[i];
+        newFile["id"] = Math.random();
+        dispatch({type:'FILES',payload: [...state.files, newFile]});
+      }
+    }
+    else{
+      dispatch({type: selected, payload: e.target.value})
+    }
+  }
+
+  const handleSubmit = async () => {
+    setLoading(true)
+    var body = {
+        ...values,
+        loksabha:"Idukki",
+        status: "UNREAD",
+        statusUser: "PENDING"
+    }
+    if(draft){
+      body = { ...body, status:"DRAFT", statusUser:"DRAFT"}
+    }
+    const config = {
+        headers: {
+          'Authorization':'Bearer '+ await user.getIdToken()
+        }
+    }
+    try{
+        const res =  await axios.post(baseUrl+'requests/new', body, config);
+        console.log(res.data)
+        res.data && setRid(res.data.rid)
+        setLoading(false)
+        setError()
+    } catch(err){
+        console.log(err.response.data)
+        setError(err.response.data)
+    }
+};
+
   const handleNext = () => {
+    if(activeStep === steps.length - 1 ){
+      handleSubmit()
+    }
     setActiveStep(activeStep + 1);
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-  const handleName = (value) => {
-    setName(value)
-  }
-  const handlePhone = (value) => {
-    setMobileNo(value)
-  }
-  const handleEmail = (value) => {
-    setEmail(value)
-  }
-  const handleAddress = (value) => {
-    setAddress(value)
-  }
-  const handlePincode = (value) => {
-    setPincode(value)
-  }
-  const handleAssembly = (value) => {
-    setSelectedLa(value)
-  }
-  const handlePanchayat = (value) => {
-    setSelectedLa(value)
-  }
-  const handleWard = (value) => {
-    setSelectedWard(value)
-  }
-  const handleFns = { handleName, handleEmail, handleAddress, handlePincode, handleAssembly, handlePanchayat, handleWard}
-
-  const steps = ['Personal details', 'Request details', 'Review your request'];
+  const steps = ['Personal details', 'Request details', 'Review your request']
 
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <PersonalForm values={values} onChange={handleFns}/>;
+        return <PersonalForm values={values} handleChange={handleChange}/>;
       case 1:
-        return <RequestForm />;
+        return <RequestForm values={values} handleChange={handleChange}/>;
       case 2:
-        return <Review />;
+        return <Review values={values}/>;
       default:
         throw new Error('Unknown step');
     }
@@ -135,7 +228,7 @@ export default function Checkout() {
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            Company name
+            Request Portal
           </Typography>
         </Toolbar>
       </AppBar>
@@ -152,14 +245,16 @@ export default function Checkout() {
             ))}
           </Stepper>
           <React.Fragment>
-            {activeStep === steps.length ? (
+            {activeStep === steps.length ? ( !error ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for your submission.
+                  {draft ? "Your request has been saved as draft.":"Thank you for your submission."}
                 </Typography>
+                { !draft && 
                 <Typography variant="subtitle1">
-                  Your Request Id is #2001539. We have sent an sms to the provided phone number as confirmation.
+                  Your Request Id is <strong>#{rid}</strong>. You will be sent an sms to the provided phone number as confirmation.
                 </Typography>
+                }
                 <Button
                     variant="contained"
                     color="primary"
@@ -168,14 +263,42 @@ export default function Checkout() {
                   >
                       RETURN TO DASHBOARD
                   </Button>
-              </React.Fragment>
+              </React.Fragment> ) : (
+                <React.Fragment>
+                  <Typography variant="h5" gutterBottom>
+                  Sorry, your request failed.
+                  </Typography>
+                  {error && <Typography variant="subtitle1">Please fill Request subject and content</Typography>}
+                  <div className={classes.button}>
+                    <Button 
+                    onClick={handleBack} 
+                    className={classes.button} 
+                    variant="contained"
+                    color="primary">
+                        Back
+                    </Button>
+                  </div>
+                </React.Fragment>)
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
+                    <Button onClick={handleBack} 
+                    className={classes.button}
+                    variant="contained"
+                    color="primary">
                       Back
+                    </Button>
+                  )}
+                  {activeStep === (steps.length - 1) && (
+                    <Button onClick={(e) => {
+                      setDraft(true);
+                      handleNext(e);}} 
+                      color="primary"
+                      variant="contained"
+                      className={classes.button}>
+                      Submit Later
                     </Button>
                   )}
                   <Button
@@ -184,7 +307,7 @@ export default function Checkout() {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Confirm Request' : 'Next'}
+                    {activeStep === steps.length - 1 ? 'Submit Request' : 'Next'}
                   </Button>
                 </div>
               </React.Fragment>
