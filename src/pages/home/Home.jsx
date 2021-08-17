@@ -9,6 +9,7 @@ export default function Home() {
             <div className="sections">
                 <Intro />
                 <About />
+                <Contact />
             </div>
         </div>
     )
