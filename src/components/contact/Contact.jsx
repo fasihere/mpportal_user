@@ -10,7 +10,7 @@ export default function Contact() {
             <h6></h6>
             <Row className="top">
 
-                <Col className="sec1" xs={{ span: 11 }} md={{ span: 4, offset: 1 }} >
+                <Col className="sec1" xs={{ span: 10, offset: 1 }} md={{ span: 4, offset: 1 }} >
                     <div className="icon"> <i class="fas fa-briefcase"></i></div>
                     <div className="heading">ADDRESS</div>
                     <h6></h6>
@@ -56,7 +56,7 @@ export default function Contact() {
                 </Col>
                 <Col xs={{ order: "first" }} md={{ span: 4, offset: 1 }} >
                     <div className="mail" >
-                        <img src="assets/images/undraw_contact_us_15o2.png" />
+                        <img src="assets/images/undraw_contact_us_15o2.svg" />
 
                     </div>
 
