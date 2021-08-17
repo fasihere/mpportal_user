@@ -31,11 +31,11 @@ function App() {
             </Route>
             <PrivateRoute exact path="/dashboard" component={NewDashboard}/>
             <Route path="/login"><NewLogin /></Route>
-            <Route path="/request/new" component={Checkout} />
+            <PrivateRoute path="/request/new" component={Checkout} />
             <PrivateRoute exact path="/register" component={Register}/>
             <PrivateRoute exact path="/table" component={RequestTable}/>
             <PrivateRoute path="/request/:rid/view" component={ViewRequest} />
-            <PrivateRoute path="/user/" component={Profile} />
+            <PrivateRoute exact path="/user/" component={Profile} />
           </Switch>
           <Footer />
         </AuthProvider>

@@ -21,7 +21,7 @@ export default function RequestTable({selected, date}) {
         return record1.postedTime > record2.postedTime
       } },
       { key: "4", title: "Status", dataIndex: 'statusUser' },
-      { key: "5", title: "Action", render: rowData => <Link className="link btn" to={'/request/'+rowData.rid+'/view'}>View</Link> },
+      { key: "5", title: "Action", render: rowData => <Link className="btn" to={'/request/'+rowData.rid+'/view'}>View</Link> },
     ]
     const [data, setData] = useState([])
     const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests/'
