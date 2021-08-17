@@ -23,7 +23,7 @@ export default function Review({values}) {
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h5" gutterBottom>
         Request Details 
       </Typography>
       <List disablePadding>
@@ -33,7 +33,7 @@ export default function Review({values}) {
       </List>
       <Grid container spacing={2}>
         <Grid item container direction="column" xs={12} sm={12}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
+          <Typography variant="h5" gutterBottom className={classes.title}>
             Personal details
           </Typography>
           <Grid container>

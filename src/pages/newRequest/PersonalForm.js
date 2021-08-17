@@ -7,11 +7,6 @@ import { Grid, makeStyles, Button, Typography, TextField,
 
 export default function PersonalForm({values:{name, email, mobileNo, address, pincode}, handleChange}) {
   const { pending, isSignedIn, user, auth } = useAuth()
-    // const [name, setName] = useState("")
-    // const [email, setEmail] = useState("")
-    // const [mobileNo, setMobileNo] = useState("")
-    // const [address, setAddress] = useState("")
-    // const [pincode, setPincode] = useState(0)
     const [error, setError] = useState(false)
     const [la, setLa] = useState([])
     const [panchayat, setPanchayat] = useState([])
@@ -51,7 +46,7 @@ export default function PersonalForm({values:{name, email, mobileNo, address, pi
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h5" gutterBottom>
         Personal Details
       </Typography>
       <Grid container spacing={3}>

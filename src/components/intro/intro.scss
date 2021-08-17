@@ -39,6 +39,9 @@
             font-weight: 500;
             font-size: 30px;
             cursor: pointer;
+            &:hover{
+                background-color: rgb(10, 85, 165);
+            }
         }
     }
     .right{

@@ -7,12 +7,12 @@
     .btn{
         position: fixed;
         text-align: center;
-        left: 10px;
-        width: 200px;
+        left: 50px;
+        width: 100px;
         color: white;
         border: none;
         border-radius: 8px;
-        padding: 2px 20px;
+        padding: 2px 5px;
         margin-top: 40px;
         margin: 10px;
         font-family: 'Roboto', sans-serif;
@@ -21,12 +21,18 @@
     }
 
     .download{
-        top: 230px;
+        top: 160px;
         background-color: teal;
+        &:hover{
+            background-color: rgb(0, 91, 91);
+        }
     }
     .back{
         background-color: rgb(34, 128, 228);
-        top: 60px;
+        top: 120px;
+        &:hover{
+            background-color: rgb(18, 91, 169);
+        }
     }
 
     .title{

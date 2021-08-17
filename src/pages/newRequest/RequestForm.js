@@ -37,7 +37,7 @@ export default function RequestForm({values:{requestSubject, requestBody}, handl
     }
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h5" gutterBottom>
         Request Details
       </Typography>
       <Grid container spacing={3}>

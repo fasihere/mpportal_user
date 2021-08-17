@@ -43,8 +43,8 @@ export default function ViewRequest() {
       }
     return (
         <div className="viewRequest">
-            <Link to="/dashboard" className="btn back link"><i className="fas fa-arrow-left"></i> Return to Dashboard</Link>
-            <button className="btn download" onClick={printDocument}>Download <i className="fas fa-file-download"></i></button>
+            <Link to="/dashboard" className="btn back"><i className="fas fa-arrow-left"></i> Return</Link>
+            <button className="btn download" onClick={printDocument}>Save <i className="fas fa-file-download"></i></button>
             <div id="divToPrint" className="mt4" style={{
                 backgroundColor: '#f5f5f5',
                 width: '210mm',

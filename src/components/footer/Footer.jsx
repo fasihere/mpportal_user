@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="footer">
            <span>Powered</span>
            <span>By</span>   
-           <span><a href="https://tensors.in" className="link">tensors</a></span>
+           <span><a href="https://tensors.in"><img src="/assets/images/logof.png" /></a></span>
         </div>
     )
 }
