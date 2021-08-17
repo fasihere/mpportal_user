@@ -1,86 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap');
-.intro {
-    background:#ada8a8;
-    .quote{
-        text-align: center;
-        width: 80%;
-        margin: auto;
-        font-family: 'Jim Nightshade',cursive;
-        font-size: 8vmin;
-        color: #1c3d65;
-        height: 25%;
-        padding-top: 5%;
+@import "../../global.scss";
+
+.intro{
+    background: url("https://img1.wsimg.com/isteam/ip/efa9dcdc-1bc9-4ff1-b06d-47360fa98bab/KOMA4409%20copy.jpg/:/rs=w:2046,m"), whitesmoke;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: calc(100vh - 50px);
+    @include mobile{
+        height: 100;
+        background-position: left;
     }
-    .bottom{
-        img {
-            position: absolute;
-            right: 0;
-            height: 60%;
-            width: auto;
-        }
-        .left{
-            height:15%;
-            position: absolute;
-            bottom: 0%;
-            background-image: url(write.png);
-            background-size: 100% 100%;
-            width: 100%;
-            margin: 0;
-            padding: 2%;
-            text-align: right;
-            h1{
-                font-size: 3vmin;
-                font-family: 'Roboto', sans-serif;
+
+    .left{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h1{
+            font-size: 30px;
+            font-family: 'Roboto', sans-serif;
+            margin: 10px;
+            color: rgb(94, 94, 94);
+            span{
+                font-size: 50px;
                 color: rgb(43, 43, 43);
-                span{
-                    font-size: 5vmin;
-                    color: #3f2c00;
-                }
             }
-            .btn{
-                background-color:rgb(58, 0, 0);
-                color:rgb(255, 255, 255);
-                border: 2px solid white;
-                border-radius: 8px;
-                padding: 5px 30px;
-                font-family: 'Caveat', cursive;
-                font-weight: 700;
-                font-size:3vmin;
-                cursor: pointer;
-            }
-            .btn:hover {
-                background-color:white;
-                color:rgb(58, 0, 0);
-                border: 2px solid rgb(58, 0, 0);
-            }
+        }
+        .btn{
+            background-color: rgb(34, 128, 228);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 5px 30px;
+            margin-top: 20px;
+            margin: 10px;
+            font-family: 'Caveat', cursive;
+            font-weight: 500;
+            font-size: 30px;
+            cursor: pointer;
         }
     }
-}
-@media only screen and (min-width: 800px) {
-    .intro {
-        .quote{
-            width:45vw;
-            margin-left: 5vw;
-            height: auto;
-        }
-        .bottom{
-            img {
-                width: 55vw; max-width: 58vh;
-                height: auto;
-                position: absolute;
-                right: 0;
-                bottom: 0;
-            }
-            .left{
-                position: absolute;
-                height: auto;
-                bottom: 5vw;
-                left: 5vw;
-                margin: 0;
-                width: 45%;
-                min-width: 450px;
-                padding-left: 8%;  
-            }    
+    .right{
+        flex: 1;
+        @include mobile{
+            display: none;
         }
     }
 }
