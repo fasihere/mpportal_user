@@ -8,14 +8,14 @@ export default function About() {
             <h1 className="h1">ABOUT</h1>
             <h6></h6>
             <Row>
-                <Col md={{ span: 4, offset: 1 }}><img src="/assets/images/dean_img.png" /></Col>
-                <Col className="p" md={{ span: 5, offset: 1 }}><div><p className="abou"><span span className="s">Name:</span>Dean Kuriakose
+                <Col data-aos="fade-up" data-aos-duration="1000" md={{ span: 4, offset: 1 }}><img src="/assets/images/dean_img.png" /></Col>
+                <Col className="p" md={{ span: 5, offset: 1 }}><div><p data-aos="fade-up" data-aos-duration="1000" className="abou"><span span className="s">Name:</span>Dean Kuriakose
                 </p>
-                    <p className="abou"><span className="s">Constituency:</span> Idukki (Kerala)</p>
-                    <p className="abou"> <span span className="s">Party Name:</span> Indian National Congress(INC)</p></div></Col>
+                    <p data-aos="fade-up" data-aos-duration="1000" className="abou"><span className="s">Constituency:</span> Idukki (Kerala)</p>
+                    <p data-aos="fade-up" data-aos-duration="1000" className="abou"> <span span className="s">Party Name:</span> Indian National Congress(INC)</p></div></Col>
             </Row>
             <Row className="center">
-                <Col className="sec" xs={{ span: 11 }} md={{ span: 4, offset: 0 }} >
+                <Col data-aos="fade-up" data-aos-duration="1000" className="sec" xs={{ span: 11 }} md={{ span: 4, offset: 0 }} >
                     <div className="icon"> <i class="fas fa-globe-asia"></i></div>
                     <div className="heading">LIFE</div>
                     <h6></h6>
@@ -23,7 +23,7 @@ export default function About() {
                         .Dean, supported by his wife, Dr. Neetha Paul and their baby boy, currently resides in Thodupuzha and New Delhi, India.
                     </div>
                 </Col>
-                <Col className="sec" xs={{ span: 11 }} md={{ span: 4, offset: 0 }} >
+                <Col data-aos="fade-up" data-aos-duration="1000" className="sec" xs={{ span: 11 }} md={{ span: 4, offset: 0 }} >
                     <div className="icon"><i class="fas fa-user-graduate"></i></div>
                     <div className="heading">STUDIES</div>
                     <h6></h6>
@@ -31,7 +31,7 @@ export default function About() {
                         studies at New Man college Thodupuzha, followed bygraduation in Bsc.Physics in St.Joseph's college
                         Molamattom before pursuing his LLB from Kerala Law Academy Law College, Trivandrum. Dean graduated
                         LLB and enrolled as an advocate on 2005 </div></Col>
-                <Col className="sec" xs={{ span: 11 }} md={{ span: 4, offset: 0 }}>
+                <Col data-aos="fade-up" data-aos-duration="1000" className="sec" xs={{ span: 11 }} md={{ span: 4, offset: 0 }}>
                     <div className="icon"><i className="fas fa-trophy"  ></i></div>
                     <div className="heading">AWARDS</div>
                     <h6></h6>
