@@ -33,7 +33,7 @@ export default function Contact() {
 
             <Row className="center">
 
-                <Col xs={{ span: 12 }} md={{ span: 4, offset: 1 }}>
+                <Col xs={{ span: 12 }} md={{ span: 4, offset: 1 }} className="contact">
                     <h3 className="h3">GET IN TOUCH</h3>
                     <h6></h6>
                     <ul className="con">

@@ -14,8 +14,10 @@ import Typography from '@material-ui/core/Typography';
 import PersonalForm from './PersonalForm';
 import Review from './Review';
 import RequestForm from './RequestForm'
+import DocumentUpload from './DocumentUpload';
 import axios from 'axios'
 import { useAuth } from '../../context/AuthContext';
+import '../../components/loading.scss'
 
 function Copyright() {
   return (
@@ -153,31 +155,22 @@ export default function Checkout() {
     ward: state.ward,
     requestSubject: state.requestSubject,
     requestBody: state.requestBody,
-    requestFiles: state.files
   }
   const handleChange = selected => e => {
-    if(selected === 'FILES'){
-      for (let i = 0; i < e.target.files.length; i++) {
-        const newFile = e.target.files[i];
-        newFile["id"] = Math.random();
-        dispatch({type:'FILES',payload: [...state.files, newFile]});
-      }
-    }
-    else{
-      dispatch({type: selected, payload: e.target.value})
-    }
+    dispatch({type: selected, payload: e.target.value})
   }
 
-  const handleSubmit = async () => {
+  const handleDocs = selected => files => {
+    dispatch({type: selected, payload: files})
+  }
+
+  const handleDraft = async () => {
     setLoading(true)
     var body = {
         ...values,
         loksabha:"Idukki",
-        status: "UNREAD",
-        statusUser: "PENDING"
-    }
-    if(draft){
-      body = { ...body, status:"DRAFT", statusUser:"DRAFT"}
+        status: "DRAFT",
+        statusUser: "DRAFT"
     }
     const config = {
         headers: {
@@ -196,8 +189,33 @@ export default function Checkout() {
     }
 };
 
+  const handleSubmit = async () => {
+    setLoading(true)
+    var body = {
+        status: "UNREAD",
+        statusUser: "PENDING"
+    }
+    const config = {
+        headers: {
+          'Authorization':'Bearer '+ await user.getIdToken()
+        }
+    }
+    try{
+        const res =  await axios.patch(baseUrl+`requests/${rid}`, body, config);
+        console.log(res)
+        setError()
+    } catch(err){
+        console.log(err.response.data)
+        setError(err.response.data)
+    }
+  };
+
   const handleNext = () => {
-    if(activeStep === steps.length - 1 ){
+    if(activeStep === steps.length - 3 && !rid){
+      console.log('Drafted')
+      handleDraft()
+    }
+    else if(activeStep === steps.length - 1){
       handleSubmit()
     }
     setActiveStep(activeStep + 1);
@@ -206,7 +224,7 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-  const steps = ['Personal details', 'Request details', 'Review your request']
+  const steps = ['Personal details', 'Request details', 'Documents Upload', 'Review your request']
 
   function getStepContent(step) {
     switch (step) {
@@ -215,6 +233,15 @@ export default function Checkout() {
       case 1:
         return <RequestForm values={values} handleChange={handleChange}/>;
       case 2:
+        if(rid){return <DocumentUpload requestFiles={state.requestFiles} handleDocs={handleDocs} rid={rid}/>}
+        else{
+          return (
+          <div className="loadingContainer">
+              <span></span>
+              <span className="second"></span>
+          </div>
+      )}
+      case 3:
         return <Review values={values}/>;
       default:
         throw new Error('Unknown step');
@@ -235,7 +262,7 @@ export default function Checkout() {
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            New Request
+            New Request {rid}
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (

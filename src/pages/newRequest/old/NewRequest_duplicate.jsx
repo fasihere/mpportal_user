@@ -2,8 +2,8 @@ import './newRequest.scss'
 import axios from 'axios'
 import { useState, useContext, useMemo, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext'
-import { IDUKKI_DATA } from '../register/laList'
+import { useAuth } from '../../../context/AuthContext'
+import { IDUKKI_DATA } from '../../register/laList'
 import PersonalDetails from './PersonalDetails'
 import { Grid, makeStyles, Stepper, Step, StepLabel, Button, Typography, Box,
   Card,
