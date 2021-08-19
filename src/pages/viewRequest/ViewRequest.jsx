@@ -5,6 +5,8 @@ import { jsPDF } from 'jspdf'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useAuth } from '../../context/AuthContext'
+import { storage } from "../../context/Firebase";
+
 
 export default function ViewRequest() {
     const { user } = useAuth()
@@ -14,6 +16,8 @@ export default function ViewRequest() {
     const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests/'
 
     useEffect(() => {
+        var pathReference = storage.ref(`mpportal/user/${user.phoneNumber.slice(3,13)}/${path}`);
+
         const getReq = async() => {
             try{
                 const config = {
@@ -41,12 +45,20 @@ export default function ViewRequest() {
             pdf.save("download.pdf");
           });
       }
+    if(!req){
+        return (
+            <div className="loadingContainer">
+                <span></span>
+                <span className="second"></span>
+            </div>
+        )
+    }
     return (
-        <div className="viewRequest">
+        <div className="viewRequest" style={{backgroundColor:'#f5f5f5'}}>
             <Link to="/dashboard" className="btn back"><i className="fas fa-arrow-left"></i> Return</Link>
             <button className="btn download" onClick={printDocument}>Save <i className="fas fa-file-download"></i></button>
             <div id="divToPrint" className="mt4" style={{
-                backgroundColor: '#f5f5f5',
+                backgroundColor: 'white',
                 width: '210mm',
                 minHeight: '297mm',
                 marginLeft: 'auto',

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Grid, Box } from "@material-ui/core";
+import { Grid, Box, Typography } from "@material-ui/core";
 
 import DocsDropzone from "../../components/docsDropzone/DocsDropzone";
 import DocElement from "../../components/docElement/DocElement";

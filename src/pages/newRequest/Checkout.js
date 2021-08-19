@@ -183,9 +183,10 @@ export default function Checkout() {
         res.data && setRid(res.data.rid)
         setLoading(false)
         setError()
+        setDraft(true)
     } catch(err){
-        console.log(err.response.data)
-        setError(err.response.data)
+        err.response && console.log(err.response.data)
+        err.response && setError(err.response.data)
     }
 };
 
@@ -229,6 +230,14 @@ export default function Checkout() {
   function getStepContent(step) {
     switch (step) {
       case 0:
+        if(!state.name){
+          return (
+            <div className="loadingContainer">
+                <span></span>
+                <span className="second"></span>
+            </div>
+        )
+        }
         return <PersonalForm values={values} handleChange={handleChange}/>;
       case 1:
         return <RequestForm values={values} handleChange={handleChange}/>;
