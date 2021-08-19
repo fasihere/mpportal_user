@@ -39,6 +39,10 @@ export default function DocumentUpload({requestFiles, rid, handleDocs}) {
    },[docList])
 
    return (
+     <React.Fragment>
+       <Typography variant="h6" gutterBottom>
+        Upload Related Files
+      </Typography>
       <Grid container direction="column" alignItems="center" spacing={2}>
          <Box border={1} margin={4} padding={3}>
             <Grid
@@ -69,5 +73,6 @@ export default function DocumentUpload({requestFiles, rid, handleDocs}) {
             </Box>
          )}
       </Grid>
+      </React.Fragment>
    );
 }

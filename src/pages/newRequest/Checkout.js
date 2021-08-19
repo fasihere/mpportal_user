@@ -274,7 +274,7 @@ export default function Checkout() {
           <React.Fragment>
             {activeStep === steps.length ? ( !error ? (
               <React.Fragment>
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h6" gutterBottom>
                   {draft ? "Your request has been saved as draft.":"Thank you for your submission."}
                 </Typography>
                 { !draft && 
@@ -292,7 +292,7 @@ export default function Checkout() {
                   </Button>
               </React.Fragment> ) : (
                 <React.Fragment>
-                  <Typography variant="h5" gutterBottom>
+                  <Typography variant="h6" gutterBottom>
                   Sorry, your request failed.
                   </Typography>
                   {error && <Typography variant="subtitle1">Please fill Request subject and content</Typography>}

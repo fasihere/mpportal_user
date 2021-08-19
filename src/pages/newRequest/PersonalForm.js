@@ -46,7 +46,7 @@ export default function PersonalForm({values:{name, email, mobileNo, address, pi
 
   return (
     <React.Fragment>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h6" gutterBottom>
         Personal Details
       </Typography>
       <Grid container spacing={3}>
