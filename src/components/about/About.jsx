@@ -11,7 +11,8 @@ export default function About() {
             <h6></h6>
             <Row>
                 <Col md={{ span: 4, offset: 1 }}><img src="/assets/images/dean_img.png" /></Col>
-                <Col className="p" md={{ span: 5, offset: 1 }}><div><p className="abou"><span span className="s">Name:</span> Dean Kuriakose</p>
+                <Col className="p" md={{ span: 5, offset: 1 }}><div><p className="abou"><span span className="s">Name:</span>Dean Kuriakose
+                </p>
                     <p className="abou"><span className="s">Constituency:</span> Idukki (Kerala)</p>
                     <p className="abou"> <span span className="s">Party Name:</span> Indian National Congress(INC)</p></div></Col>
             </Row>

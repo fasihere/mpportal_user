@@ -31,12 +31,12 @@ export default function Contact() {
 
             </Row>
 
-            <Row className="center">
+            <Row >
 
                 <Col xs={{ span: 12 }} md={{ span: 4, offset: 1 }}>
                     <h3 className="h3">GET IN TOUCH</h3>
                     <h6></h6>
-                    <ul className="con">
+                    <ul className="co">
                         <li className="coo"><Person className="icon" ></Person>
                             <span className="colo">+91 94478 77369</span>
                         </li>
@@ -44,6 +44,7 @@ export default function Contact() {
                             <Mail className="icon" />
                             <a className="colo" href="https://mail.google.com/mail/u/0/#inbox">deankuriakosemp@gmail.com</a>
                         </li>
+
                         <li className="coo left1">
                             <a className="coo" href="https://www.instagram.com/" > <i class="fab fa-instagram"></i></a></li>
 
@@ -51,7 +52,9 @@ export default function Contact() {
                             <a className="coo" href="https://www.facebook.com/"> <i class="fab fa-facebook"></i></a></li>
                         <li className="coo left1">
                             <a className="coo" href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a></li>
-                        <li className="coo left1"><a className="coo" href="https://www.twitter.com/"><i class="fab fa-twitter-square"></i></a></li>
+                        <li className="coo left1"><a className="coo" href="https://www.twitter.com/"><i class="fab fa-twitter-square"></i></a>
+                        </li>
+
                     </ul>
                 </Col>
                 <Col xs={{ order: "first" }} md={{ span: 4, offset: 1 }} >
