@@ -76,12 +76,13 @@ justify-content: center;
 
 ul{
     text-align: left;
-}
-.con{
     list-style: none;
-    text-align: center;
-    margin-top: 40px;
 }
+.co{
+    text-align: center;
+    padding: 0;
+}
+
 .coo{
     color: #eda909;
     transition: 0.25s linear;
