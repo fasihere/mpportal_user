@@ -215,7 +215,7 @@ export default function Checkout() {
       console.log('Drafted')
       handleDraft()
     }
-    else if(activeStep === steps.length - 1){
+    else if(activeStep === steps.length - 1 && !draft){
       handleSubmit()
     }
     setActiveStep(activeStep + 1);
