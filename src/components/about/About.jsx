@@ -1,12 +1,10 @@
 import './about.scss'
-
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-
-
+import "animate.css"
 export default function About() {
     return (
-        <div id="about" className="start">
+        <div id="about" className="start2">
             <h1 className="h1">ABOUT</h1>
             <h6></h6>
             <Row>
