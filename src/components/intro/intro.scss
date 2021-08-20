@@ -39,6 +39,7 @@
             font-weight: 500;
             font-size: 30px;
             cursor: pointer;
+            transition: all 300ms ease-in;
             &:hover{
                 background-color: rgb(10, 85, 165);
             }
