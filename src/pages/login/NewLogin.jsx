@@ -5,8 +5,7 @@ import { useEffect } from 'react'
 import firebase from 'firebase/app'
 import { useAuth } from '../../context/AuthContext'
 import './login.scss'
-import { useState } from 'react';
-import Login from './Login';
+
 
 export default function NewLogin() {
     const { pending, isSignedIn, user, auth } = useAuth()

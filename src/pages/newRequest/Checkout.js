@@ -181,6 +181,7 @@ export default function Checkout() {
         const res =  await axios.post(baseUrl+'requests/new', body, config);
         console.log(res.data)
         res.data && setRid(res.data.rid)
+        console.log(res.data)
         setLoading(false)
         setError()
         setDraft(true)
@@ -192,9 +193,16 @@ export default function Checkout() {
 
   const handleSubmit = async () => {
     setLoading(true)
+    var documents = []
+    if(state.requestFiles.length > 0){
+      state.requestFiles.map((doc) => {
+        documents = [...documents, doc.fileName]  
+      })
+    }
     var body = {
         status: "UNREAD",
-        statusUser: "PENDING"
+        statusUser: "PENDING",
+        documents
     }
     const config = {
         headers: {
@@ -215,9 +223,6 @@ export default function Checkout() {
     if(activeStep === steps.length - 3 && !rid){
       console.log('Drafted')
       handleDraft()
-    }
-    else if(activeStep === steps.length - 1 && !draft){
-      handleSubmit()
     }
     setActiveStep(activeStep + 1);
   };
@@ -328,9 +333,8 @@ export default function Checkout() {
                     </Button>
                   )}
                   {activeStep === (steps.length - 1) && (
-                    <Button onClick={(e) => {
-                      setDraft(true);
-                      handleNext(e);}} 
+                    <Button onClick={() => {;
+                      handleNext();}} 
                       color="primary"
                       variant="contained"
                       className={classes.button}>
@@ -340,7 +344,11 @@ export default function Checkout() {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleNext}
+                    onClick={() => {
+                      setDraft(false)
+                      handleSubmit();
+                      handleNext();
+                    }}
                     className={classes.button}
                   >
                     {activeStep === steps.length - 1 ? 'Submit Request' : 'Next'}

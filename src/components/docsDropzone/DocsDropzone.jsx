@@ -44,12 +44,17 @@ export default function DocsDropzone({ setDocList, rid }) {
                spacing={1}
             >
                 <Grid item>
-                  <Typography fontStyle="italic" align="center">
+                  <Typography variant="subtitle1" align="center">
                     Image, audio, video and document files are accepted. <br /> (max-size per file: 3MB)
                  </Typography>
                </Grid>
                <Grid item>
-                  <Typography align="center">
+                  <Typography variant="subtitle2" align="center">
+                    Upto 3 documents are accepted.
+                 </Typography>
+               </Grid>
+               <Grid item>
+                  <Typography variant="h6" align="center">
                      {isDragActive
                         ? (isDragReject ? ("File type not accepted, sorry!"):("Drop Docs here ..."))
                         : "Drag 'n' drop Docs here, or:"}

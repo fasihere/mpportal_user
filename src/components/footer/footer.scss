@@ -1,9 +1,10 @@
 .footer{
-    width: 100%;
+    overflow-x: hidden;
     height: 50px;
-    background-color: rgb(40, 40, 40);
-    color:wheat;
-    position: static;
+    width: 100%;
+    background-color: rgb(51, 48, 48);
+    color:white;
+    position: absolute;
     bottom: 0;
     font-family: 'Roboto', sans-serif;
     display: flex;
@@ -12,10 +13,8 @@
     z-index: 10;
     span{
         margin: 0 5px;
+        padding: 0;
         a{
-            color: wheat;
-            font-weight: 500;
-            font-size: 20px;
             img{
                 width: 100px;
             }

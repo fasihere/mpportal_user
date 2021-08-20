@@ -14,7 +14,7 @@ export default function DocElement({ doc, index }) {
             <Grid container direction="row" justify="center" spacing={2}>
                <Grid item container alignItems="center" justify="center">
                   {doc.downloadURL ? (
-                     <a href={doc.downloadURL}>{doc.fileName}</a>
+                     <a href={doc.downloadURL}>{index+1}. {doc.fileName}</a>
                   ) : (
                      <Box p={2}>
                         <CircularProgress />

@@ -43,8 +43,11 @@ export default function DocumentUpload({requestFiles, rid, handleDocs}) {
        <Typography variant="h6" gutterBottom>
         Upload Related Files
       </Typography>
+      <Typography variant="subtitle2" gutterBottom>
+        Files remaining: {requestFiles.length}/3
+      </Typography>
       <Grid container direction="column" alignItems="center" spacing={2}>
-         <Box border={1} margin={4} padding={3}>
+      {docList.length <3 && <Box border={1} margin={4} padding={3}>
             <Grid
                item
                container
@@ -57,9 +60,9 @@ export default function DocumentUpload({requestFiles, rid, handleDocs}) {
                   <DocsDropzone setDocList={setDocList} rid={rid}/>
                </Grid>
             </Grid>
-         </Box>
+         </Box>}
          {docList.length > 0 && (
-            <Box bgcolor="primary.light" p={4}>
+            <Box bgcolor="primary.light" p={4} margin={2}>
                {requestFiles.map((doc, index) => {
                   return (
                      <Grid item key={doc.file.size + index}>

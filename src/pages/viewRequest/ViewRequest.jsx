@@ -14,10 +14,9 @@ export default function ViewRequest() {
     const location = useLocation()
     const path = location.pathname.split("/")[2];
     const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests/'
+    const [docs, setDocs] = useState([])
 
     useEffect(() => {
-        var pathReference = storage.ref(`mpportal/user/${user.phoneNumber.slice(3,13)}/${path}`);
-
         const getReq = async() => {
             try{
                 const config = {
@@ -27,6 +26,19 @@ export default function ViewRequest() {
                 }
                 const res = await axios.get(baseUrl+path, config);
                 res && setReq(res.data)
+                var storageRef = storage.ref(`mpportal/user/${user.phoneNumber.slice(3,13)}/${path}`);
+                res.data.documents.map((fileName) => {
+                    storageRef.child(`/${fileName}`).getDownloadURL()
+                    .then((url) => {
+                        const newDoc = {
+                            name: fileName,
+                            url
+                        }
+                        setDocs([...docs, newDoc])
+                    }).catch((err) => {
+                        console.log(err)
+                    })
+                })
             } catch(err){
                 console.log(err)
             }
@@ -57,6 +69,10 @@ export default function ViewRequest() {
         <div className="viewRequest" style={{backgroundColor:'#f5f5f5'}}>
             <Link to="/dashboard" className="btn back"><i className="fas fa-arrow-left"></i> Return</Link>
             <button className="btn download" onClick={printDocument}>Save <i className="fas fa-file-download"></i></button>
+            <div className="attachedDocs">
+                <h3>Documents Attached</h3>
+                {docs && docs.length > 0 && docs.map((name, url) => <a href={url}>{name}</a>)}
+            </div>
             <div id="divToPrint" className="mt4" style={{
                 backgroundColor: 'white',
                 width: '210mm',

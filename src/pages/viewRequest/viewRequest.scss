@@ -34,7 +34,17 @@
             background-color: rgb(18, 91, 169);
         }
     }
-
+    .attachedDocs{
+        position: absolute;
+        top:220px;
+        left: 50px;
+        
+        a{
+            text-decoration: none;
+            font-weight: 500;
+            font-style: italic;
+        }
+    }
     .title{
         text-align: center;
         font-size: 30px;
