@@ -3,7 +3,7 @@
 .topbar {
   font-family: "Poppins", sans-serif;
   background: #2280e4;
-  width: 100%;
+  width: 100% !important;
   height: 50px;
   color: white;
   position: sticky;
@@ -14,49 +14,39 @@
   .left {
     flex: 1;
     display: flex;
-    justify-content: start;
+    // justify-content: start;
     padding: 10px;
-
-    .deanDp {
-      cursor: pointer;
-      height: 40px;
-      width: auto;
-    }
-  }
-  .center {
-    flex: 8;
-  }
-  
-  .center {
-    position: fixed;
-    display: list-item;
-    z-index: 999;
-    width: 66%;
-    right: 0;
-    top: 0;
-    background: black;
-    height: 100vh;
-    padding: 1em;
-    visibility: hidden;
-    
-    li+li
-    { 
-     margin: 20px 0px;
-    }
-    a{
-      margin: 20px;
-    }
-   
-
-    .item {
-      font-size: 18px;
-      font-weight: 300;
-      cursor: pointer;
-      list-style-type: none !important;
-      
-    }
   }
 }
+
+.center {
+  position: fixed;
+  display: list-item;
+  z-index: 999;
+  width: 66%;
+  right: 0;
+  top: 0;
+  background: black;
+  height: 100vh;
+  padding: 1em;
+  visibility: hidden;
+  transition: max-width 0.3s ease-in-out;
+
+  li + li {
+    margin: 20px 0px;
+  }
+  a {
+    margin: 20px;
+  }
+
+  .item {
+    font-size: 18px;
+    font-weight: 300;
+    cursor: pointer;
+    list-style-type: none !important;
+  }
+}
+
 .link {
   padding: 5px;
   border-radius: 5px;
@@ -67,18 +57,25 @@
 }
 
 .closeIcon {
-  width: 20px;
-  height: 20px;
-  color: white !important;
-  background: white; 
+  width: 35px;
+  height: 35px;
+  filter: invert(99%) sepia(1%) saturate(21%) hue-rotate(71deg) brightness(106%)
+    contrast(100%);
+  &:hover {
+    filter: none;
+    background: #1f69ca;
+  }
 }
 #burger-icon {
   width: 20px;
   height: 20px;
   margin-right: 10px;
-  margin-top: 25px;
-  &:hover{
+  margin-top: 5px;
+  filter: invert(99%) sepia(1%) saturate(21%) hue-rotate(71deg) brightness(106%)
+    contrast(100%);
+  &:hover {
     cursor: pointer;
+    filter: none;
   }
 }
 .item {
@@ -86,98 +83,107 @@
 }
 li {
   link a {
-  font-size: 1.3em; 
+    font-size: 1.3em;
   }
-  .item{
+  .item {
     padding: 0.5 em;
-
-  }  
+  }
+}
+@media only screen and (min-width: 840px) {
+  .topbar {
+    a.link {
+      margin-right: 10px;
+    }
+  }
 }
 
-
-@media only screen and (min-width: 840px) {
-  #center {
-    justify-content: space-around;
+@media only screen and (min-width: 930px) {
+  .right {
+    display: none;
+  }
+  .topbar {
     display: flex;
-    visibility: visible;
-    position: initial;
-    z-index: 999;
-    position: unset;
+    justify-content: center !important;
+  }
+  .closeIcon {
+    display: none !important;
+  }
+  #center {
+    // justify-content: space-around;
+    display: flex;
+    justify-content: center !important;
+    // position: unset;
     height: 50px !important;
     top: initial;
     background: #2280e4;
     padding: 0;
-    background: none;    
+    // position: initial;
+    visibility: visible !important;
+    width: 100vw !important;
+  }
 
+  .left {
+    display: none !important;
   }
-  .left{
-    display: none;
-    width: 0px !important;
- 
-  }
-  .item{
+  .item {
     display: flex;
     height: auto !important;
     align-items: center;
   }
-  ul.item{
-    margin:0 10px !important;
+  ul.item {
+    margin: 0 !important;
     padding: 0 !important;
     height: 50px !important;
-    position: relative;
-    right: 60px;
-
   }
-  ul.list{
+  ul.list {
     margin: 0;
-    position: relative;
-    right: 60px;
-    padding-left: 16px !important;
- 
+    padding-left: 0 !important;
+    padding-left: 4em;
   }
-  a.link{
+  a.link {
+    margin: 0 20px 0 0 !important;
+    display: flex;
 
-      margin: 0 20px 0 0!important;
-      display: flex;
- 
-      padding:5px;
-      
+    padding: 5px;
   }
-  .loginBtn{
-    a{
-      margin: 0px !important;
-    }
+  .burger {
+    display: none;
   }
-  #burger-icon{
-    display:none;
+  #burger-icon {
+    margin: 0;
+    display: none;
   }
-  .closeIcon{
-    display:none
+  .closeIcon {
+    display: none;
   }
-  li.item{
-    margin-right: 10px;
+  li.item {
+    // margin-right: 10px;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
   }
 
   .loginBtn {
     font-weight: 500;
-    background-color: white ;
+    background-color: white;
     color: #1f69ca !important;
     border-radius: 5px;
+    a {
+      margin: 0px !important;
+    }
   }
-  .deanDp{
+  .deanDp {
     width: 10px !important;
     height: auto;
-
   }
-  a span{
+  a span {
     display: none;
   }
- .deanDp{
-   display: none;
- }
+  .deanDp {
+    display: none;
+  }
 }
-@media only screen and (min-width: 1200px){
-  a span{
-    display:default;
+@media only screen and (min-width: 1200px) {
+  a span {
+    display: default;
   }
 }
