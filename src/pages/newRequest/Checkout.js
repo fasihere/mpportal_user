@@ -9,6 +9,8 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box'
+import Grid from '@material-ui/core/Grid'
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import PersonalForm from './PersonalForm';
@@ -21,14 +23,25 @@ import '../../components/loading.scss'
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+    <Grid container spacing={2}>
+      <Grid item xs={3}>
+        <Typography variant="body2" color="textSecondary" align="center">
+          <Link color="inherit" href="">
+            Privacy Policy
+          </Link>{' '}
+        </Typography>
+      </Grid>
+      <Grid item xs={6}>
+      <Typography variant="body2" color="textSecondary" align="center">
+          Powered By <Link href="https://tensors.in"><img src="/assets/images/logof.png" width="100px"/></Link>
+        </Typography>
+      </Grid>
+      <Grid item xs={3}>
+        <Typography variant="body2" color="textSecondary" align="center">
+          © {new Date().getFullYear()} Dean Kuriakose. All rights reserved
+        </Typography>
+      </Grid>
+    </Grid>
   );
 }
 
@@ -37,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
   },
   layout: {
-    minHeight: 'calc(100vh - 50px)',
+    minHeight: 'calc(100vh - 100px)',
     width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
@@ -358,8 +371,10 @@ export default function Checkout() {
             )}
           </React.Fragment>
         </Paper>
-        <Copyright />
       </main>
+      {/* <Box pt={4} borderTop={1} borderColor="grey.300" bgcolor="grey.300">
+        <Copyright />
+      </Box> */}
     </React.Fragment>
   );
 }

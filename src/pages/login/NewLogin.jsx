@@ -2,7 +2,7 @@ import React from 'react'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
 import { useEffect } from 'react'
-import firebase from 'firebase/app'
+import firebase from '../../context/Firebase'
 import { useAuth } from '../../context/AuthContext'
 import './login.scss'
 

@@ -28,6 +28,9 @@ export default function Topbar() {
   const showDrawer = () => {
     document.getElementById("center").style.visibility = "visible";
   };
+  if(window.location.pathname == '/dashboard'){
+    return <></>
+  }
   return (
     <div className="topbar">
       <div className="left">
@@ -90,7 +93,7 @@ export default function Topbar() {
         </ul>
 
         {isSignedIn ? (
-          <ul className="list">
+          <ul className="list loggedIn">
             <div className="iconContainer item">
               <Link className="link" to="/user/">
                 <i class="fas fa-user"></i>
