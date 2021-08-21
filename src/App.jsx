@@ -25,19 +25,19 @@ import Box from '@material-ui/core/Box'
 function Copyright() {
   return (
     <Grid container spacing={2}>
-      <Grid item xs={3}>
+      <Grid item xs={12} sm={3}>
         <Typography variant="body2" color="white" align="center">
           <Link color="inherit" href="">
             Privacy Policy
           </Link>{' '}
         </Typography>
       </Grid>
-      <Grid item xs={6}>
-      <Typography variant="body2" color="white" align="center">
+      <Grid item xs={12} sm={6}>
+        <Typography variant="body2" color="white" align="center">
           Powered By <Link href="https://tensors.in"><img src="/assets/images/logof.png" width="90px"/></Link>
         </Typography>
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={12} sm={3}>
         <Typography variant="body2" color="white" align="center">
           © {new Date().getFullYear()} Dean Kuriakose. All rights reserved
         </Typography>
