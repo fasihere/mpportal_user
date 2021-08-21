@@ -45,7 +45,10 @@ export default function Topbar() {
             />
           </li>
           <li className="item">
-            <Link className="link" to="/#intro" onClick={() => setMenu("")}>
+            <Link className="link" to="/" onClick={() => {
+              setMenu("");
+              window.scroll(0,0)
+          }}>
               HOME
             </Link>
           </li>
