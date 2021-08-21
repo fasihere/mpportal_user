@@ -1,0 +1,21 @@
+.error-page {
+  background-color: rgb(238, 236, 236);
+  font-family: poppins;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  p {
+    font-size: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .link {
+    background-color: #2280e4;
+    color: white;
+    text-transform: uppercase;
+    padding: 1em;
+  }
+}
