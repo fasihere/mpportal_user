@@ -11,12 +11,13 @@
   display: flex;
   align-items: center;
   z-index: 999;
+
   .left {
     flex: 1;
     display: flex;
     // justify-content: start;
     padding: 10px;
-    .deanDp{
+    .deanDp {
       width: 200px;
       height: 40px;
     }
@@ -26,21 +27,32 @@
     display: list-item;
     z-index: 999;
     width: 66%;
-    right: 0;
+    right: -66%;
     top: 0;
-    background: black;
+    background: rgba(20, 20, 20, 0.9);
     height: 100vh;
     padding: 1em;
-    visibility: hidden;
-    transition: max-width 0.3s ease-in-out;
-  
+    // visibility: hidden;
+    transition: right 0.3s ease-in-out;
+    &.active {
+      right: 0;
+
+      font-size: 1.2em;
+      .link {
+        &:hover {
+          background-color: none !important;
+          color: rgb(255, 57, 57) !important;
+        }
+      }
+    }
+
     li + li {
       margin: 20px 0px;
     }
     a {
       margin: 20px;
     }
-  
+
     .item {
       font-size: 18px;
       font-weight: 300;
@@ -48,24 +60,22 @@
       list-style-type: none !important;
     }
   }
-  
+
   .link {
     padding: 5px;
     border-radius: 5px;
   }
   .link:hover {
-    background: #1f69ca;
     color: white !important;
   }
-  
+
   .closeIcon {
     width: 35px;
     height: 35px;
-    filter: invert(99%) sepia(1%) saturate(21%) hue-rotate(71deg) brightness(106%)
-      contrast(100%);
+    filter: invert(99%) sepia(1%) saturate(21%) hue-rotate(71deg)
+      brightness(106%) contrast(100%);
     &:hover {
       filter: none;
-      background: #1f69ca;
     }
   }
   #burger-icon {
@@ -73,8 +83,8 @@
     height: 20px;
     margin-right: 10px;
     margin-top: 5px;
-    filter: invert(99%) sepia(1%) saturate(21%) hue-rotate(71deg) brightness(106%)
-      contrast(100%);
+    filter: invert(99%) sepia(1%) saturate(21%) hue-rotate(71deg)
+      brightness(106%) contrast(100%);
     &:hover {
       cursor: pointer;
       filter: none;
@@ -93,7 +103,6 @@
   }
 }
 
-
 @media only screen and (min-width: 840px) {
   .topbar {
     a.link {
@@ -103,7 +112,6 @@
 }
 
 @media only screen and (min-width: 930px) {
-  
   .topbar {
     display: flex;
     justify-content: center !important;
@@ -115,6 +123,7 @@
     }
     #center {
       // justify-content: space-around;
+      right: 0;
       display: flex;
       justify-content: center !important;
       // position: unset;
@@ -126,7 +135,7 @@
       visibility: visible !important;
       width: 100vw !important;
     }
-  
+
     .left {
       display: none !important;
     }
@@ -144,7 +153,7 @@
       margin: 0;
       padding-left: 0 !important;
       padding-left: 4em;
-      &.loggedIn{
+      &.loggedIn {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -154,8 +163,11 @@
     a.link {
       margin: 0 20px 0 0 !important;
       display: flex;
-  
+
       padding: 5px;
+      &:hover {
+        background-color: #1f6fc4;
+      }
     }
     .burger {
       display: none;
@@ -172,7 +184,7 @@
       margin-top: 0 !important;
       margin-bottom: 0 !important;
     }
-  
+
     .loginBtn {
       font-weight: 500;
       background-color: white;
@@ -193,10 +205,9 @@
       display: none;
     }
   }
-  
 }
 @media only screen and (min-width: 1200px) {
-  .topbar{
+  .topbar {
     a span {
       display: default;
     }

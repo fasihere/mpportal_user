@@ -11,6 +11,7 @@ export default function Topbar() {
   const { isSignedIn, user, auth } = useAuth();
   const history = useHistory();
   const [error, setError] = useState();
+  const [menu, setMenu] = useState("");
 
   const handleLogout = async () => {
     setError("");
@@ -22,46 +23,44 @@ export default function Topbar() {
     }
   };
 
-  const hideDrawer = () => {
-    document.getElementById("center").style.visibility = "hidden";
-  };
-  const showDrawer = () => {
-    document.getElementById("center").style.visibility = "visible";
-  };
-  if(window.location.pathname == '/dashboard'){
-    return <></>
+  if (window.location.pathname == "/dashboard") {
+    return <></>;
   }
   return (
-    <div className="topbar">
+    <div className="topbar ">
       <div className="left">
         <a href="/">
           <img className="deanDp" src={deanDp} alt="" />
         </a>
       </div>
 
-      <div className="center item" id="center">
+      <div className={"center item " + menu} id="center">
         <ul className="item">
           <li className="item">
             <img
               className="closeIcon"
-              onClick={hideDrawer}
+              onClick={() => setMenu("")}
               src={closeIcon}
               alt=""
             />
           </li>
           <li className="item">
-            <Link className="link" to="/#intro">
+            <Link className="link" to="/#intro" onClick={() => setMenu("")}>
               HOME
             </Link>
           </li>
           <li className="item">
-            <Link className="link" to="/#about">
+            <Link className="link" to="/#about" onClick={() => setMenu("")}>
               ABOUT
             </Link>
           </li>
           {isSignedIn ? (
             <li className="item">
-              <Link className="link" to="/dashboard">
+              <Link
+                className="link"
+                to="/dashboard"
+                onClick={() => setMenu("")}
+              >
                 DASHBOARD
               </Link>
             </li>
@@ -70,23 +69,33 @@ export default function Topbar() {
           )}
 
           <li className="item">
-            <Link className="link" to="/media">
+            <Link className="link" to="/media" onClick={() => setMenu("")}>
               MEDIA
             </Link>
           </li>
           <li className="item">
-            <Link className="link" to="/#contact">
+            <Link className="link" to="/#contact" onClick={() => setMenu("")}>
               CONTACT
             </Link>
           </li>
 
           <li className="item">
-            <a className="link text-light" href="http://www.idukkicare.org/">
+            <a
+              className="link text-light"
+              href="http://www.idukkicare.org/"
+              onClick={() => setMenu("")}
+              target="_blank"
+            >
               IDUKKI CARE
             </a>
           </li>
           <li className="item">
-            <a className="link text-light" href="https://inc.in/work-for-us">
+            <a
+              className="link text-light"
+              href="https://inc.in/work-for-us"
+              onClick={() => setMenu("")}
+              target="_blank"
+            >
               JOIN THE MOVEMENT
             </a>
           </li>
@@ -106,7 +115,7 @@ export default function Topbar() {
         ) : (
           <ul className="list">
             <li className="item loginBtn m-0" style={{}}>
-              <Link className="link" to="/login">
+              <Link className="link" to="/login" onClick={() => setMenu("")}>
                 LOGIN/REGISTER
               </Link>
             </li>
@@ -115,7 +124,12 @@ export default function Topbar() {
       </div>
       <ul className="item burger">
         <li className="item">
-          <img id="burger-icon" onClick={showDrawer} src={burgerIcon} alt="" />
+          <img
+            id="burger-icon"
+            onClick={() => setMenu("active")}
+            src={burgerIcon}
+            alt=""
+          />
         </li>
       </ul>
     </div>
