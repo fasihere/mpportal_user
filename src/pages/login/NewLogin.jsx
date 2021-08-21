@@ -5,10 +5,11 @@ import { useEffect } from 'react'
 import firebase from '../../context/Firebase'
 import { useAuth } from '../../context/AuthContext'
 import './login.scss'
+import { Redirect } from 'react-router-dom'
 
 
 export default function NewLogin() {
-    const { pending, isSignedIn, user, auth } = useAuth()
+    const { isSignedIn, user, auth, isRegister } = useAuth()
     useEffect(() => {
         const uiConfig = {
             signInOptions: [{
@@ -40,6 +41,12 @@ export default function NewLogin() {
         ui.disableAutoSignIn();
     },[])
 
+    if(isSignedIn){
+        if(isRegister){
+            return <Redirect to="/dashboard" />
+        }
+        return <Redirect to="/register" />
+    }
     return (
         <div className="login">
             <div className="wrapper">

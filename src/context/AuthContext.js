@@ -14,10 +14,13 @@ export function AuthProvider({ children }) {
     user: null,
   })
   const [selected, setSelected] = useState('Pending')
-
+  const [isRegister, setIsRegister] = useState(false)
   useEffect(() => {
     const unregisterAuthObserver = auth.onAuthStateChanged(user =>
-      setAuthState({ user, pending: false, isSignedIn: !!user })
+      {
+        setAuthState({ user, pending: false, isSignedIn: !!user })
+        user.displayName && setIsRegister(true)
+      }
     )
     return unregisterAuthObserver
   }, [])
@@ -29,7 +32,9 @@ export function AuthProvider({ children }) {
     auth,
     ...authState,
     selected,
-    setSelected
+    setSelected,
+    isRegister,
+    setIsRegister
   }
 
   return (

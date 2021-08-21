@@ -7,7 +7,6 @@ import {
 import React from 'react';
 import Topbar from './components/topbar/Topbar';
 import Home from './pages/home/Home'
-import Footer from './components/footer/Footer';
 import Register from './pages/register/Register';
 import Profile from './pages/profile/Profile';
 import { AuthProvider } from './context/AuthContext';
@@ -21,6 +20,7 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link'
 import Box from '@material-ui/core/Box'
+import NewRegister from './pages/register/NewRegister';
 
 function Copyright() {
   return (
@@ -59,7 +59,7 @@ function App() {
             <PrivateRoute exact path="/dashboard" component={NewDashboard}/>
             <Route path="/login"><NewLogin /></Route>
             <PrivateRoute path="/request/new" component={Checkout} />
-            <PrivateRoute exact path="/register" component={Register}/>
+            <PrivateRoute exact path="/register" component={NewRegister}/>
             <PrivateRoute exact path="/table" component={RequestTable}/>
             <PrivateRoute path="/request/:rid/view" component={ViewRequest} />
             <PrivateRoute exact path="/user/" component={Profile} />
@@ -67,7 +67,6 @@ function App() {
           <Box my={1}   bgcolor="grey.500" color="white" >
             <Copyright />
           </Box>
-          {/* <Footer /> */}
         </AuthProvider>
       </Router>
 

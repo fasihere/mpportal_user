@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(184, 255, 234);
+    background-color: rgb(241, 241, 241);
     .title{
         font-size: 30px;
         font-family: 'Josefin Sans', sans-serif;
@@ -16,6 +16,7 @@
             color: rgb(170, 255, 170);
         }
     }
+
     .wrapper{
         width: 40%;
         padding: 10px;
@@ -33,6 +34,7 @@
             min-height: 200px;
             justify-content: stretch;
             background-color: white;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
             .inputContainer{
                 width: 400px;

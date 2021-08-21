@@ -220,13 +220,7 @@ export default function Profile() {
                     )
                 }
                     </form>
-                    {success && (
-                        <span
-                        style={{ color: "green", textAlign: "center", marginTop: "20px", marginLeft:"200px" }}
-                        >
-                        Profile has been updated <i className="fas fa-check-circle" style={{ color: "green",marginLeft:"10px" }}></i>
-                        </span>
-                    )}
+
                 </div>
                 {/* <div className="right">
                     <h2 className="title">Request Summary</h2>
