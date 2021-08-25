@@ -58,21 +58,21 @@ export default function ViewRequest() {
             pdf.save("download.pdf");
           });
       }
-    // if(!req){
-    //     return (
-    //         <div className="loadingContainer">
-    //             <span></span>
-    //             <span className="second"></span>
-    //         </div>
-    //     )
-    // }
+    if(!req){
+        return (
+            <div className="loadingContainer">
+                <span></span>
+                <span className="second"></span>
+            </div>
+        )
+    }
     return (
         <div className="viewRequest" style={{backgroundColor:'#f5f5f5'}}>
             <Link to="/dashboard" className="btn back"><i className="fas fa-arrow-left"></i> Return</Link>
             <button className="btn download" onClick={printDocument}>Save <i className="fas fa-file-download"></i></button>
             <div className="attachedDocs">
                 <h3>Documents Attached</h3>
-                {docs && docs.length > 0 && docs.map((name, url) => <a href={url}>{name}</a>)}
+                {docs && docs.length > 0 && docs.map((x)=> <a href={x.url}>{x.name}</a>)}
             </div>
             <div id="divToPrint" className="mt4" style={{
                 backgroundColor: 'white',
