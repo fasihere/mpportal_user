@@ -21,7 +21,12 @@ export default function RequestTable({selected, date}) {
         return record1.postedTime > record2.postedTime
       } },
       { key: "4", title: "Status", dataIndex: 'statusUser' },
-      { key: "5", title: "Action", render: rowData => <Link className="btn" to={'/request/'+rowData.rid+'/view'}>View</Link> },
+      { key: "5", title: "Action", render: rowData => {
+      if(selected === 'DRAFT'){
+        <Link className="btn" to={'/request/'+rowData.rid+'/view'}>View</Link>
+      }
+      <Link className="btn" to={'/request/'+rowData.rid+'/view'}>View</Link>
+    } },
     ]
     const [data, setData] = useState([])
     const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests/'
@@ -64,11 +69,13 @@ export default function RequestTable({selected, date}) {
             }
             const body = { statusUser: selected }
             const res = await axios.post(baseUrl, body, config)
+            console.log(await user.getIdToken())
             setData(res.data.details)
             res && console.log('Fetched requests')
         } catch (err) {
+          console.log(await user.getIdToken())
             console.log(err.response)
-            if(err.response.data.details == 'No requests yet'){
+            if(err.response && err.response.data.details == 'No requests yet'){
               setData([])
             }
         }
