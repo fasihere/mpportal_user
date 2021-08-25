@@ -72,7 +72,7 @@ export default function ViewRequest() {
             <button className="btn download" onClick={printDocument}>Save <i className="fas fa-file-download"></i></button>
             <div className="attachedDocs">
                 <h3>Documents Attached</h3>
-                {docs && docs.length > 0 && docs.map((x)=> <a href={x.url}>{x.name}</a>)}
+                {docs && docs.length > 0 && docs.map((x)=> <a href={x.url} target="_blank">{x.name}</a>)}
             </div>
             <div id="divToPrint" className="mt4" style={{
                 backgroundColor: 'white',
