@@ -27,7 +27,6 @@ export default function ViewRequest() {
                 const res = await axios.get(baseUrl+path, config);
                 res && setReq(res.data)
                 var storageRef = storage.ref(`mpportal/user/${user.phoneNumber.slice(3,13)}/${path}`);
-                console.log(res.data.documents)
                 res.data.documents.map((fileName) => {
                     storageRef.child(`/${fileName}`).getDownloadURL()
                     .then((url) => {
@@ -72,7 +71,7 @@ export default function ViewRequest() {
             <button className="btn download" onClick={printDocument}>Save <i className="fas fa-file-download"></i></button>
             <div className="attachedDocs">
                 <h3>Documents Attached</h3>
-                {docs && docs.length > 0 && docs.map((x)=> <a href={x.url} target="_blank">{x.name}</a>)}
+                {docs && docs.length > 0 ? (docs.map((x)=> <a href={x.url} target="_blank">{x.name}</a>)):( <h3>None</h3>)}
             </div>
             <div id="divToPrint" className="mt4" style={{
                 backgroundColor: 'white',

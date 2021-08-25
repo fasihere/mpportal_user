@@ -13,12 +13,18 @@ export default function Topbar() {
   const history = useHistory();
   const [error, setError] = useState();
   const [menu, setMenu] = useState("");
+  const [width, setWidth] = useState(window.innerWidth)
 
   useEffect(() => {
-    if(window.screen.width >= 930){
+    window.addEventListener('resize', () => setWidth(window.innerWidth))
+  })
+
+  useEffect(() => {
+    if(width >= 930){
       setMenu("")
     }
-  },[window.screen.width])
+  })
+
 
   const handleLogout = async () => {
     setError("");
@@ -35,7 +41,6 @@ export default function Topbar() {
   }
   return (
     <div className="topbar ">
-      {console.log(window.screen.width)}
       <div className="left">
         <a href="/">
           <img className="deanDp" src={deanDp} alt="" />
