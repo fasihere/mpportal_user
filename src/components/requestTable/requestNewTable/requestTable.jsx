@@ -22,7 +22,7 @@ export default function RequestTable({selected, date}) {
       { key: "4", title: "Status", dataIndex: 'statusUser' },
       { key: "5", title: "Action", render: rowData => {
       if(selected === 'DRAFT'){
-        return <Link className="btn" to={'/request/'+rowData.rid+'/view'}>View</Link>
+        return <Link className="btn" to={'/draft/'+rowData.rid+'/view'}>View</Link>
       }
       return <Link className="btn" to={'/request/'+rowData.rid+'/view'}>View</Link>
     } },

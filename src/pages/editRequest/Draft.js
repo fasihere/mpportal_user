@@ -110,17 +110,19 @@ export default function Draft() {
             }
             console.log(await user.getIdToken())
             const res = await axios.get(baseUrl+"requests/"+path, config);
-            dispatch({type: "NAME", payload: res.data.details.name})
-            dispatch({type: "PHONE", payload: res.data.details.mobileNo})
-            dispatch({type: "EMAIL", payload: res.data.details.email})
-            dispatch({type: "ADDRESS", payload: res.data.details.address})
-            dispatch({type: "PINCODE", payload: res.data.details.pincode})
-            dispatch({type: "LOKSABHA", payload: res.data.details.loksabha})
-            dispatch({type: "ASSEMBLY", payload: res.data.details.assembly})
-            dispatch({type: "PANCHAYAT", payload: res.data.details.panchayat})
-            dispatch({type: "WARD", payload: res.data.details.ward})
-            dispatch({type: "SUBJECT", payload: res.data.details.requestSubject})
-            dispatch({type: "BODY", payload: res.data.details.requestBody})
+            console.log(res.data)
+            dispatch({type: "NAME", payload: res.data.name})
+            dispatch({type: "PHONE", payload: res.data.mobileNo})
+            dispatch({type: "EMAIL", payload: res.data.email})
+            dispatch({type: "ADDRESS", payload: res.data.address})
+            dispatch({type: "PINCODE", payload: res.data.pincode})
+            dispatch({type: "LOKSABHA", payload: res.data.loksabha})
+            dispatch({type: "ASSEMBLY", payload: res.data.assembly})
+            dispatch({type: "PANCHAYAT", payload: res.data.panchayat})
+            dispatch({type: "WARD", payload: res.data.ward})
+            dispatch({type: "SUBJECT", payload: res.data.requestSubject})
+            dispatch({type: "BODY", payload: res.data.requestBody})
+            dispatch({type: "FILES", payload: res.data.documents})
          } catch(err){
             console.log(err)
         }
@@ -137,7 +139,7 @@ export default function Draft() {
     panchayat: state.panchayat,
     ward: state.ward,
     requestSubject: state.requestSubject,
-    requestBody: state.requestBody,
+    requestBody: state.requestBody
   }
   const handleChange = selected => e => {
     dispatch({type: selected, payload: e.target.value})
@@ -192,14 +194,14 @@ export default function Draft() {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        // if(!state.name){
-        //   return (
-        //     <div className="loadingContainer">
-        //         <span></span>
-        //         <span className="second"></span>
-        //     </div>
-        // )
-        // }
+        if(!state.name){
+          return (
+            <div className="loadingContainer">
+                <span></span>
+                <span className="second"></span>
+            </div>
+        )
+        }
         return <SubmitDraft values={values} handleChange={handleChange}/>;
       case 1:
         return <DocumentUpload requestFiles={state.requestFiles} handleDocs={handleDocs}/>;

@@ -41,7 +41,7 @@ export default function DocumentUpload({requestFiles, rid, handleDocs}) {
    return (
      <React.Fragment>
        <Typography variant="h6" gutterBottom>
-        Upload Related Files
+        Upload Related Files (Optional)
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
         Files remaining: {requestFiles.length}/3
