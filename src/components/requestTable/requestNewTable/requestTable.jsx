@@ -1,7 +1,7 @@
 import './requestTable.scss'
 import { Table } from 'antd'
 import 'antd/dist/antd.css'
-import { useMemo, React, useState,useEffect } from 'react';
+import { useState,useEffect } from 'react';
 import MOCK_DATA from '../../../MOCK_DATA.json'
 import { useAuth } from '../../../context/AuthContext'
 import axios from 'axios'
@@ -22,9 +22,9 @@ export default function RequestTable({selected, date}) {
       { key: "4", title: "Status", dataIndex: 'statusUser' },
       { key: "5", title: "Action", render: rowData => {
       if(selected === 'DRAFT'){
-        <Link className="btn" to={'/request/'+rowData.rid+'/view'}>View</Link>
+        return <Link className="btn" to={'/request/'+rowData.rid+'/view'}>View</Link>
       }
-      <Link className="btn" to={'/request/'+rowData.rid+'/view'}>View</Link>
+      return <Link className="btn" to={'/request/'+rowData.rid+'/view'}>View</Link>
     } },
     ]
     const [data, setData] = useState([])
