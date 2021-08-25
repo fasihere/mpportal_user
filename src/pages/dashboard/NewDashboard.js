@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -12,6 +11,7 @@ import { useAuth } from '../../context/AuthContext';
 import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
 import Appbar from '../../components/topbar/Appbar';
+import { useHistory } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -70,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const { user, auth, selected } = useAuth()
+  const history = useHistory()
   const classes = useStyles();
   
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -82,17 +83,19 @@ export default function Dashboard() {
         <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={3}>
             <Grid item xs={12} lg={3} style={{textAlign: "center"}}>
-              <Fab
-                variant="extended"
-                size="large"
-                color="primary"
-                aria-label="add"
-                className={classes.margin}
-                onClick={(e) => window.location.replace('/request/new')}
-              >
-                <CreateIcon className={classes.create}/>
-                  New Request
-              </Fab>
+              <Link to="/request/new" style={{textDecoration: "none", color: "white"}}>
+                <Fab
+                  variant="extended"
+                  size="large"
+                  color="primary"
+                  aria-label="add"
+                  className={classes.margin}
+                  onClick={() => history.push('/request/new')}
+                >
+                  <CreateIcon className={classes.create}/>
+                    New Request
+                </Fab>
+              </Link>
             </Grid>
             <Grid item xs={12} lg={9}>
               <Paper className={classes.paper}>

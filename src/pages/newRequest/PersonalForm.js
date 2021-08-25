@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Grid, makeStyles, Button, Typography, TextField,
   IconButton, Select, MenuItem, InputLabel} from "@material-ui/core";
 
-export default function PersonalForm({values:{name, email, mobileNo, address, pincode}, handleChange}) {
+export default function PersonalForm({values:{name, email, mobileNo, address, pincode, loksabha}, handleChange}) {
   const { pending, isSignedIn, user, auth } = useAuth()
     const [error, setError] = useState(false)
     const [la, setLa] = useState([])
@@ -47,7 +47,7 @@ export default function PersonalForm({values:{name, email, mobileNo, address, pi
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Personal Details
+        Personal Details {loksabha}
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
@@ -111,73 +111,78 @@ export default function PersonalForm({values:{name, email, mobileNo, address, pi
         </Grid>
         <Grid item xs={12} sm ={6}>
           <TextField
+            select
             id="loksabha"
             name="loksabha"
             label="Loksabha Constituency"
-            defaultValue="Idukki"
-            disabled
+            value={loksabha}
+            onChange={handleChange('LOKSABHA')}
             fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-        </Grid>
-        <Grid
-          item
-          md={4}
-          xs={12}
           >
-          <TextField
-          required
-          select
-          fullWidth
-          label="LA Constituency"
-          value={selectedLa}
-          onChange={changeLa}
-          inputProps={{ 'aria-label': 'Without label' }}
-          >
-            {la.map(x => {
-            return <MenuItem value={x.name}>{x.name}</MenuItem>
-            })}
-         </TextField>
-          </Grid>
+            <MenuItem selected value="Idukki">Idukki</MenuItem>
+            <MenuItem value="Other">Other</MenuItem>
+          </TextField>
+        </Grid>
+        {loksabha == "Idukki" && 
+        <>
           <Grid
-          item
-          md={4}
-          xs={12}
-          >
-          <TextField
-          required
-          select
-          fullWidth
-          label="Panchayat"
-          value={selectedPanchayat}
-          onChange={changePanchayat}
-          >
-          {panchayat.map(x => {
-              return <MenuItem value={x.panchayat[0]}>{x.panchayat[0]}</MenuItem>
-          })}
-         </TextField>
-          </Grid>
-          <Grid
-          item
-          md={4}
-          xs={12}
-          >
-          <TextField
-          required
-          select
-          fullWidth
-          label="Ward"
-          value={selectedWard}
-          onChange={(e) => {
-            setSelectedWard(e.target.value)
-            handleChange('WARD')(e)
-          }}>
-            {wards.map(x => {
-                return <MenuItem value={x}>{x}</MenuItem>
+            item
+            md={4}
+            xs={12}
+            >
+            <TextField
+            required
+            select
+            fullWidth
+            label="LA Constituency"
+            value={selectedLa}
+            onChange={changeLa}
+            inputProps={{ 'aria-label': 'Without label' }}
+            >
+              {la.map(x => {
+              return <MenuItem value={x.name}>{x.name}</MenuItem>
+              })}
+          </TextField>
+            </Grid>
+            <Grid
+            item
+            md={4}
+            xs={12}
+            >
+            <TextField
+            required
+            select
+            fullWidth
+            label="Panchayat"
+            value={selectedPanchayat}
+            onChange={changePanchayat}
+            >
+            {panchayat.map(x => {
+                return <MenuItem value={x.panchayat[0]}>{x.panchayat[0]}</MenuItem>
             })}
-         </TextField>
-        </Grid>
+          </TextField>
+            </Grid>
+            <Grid
+            item
+            md={4}
+            xs={12}
+            >
+            <TextField
+            required
+            select
+            fullWidth
+            label="Ward"
+            value={selectedWard}
+            onChange={(e) => {
+              setSelectedWard(e.target.value)
+              handleChange('WARD')(e)
+            }}>
+              {wards.map(x => {
+                  return <MenuItem value={x}>{x}</MenuItem>
+              })}
+          </TextField>
+          </Grid>
+        </>}
       </Grid>
     </React.Fragment>
   );

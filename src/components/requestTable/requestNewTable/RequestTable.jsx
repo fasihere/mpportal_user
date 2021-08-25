@@ -33,6 +33,7 @@ export default function RequestTable({selected, date}) {
     }
     useEffect(() => {
       const fetchData = async () => {
+        console.log(await user.getIdToken())
         if(date){
           try{
             const config = {

@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { useLocation } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -95,6 +95,8 @@ const reducer = (state, action) => {
       return { ...state, address: action.payload }
     case "PINCODE":
       return { ...state, pincode: action.payload }
+    case "LOKSABHA":
+      return { ...state, loksabha: action.payload}
     case "ASSEMBLY":
       return { ...state, assembly: action.payload }
     case "PANCHAYAT":
@@ -115,13 +117,14 @@ const reducer = (state, action) => {
 }
 const initiailValues = {
    name: "", email: "", mobileNo: "", address: "", 
-   pincode: 0, assembly: "", panchayat: "", 
+   pincode: 0, loksabha: "Idukki", assembly: "", panchayat: "", 
    ward: "1", requestSubject: null, requestBody: null,
    requestFiles: []
   }
 
 export default function Checkout() {
   const { user } = useAuth()
+  const history = useHistory()
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0)
   const [state, dispatch] = useReducer(reducer, initiailValues)
@@ -148,6 +151,7 @@ export default function Checkout() {
             dispatch({type: "EMAIL", payload: res.data.email})
             dispatch({type: "ADDRESS", payload: res.data.address})
             dispatch({type: "PINCODE", payload: res.data.pincode})
+            dispatch({type: "LOKSABHA", payload: res.data.loksabha})
             dispatch({type: "ASSEMBLY", payload: res.data.assembly})
             dispatch({type: "PANCHAYAT", payload: res.data.panchayat})
             dispatch({type: "WARD", payload: res.data.ward})
@@ -163,6 +167,7 @@ export default function Checkout() {
     email: state.email,
     address: state.address,
     pincode: state.pincode,
+    loksabha: state.loksabha,
     assembly: state.assembly,
     panchayat: state.panchayat,
     ward: state.ward,
@@ -196,51 +201,68 @@ export default function Checkout() {
         res.data && setRid(res.data.rid)
         console.log(res.data)
         setLoading(false)
-        setError()
         setDraft(true)
+        setError()
     } catch(err){
         err.response && console.log(err.response.data)
-        err.response && setError(err.response.data)
     }
 };
 
   const handleSubmit = async () => {
-    setLoading(true)
-    var documents = []
-    if(state.requestFiles.length > 0){
-      state.requestFiles.map((doc) => {
-        documents = [...documents, doc.fileName]  
-      })
-    }
-    var body = {
-        status: "UNREAD",
-        statusUser: "PENDING",
-        documents
-    }
-    const config = {
-        headers: {
-          'Authorization':'Bearer '+ await user.getIdToken()
-        }
-    }
-    try{
-        const res =  await axios.patch(baseUrl+`requests/${rid}`, body, config);
-        console.log(res)
-        setError()
-    } catch(err){
-        console.log(err.response.data)
-        setError(err.response.data)
-    }
+      setLoading(true)
+      var documents = []
+      if(state.requestFiles.length > 0){
+        state.requestFiles.map((doc) => {
+          documents = [...documents, doc.fileName]  
+        })
+      }
+      console.log(documents)
+      var body = {
+          status: "UNREAD",
+          statusUser: "PENDING",
+          documents
+      }
+      const config = {
+          headers: {
+            'Authorization':'Bearer '+ await user.getIdToken()
+          }
+      }
+      
+      try{
+          const res =  await axios.patch(baseUrl+`requests/${rid}`, body, config);
+          console.log(res)
+          setError()
+      } catch(err){
+          console.log(err.response.data)
+      }
   };
 
   const handleNext = () => {
+
+    var go = true
     if(activeStep === steps.length - 3 && !rid){
+      if(!state.requestBody || !state.requestSubject){
+        setError('Please fill request subject and content');
+        go = false;
+      }
+      else{
+        setError()
+      }
       console.log('Drafted')
       handleDraft()
     }
-    setActiveStep(activeStep + 1);
+    if(activeStep === steps.length - 1){
+      setDraft(false)
+      handleSubmit()
+      console.log('Submitted')
+    }
+    if(go){
+      setActiveStep(activeStep + 1);
+    }
   };
 
   const handleBack = () => {
+    setError()
     setActiveStep(activeStep - 1);
   };
   const steps = ['Personal details', 'Request details', 'Documents Upload', 'Review your request']
@@ -258,7 +280,11 @@ export default function Checkout() {
         }
         return <PersonalForm values={values} handleChange={handleChange}/>;
       case 1:
-        return <RequestForm values={values} handleChange={handleChange}/>;
+        return <><RequestForm values={values} handleChange={handleChange}/>{error && 
+          <Typography variant="subtitle1" color="error" align="center">
+            {error}
+          </Typography>
+        }</>;
       case 2:
         if(rid){return <DocumentUpload requestFiles={state.requestFiles} handleDocs={handleDocs} rid={rid}/>}
         else{
@@ -312,7 +338,7 @@ export default function Checkout() {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={(e) => window.location.replace('/dashboard')}
+                    onClick={() => history.push('/dashboard')}
                     className={classes.button}
                   >
                       RETURN TO DASHBOARD
@@ -346,8 +372,7 @@ export default function Checkout() {
                     </Button>
                   )}
                   {activeStep === (steps.length - 1) && (
-                    <Button onClick={() => {;
-                      handleNext();}} 
+                    <Button onClick={() => setActiveStep(activeStep + 1)} 
                       color="primary"
                       variant="contained"
                       className={classes.button}>
@@ -358,8 +383,6 @@ export default function Checkout() {
                     variant="contained"
                     color="primary"
                     onClick={() => {
-                      setDraft(false)
-                      handleSubmit();
                       handleNext();
                     }}
                     className={classes.button}
