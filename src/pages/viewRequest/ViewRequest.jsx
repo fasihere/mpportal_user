@@ -27,6 +27,7 @@ export default function ViewRequest() {
                 const res = await axios.get(baseUrl+path, config);
                 res && setReq(res.data)
                 var storageRef = storage.ref(`mpportal/user/${user.phoneNumber.slice(3,13)}/${path}`);
+                console.log(res.data.documents)
                 res.data.documents.map((fileName) => {
                     storageRef.child(`/${fileName}`).getDownloadURL()
                     .then((url) => {
@@ -57,14 +58,14 @@ export default function ViewRequest() {
             pdf.save("download.pdf");
           });
       }
-    if(!req){
-        return (
-            <div className="loadingContainer">
-                <span></span>
-                <span className="second"></span>
-            </div>
-        )
-    }
+    // if(!req){
+    //     return (
+    //         <div className="loadingContainer">
+    //             <span></span>
+    //             <span className="second"></span>
+    //         </div>
+    //     )
+    // }
     return (
         <div className="viewRequest" style={{backgroundColor:'#f5f5f5'}}>
             <Link to="/dashboard" className="btn back"><i className="fas fa-arrow-left"></i> Return</Link>

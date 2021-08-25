@@ -19,6 +19,7 @@ import Box from "@material-ui/core/Box";
 import NewRegister from "./pages/register/NewRegister";
 import ErrorPage from "./components/errorPage/ErrorPage";
 import Media from "./pages/media/Media";
+import Draft from "./pages/editRequest/Draft";
 
 function Copyright() {
   return (
@@ -73,6 +74,7 @@ function App() {
             <PrivateRoute exact path="/register" component={NewRegister} />
             <PrivateRoute exact path="/table" component={RequestTable} />
             <PrivateRoute path="/request/:rid/view" component={ViewRequest} />
+            <PrivateRoute path="/draft/:rid/view" component={Draft} />
             <PrivateRoute exact path="/user/" component={Profile} />
             <Route path="*">
               <ErrorPage />

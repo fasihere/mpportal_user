@@ -6,12 +6,19 @@ import "./topbar.scss";
 import burgerIcon from "./burgerIcon.svg";
 import closeIcon from "./closeIcon.svg";
 import deanDp from "./dean_dp.webp";
+import { useEffect } from "react";
 
 export default function Topbar() {
   const { isSignedIn, user, auth } = useAuth();
   const history = useHistory();
   const [error, setError] = useState();
   const [menu, setMenu] = useState("");
+
+  useEffect(() => {
+    if(window.screen.width >= 930){
+      setMenu("")
+    }
+  },[window.screen.width])
 
   const handleLogout = async () => {
     setError("");
@@ -28,6 +35,7 @@ export default function Topbar() {
   }
   return (
     <div className="topbar ">
+      {console.log(window.screen.width)}
       <div className="left">
         <a href="/">
           <img className="deanDp" src={deanDp} alt="" />

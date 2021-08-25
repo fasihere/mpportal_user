@@ -35,6 +35,7 @@ export const mainListItems = (setSelected, setOpen) => (
         <ListItemText primary="Completed" />
       </ListItem>
     </Tooltip>
+    <Tooltip title="Drafts">
     <ListItem button onClick={() => {
       setSelected('Draft');
       setOpen(false)
@@ -44,6 +45,7 @@ export const mainListItems = (setSelected, setOpen) => (
       </ListItemIcon>
       <ListItemText primary="Drafts" />
     </ListItem>
+    </Tooltip>
   </div>
 );
 

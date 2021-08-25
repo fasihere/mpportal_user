@@ -1,49 +1,18 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box'
-import Grid from '@material-ui/core/Grid'
-import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-import PersonalForm from './PersonalForm';
-import Review from './Review';
-import RequestForm from './RequestForm'
+import SubmitDraft from './SubmitDraft';
 import DocumentUpload from './DocumentUpload';
 import axios from 'axios'
 import { useAuth } from '../../context/AuthContext';
 import '../../components/loading.scss'
-
-function Copyright() {
-  return (
-    <Grid container spacing={2}>
-      <Grid item xs={3}>
-        <Typography variant="body2" color="textSecondary" align="center">
-          <Link color="inherit" href="">
-            Privacy Policy
-          </Link>{' '}
-        </Typography>
-      </Grid>
-      <Grid item xs={6}>
-      <Typography variant="body2" color="textSecondary" align="center">
-          Powered By <Link href="https://tensors.in"><img src="/assets/images/logof.png" width="100px"/></Link>
-        </Typography>
-      </Grid>
-      <Grid item xs={3}>
-        <Typography variant="body2" color="textSecondary" align="center">
-          © {new Date().getFullYear()} Dean Kuriakose. All rights reserved
-        </Typography>
-      </Grid>
-    </Grid>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -95,8 +64,6 @@ const reducer = (state, action) => {
       return { ...state, address: action.payload }
     case "PINCODE":
       return { ...state, pincode: action.payload }
-    case "LOKSABHA":
-      return { ...state, loksabha: action.payload}
     case "ASSEMBLY":
       return { ...state, assembly: action.payload }
     case "PANCHAYAT":
@@ -117,19 +84,16 @@ const reducer = (state, action) => {
 }
 const initiailValues = {
    name: "", email: "", mobileNo: "", address: "", 
-   pincode: 0, loksabha: "Idukki", assembly: "", panchayat: "", 
+   pincode: 0, assembly: "", panchayat: "", 
    ward: "1", requestSubject: null, requestBody: null,
    requestFiles: []
   }
 
-export default function Checkout() {
+export default function Draft() {
   const { user } = useAuth()
-  const history = useHistory()
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0)
   const [state, dispatch] = useReducer(reducer, initiailValues)
-  const [rid, setRid] = useState()
-  const [draft, setDraft] = useState(false)
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
   const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/'
@@ -145,16 +109,18 @@ export default function Checkout() {
                 }
             }
             console.log(await user.getIdToken())
-            const res = await axios.get(baseUrl+"users/", config);
-            dispatch({type: "NAME", payload: res.data.name})
-            dispatch({type: "PHONE", payload: res.data.mobileNo})
-            dispatch({type: "EMAIL", payload: res.data.email})
-            dispatch({type: "ADDRESS", payload: res.data.address})
-            dispatch({type: "PINCODE", payload: res.data.pincode})
-            dispatch({type: "LOKSABHA", payload: res.data.loksabha})
-            dispatch({type: "ASSEMBLY", payload: res.data.assembly})
-            dispatch({type: "PANCHAYAT", payload: res.data.panchayat})
-            dispatch({type: "WARD", payload: res.data.ward})
+            const res = await axios.get(baseUrl+"requests/"+path, config);
+            dispatch({type: "NAME", payload: res.data.details.name})
+            dispatch({type: "PHONE", payload: res.data.details.mobileNo})
+            dispatch({type: "EMAIL", payload: res.data.details.email})
+            dispatch({type: "ADDRESS", payload: res.data.details.address})
+            dispatch({type: "PINCODE", payload: res.data.details.pincode})
+            dispatch({type: "LOKSABHA", payload: res.data.details.loksabha})
+            dispatch({type: "ASSEMBLY", payload: res.data.details.assembly})
+            dispatch({type: "PANCHAYAT", payload: res.data.details.panchayat})
+            dispatch({type: "WARD", payload: res.data.details.ward})
+            dispatch({type: "SUBJECT", payload: res.data.details.requestSubject})
+            dispatch({type: "BODY", payload: res.data.details.requestBody})
          } catch(err){
             console.log(err)
         }
@@ -167,7 +133,6 @@ export default function Checkout() {
     email: state.email,
     address: state.address,
     pincode: state.pincode,
-    loksabha: state.loksabha,
     assembly: state.assembly,
     panchayat: state.panchayat,
     ward: state.ward,
@@ -182,13 +147,20 @@ export default function Checkout() {
     dispatch({type: selected, payload: files})
   }
 
-  const handleDraft = async () => {
+  const handleSubmit = async () => {
     setLoading(true)
+    var documents = []
+    if(state.requestFiles.length > 0){
+      state.requestFiles.map((doc) => {
+        documents = [...documents, doc.fileName]  
+      })
+    }
     var body = {
-        ...values,
-        loksabha:"Idukki",
-        status: "DRAFT",
-        statusUser: "DRAFT"
+        requestBody: state.requestBody,
+        requestSubject: state.requestSubject,
+        status: "UNREAD",
+        statusUser: "PENDING",
+        documents
     }
     const config = {
         headers: {
@@ -196,106 +168,41 @@ export default function Checkout() {
         }
     }
     try{
-        const res =  await axios.post(baseUrl+'requests/new', body, config);
-        console.log(res.data)
-        res.data && setRid(res.data.rid)
-        console.log(res.data)
-        setLoading(false)
-        setDraft(true)
+        const res =  await axios.patch(baseUrl+`requests/`+path, body, config);
+        console.log(res)
         setError()
     } catch(err){
-        err.response && console.log(err.response.data)
+        console.log(err.response.data)
+        setError(err.response.data)
     }
-};
-
-  const handleSubmit = async () => {
-      setLoading(true)
-      var documents = []
-      if(state.requestFiles.length > 0){
-        state.requestFiles.map((doc) => {
-          documents = [...documents, doc.fileName]  
-        })
-      }
-      console.log(documents)
-      var body = {
-          status: "UNREAD",
-          statusUser: "PENDING",
-          documents
-      }
-      const config = {
-          headers: {
-            'Authorization':'Bearer '+ await user.getIdToken()
-          }
-      }
-      
-      try{
-          const res =  await axios.patch(baseUrl+`requests/${rid}`, body, config);
-          console.log(res)
-          setError()
-      } catch(err){
-          console.log(err.response.data)
-      }
   };
 
   const handleNext = () => {
-
-    var go = true
-    if(activeStep === steps.length - 3 && !rid){
-      if(!state.requestBody || !state.requestSubject){
-        setError('Please fill request subject and content');
-        go = false;
-      }
-      else{
-        setError()
-      }
-      console.log('Drafted')
-      handleDraft()
-    }
     if(activeStep === steps.length - 1){
-      setDraft(false)
-      handleSubmit()
-      console.log('Submitted')
+      handleSubmit();
     }
-    if(go){
-      setActiveStep(activeStep + 1);
-    }
+    setActiveStep(activeStep + 1);
   };
 
   const handleBack = () => {
-    setError()
     setActiveStep(activeStep - 1);
   };
-  const steps = ['Personal details', 'Request details', 'Documents Upload', 'Review your request']
+  const steps = ['Submit Draft', 'Documents Upload']
 
   function getStepContent(step) {
     switch (step) {
       case 0:
-        if(!state.name){
-          return (
-            <div className="loadingContainer">
-                <span></span>
-                <span className="second"></span>
-            </div>
-        )
-        }
-        return <PersonalForm values={values} handleChange={handleChange}/>;
+        // if(!state.name){
+        //   return (
+        //     <div className="loadingContainer">
+        //         <span></span>
+        //         <span className="second"></span>
+        //     </div>
+        // )
+        // }
+        return <SubmitDraft values={values} handleChange={handleChange}/>;
       case 1:
-        return <><RequestForm values={values} handleChange={handleChange}/>{error && 
-          <Typography variant="subtitle1" color="error" align="center">
-            {error}
-          </Typography>
-        }</>;
-      case 2:
-        if(rid){return <DocumentUpload requestFiles={state.requestFiles} handleDocs={handleDocs} rid={rid}/>}
-        else{
-          return (
-          <div className="loadingContainer">
-              <span></span>
-              <span className="second"></span>
-          </div>
-      )}
-      case 3:
-        return <Review values={values}/>;
+        return <DocumentUpload requestFiles={state.requestFiles} handleDocs={handleDocs}/>;
       default:
         throw new Error('Unknown step');
     }
@@ -305,17 +212,10 @@ export default function Checkout() {
   return (
     <React.Fragment>
       <CssBaseline />
-      {/* <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Request Portal
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            New Request {rid}
+            Draft
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
@@ -327,18 +227,13 @@ export default function Checkout() {
           <React.Fragment>
             {activeStep === steps.length ? ( !error ? (
               <React.Fragment>
-                <Typography variant="h6" gutterBottom>
-                  {draft ? "Your request has been saved as draft.":"Thank you for your submission."}
-                </Typography>
-                { !draft && 
                 <Typography variant="subtitle1">
-                  Your Request Id is <strong>#{rid}</strong>. You will be sent an sms to the provided phone number as confirmation.
+                  Your Request Id is <strong>#{path}</strong>. You will be sent an sms to the provided phone number as confirmation.
                 </Typography>
-                }
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => history.push('/dashboard')}
+                    onClick={(e) => window.location.replace('/dashboard')}
                     className={classes.button}
                   >
                       RETURN TO DASHBOARD
@@ -371,14 +266,6 @@ export default function Checkout() {
                       Back
                     </Button>
                   )}
-                  {activeStep === (steps.length - 1) && (
-                    <Button onClick={() => setActiveStep(activeStep + 1)} 
-                      color="primary"
-                      variant="contained"
-                      className={classes.button}>
-                      Submit Later
-                    </Button>
-                  )}
                   <Button
                     variant="contained"
                     color="primary"
@@ -395,9 +282,6 @@ export default function Checkout() {
           </React.Fragment>
         </Paper>
       </main>
-      {/* <Box pt={4} borderTop={1} borderColor="grey.300" bgcolor="grey.300">
-        <Copyright />
-      </Box> */}
     </React.Fragment>
   );
 }
