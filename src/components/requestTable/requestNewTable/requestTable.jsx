@@ -1,5 +1,4 @@
 import './requestTable.scss'
-import MaterialTable from 'material-table'
 import { Table } from 'antd'
 import 'antd/dist/antd.css'
 import { useMemo, React, useState,useEffect } from 'react';
