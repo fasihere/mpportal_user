@@ -8,7 +8,7 @@ import Profile from "./pages/profile/Profile";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import NewLogin from "./pages/login/NewLogin";
-import ViewRequest from "./pages/viewRequest/ViewRequestcopy";
+import ViewRequestcopy from "./pages/viewRequest/ViewRequestcopy";
 import RequestTable from "./components/requestTable/requestNewTable/RequestTable";
 import NewDashboard from "./pages/dashboard/NewDashboard";
 import Checkout from "./pages/newRequest/Checkout";
@@ -73,7 +73,7 @@ function App() {
             <PrivateRoute path="/request/new" component={Checkout} />
             <PrivateRoute exact path="/register" component={NewRegister} />
             <PrivateRoute exact path="/table" component={RequestTable} />
-            <PrivateRoute path="/request/:rid/view" component={ViewRequest} />
+            <PrivateRoute path="/request/:rid/view" component={ViewRequestcopy} />
             <PrivateRoute path="/draft/:rid/view" component={Draft} />
             <PrivateRoute exact path="/user/" component={Profile} />
             <Route path="*">
