@@ -31,7 +31,9 @@
   padding-left: 0 !important;
   width: 100vw !important;
   margin-top: 10px;
-
+  .agroMission {
+    background: url(https://digitalsynopsis.com/wp-content/uploads/2017/07/beautiful-color-ui-gradients-backgrounds-lush.png);
+  }
   h1 {
     font-weight: bold;
     font-family: poppins;
@@ -45,8 +47,10 @@
 .img-caption {
   padding: 1em;
   margin: 1em 0 !important;
-  background-color: rgb(216, 213, 213);
+  // background-color: #32de84;
+  // background-color: rgb(216, 213, 213);
   p {
+    color: white;
     font-size: 1.1em;
   }
 }
@@ -84,21 +88,22 @@
 //   background-color: rgb(216, 213, 213);
 // }
 
-@media only screen and (min-width: 1325px) {
+@media only screen and (min-width: 840px) {
   .videos {
     margin: 0 10px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 15px;
     .video-embed {
-      margin-top: 0;
+      margin: w;
+      top: 0;
       &:hover {
         transform: scale(1.01);
       }
     }
   }
 }
-@media only screen and (min-width: 1140px) {
+@media only screen and (min-width: 1325px) {
   .videos {
     padding: 0 4em !important;
   }

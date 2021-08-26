@@ -10,29 +10,31 @@ export default function Media() {
         <span>2020</span>
       </h1>
       <hr />
-      <div className="img-1">
-        <img className="img1" src=".\assets\images\img1.jfif" alt="" />
-      </div>
-      <div className="flex-group">
-        <div className="img-caption">
-          <p>
-            MP'S Youth Agro Mission 2020 is an initiative of Adv.Dean Kuriakose.
-            This mission is a Joint Venture of Idukki Care Foundation and
-            Congress(I) members of Idukki district to motivate the youth towards
-            conventional and organic farming at Idukki district. Agro Mission
-            was cordially Inaugurated on 01 June 2020, by Adv. Dean Kuriakose,
-            in the presence of Roshy Augustine MLA and the members of Congress
-            Mandalam Committee of Vazhathope, Idukki district on a one hectare
-            property. Foundation has 75 volunteers across 75 panchayats of
-            Idukki district. Through this mission, Idukki Care Foundation will
-            be bringing forward more properties on rent for promoting
-            conventional and organic agricultural activities at Idukki district
-            in the coming days.
-          </p>
+      <div className="agroMission">
+        <div className="img-1">
+          <img className="img1" src=".\assets\images\img1.jfif" alt="" />
         </div>
-        <div data-aos="slide-up" className="img2-3 ">
-          <img className="img2" src=".\assets\images\img2.jfif" alt="" />
-          <img className="img3" src=".\assets\images\img3.jfif" alt="" />
+        <div className="flex-group">
+          <div className="img-caption">
+            <p>
+              MP'S Youth Agro Mission 2020 is an initiative of Adv.Dean
+              Kuriakose. This mission is a Joint Venture of Idukki Care
+              Foundation and Congress(I) members of Idukki district to motivate
+              the youth towards conventional and organic farming at Idukki
+              district. Agro Mission was cordially Inaugurated on 01 June 2020,
+              by Adv. Dean Kuriakose, in the presence of Roshy Augustine MLA and
+              the members of Congress Mandalam Committee of Vazhathope, Idukki
+              district on a one hectare property. Foundation has 75 volunteers
+              across 75 panchayats of Idukki district. Through this mission,
+              Idukki Care Foundation will be bringing forward more properties on
+              rent for promoting conventional and organic agricultural
+              activities at Idukki district in the coming days.
+            </p>
+          </div>
+          <div data-aos="slide-up" className="img2-3 ">
+            <img className="img2" src=".\assets\images\img2.jfif" alt="" />
+            <img className="img3" src=".\assets\images\img3.jfif" alt="" />
+          </div>
         </div>
       </div>
       <h1 className="heading">
