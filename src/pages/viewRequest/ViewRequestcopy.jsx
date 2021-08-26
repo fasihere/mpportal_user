@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import './viewRequest.scss'
+import './viewRequestcopy.scss'
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
 import { useEffect, useState } from 'react'
@@ -8,7 +8,7 @@ import { useAuth } from '../../context/AuthContext'
 import { storage } from "../../context/Firebase";
 
 
-export default function ViewRequest() {
+export default function ViewRequestcopy() {
     const { user } = useAuth()
     const [req, setReq] = useState()
     const location = useLocation()
@@ -57,7 +57,7 @@ export default function ViewRequest() {
             pdf.save("download.pdf");
           });
       }
-    if(!req){
+    if(false){
         return (
             <div className="loadingContainer">
                 <span></span>
@@ -66,64 +66,56 @@ export default function ViewRequest() {
         )
     }
     return (
-        <div className="viewRequest" style={{backgroundColor:'#f5f5f5'}}>
+        <div className="viewRequest" style={{backgroundColor:'#dad0d0'}}>
             <Link to="/dashboard" className="btn back"><i className="fas fa-arrow-left"></i> Return</Link>
             <button className="btn download" onClick={printDocument}>Save <i className="fas fa-file-download"></i></button>
-            <div className="attachedDocs">
-                <h3>Documents Attached</h3>
-                {docs && docs.length > 0 ? (docs.map((x)=> <a href={x.url} target="_blank">{x.name}</a>)):( <h3>None</h3>)}
-            </div>
-            <div id="divToPrint" className="mt4" style={{
-                backgroundColor: 'white',
-                width: '210mm',
-                minHeight: '297mm',
-                marginLeft: 'auto',
-                marginRight: 'auto'
-            }}>
-                <h2 className="title">Issue: {path}</h2>
-                <span className="date">{req && req.postedTime.slice(0,10).split("-").reverse().join("-")}</span>
+            <div id="divToPrint" className="mt4">
+                <h2 className="title">#{path}</h2>
                 <div className="wrapper">
+                    <span className="date">{req && req.postedTime.slice(0,10).split("-").reverse().join("-")}</span>
+                    <div className="subjectContainer">
+                        <span>Subject: </span>
+                        <p className="requestSubject">{req && req.requestSubject}</p>
+                    </div>
+                    <div className="sep"></div>                
                     <div className="personalDetails">
-                        <h2>Personal Details</h2>
-                        <div className="inputContainer">
+                        <div className="inputContainer1">
+                            <span>Requested by,</span>
                             <div className="inputItem">
-                                <span>Name :</span>
-                                <span>{req && req.name}</span>
+                                <span className="name">{req && req.name}</span>
                             </div>
                             <div className="inputItem">
-                                <span>LokSabha Constituency :</span>
-                                <span>{req && req.loksabha}</span>
+                                <span>LS Constituency :</span>
+                                <span className="value">{req && req.loksabha}</span>
                             </div>
                             <div className="inputItem">
                                 <span>LA Constituency :</span>
-                                <span>{req && req.assembly}</span>
+                                <span className="value">{req && req.assembly}</span>
                             </div>
                             <div className="inputItem">
                                 <span>Panchayat :</span>
-                                <span>{req && req.panchayat}</span>
+                                <span className="value">{req && req.panchayat}</span>
                             </div>
                             <div className="inputItem">
                                 <span>Ward :</span>
-                                <span>{req && req.ward}</span>
+                                <span className="value">{req && req.ward}</span>
                             </div>
+                        </div>
+                        <div className="inputContainer2">
                             <div className="inputItem">
-                                <span>Address :</span>
+                                <h5>Address :</h5>
                                 <p>{req && req.address}</p>
-                            </div>
-                            <div className="inputItem">
-                                <span>Pincode :</span>
                                 <span>{req && req.pincode}</span>
                             </div>
                         </div>
                     </div>
-                    <div className="requestDetails">
-                        <div className="subjectContainer">
-                            <span>Subject: </span>
-                            <p className="requestSubject">{req && req.requestSubject}</p>
-                        </div>
-                        <p className="requestContent">{req && req.requestBody}</p>
-                    </div>
+                    <div className="sep"></div>
+                    <p className="requestContent">{req && req.requestBody}</p>
                 </div>
+            </div>
+            <div className="attachedDocs">
+                <h3>Documents Attached</h3>
+                {docs && docs.length > 0 && docs.map((name, url) => <a href={url}>{name}</a>)}
             </div>
         </div>
     )

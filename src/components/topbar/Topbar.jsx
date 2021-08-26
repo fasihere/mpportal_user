@@ -6,12 +6,25 @@ import "./topbar.scss";
 import burgerIcon from "./burgerIcon.svg";
 import closeIcon from "./closeIcon.svg";
 import deanDp from "./dean_dp.webp";
+import { useEffect } from "react";
 
 export default function Topbar() {
   const { isSignedIn, user, auth } = useAuth();
   const history = useHistory();
   const [error, setError] = useState();
   const [menu, setMenu] = useState("");
+  const [width, setWidth] = useState(window.innerWidth)
+
+  useEffect(() => {
+    window.addEventListener('resize', () => setWidth(window.innerWidth))
+  })
+
+  useEffect(() => {
+    if(width >= 930){
+      setMenu("")
+    }
+  })
+
 
   const handleLogout = async () => {
     setError("");
@@ -45,7 +58,10 @@ export default function Topbar() {
             />
           </li>
           <li className="item">
-            <Link className="link" to="/#intro" onClick={() => setMenu("")}>
+            <Link className="link" to="/" onClick={() => {
+              setMenu("");
+              window.scroll(0,0)
+          }}>
               HOME
             </Link>
           </li>
