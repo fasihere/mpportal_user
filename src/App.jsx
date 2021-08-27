@@ -18,7 +18,7 @@ import Link from "@material-ui/core/Link";
 import Box from "@material-ui/core/Box";
 import NewRegister from "./pages/register/NewRegister";
 import ErrorPage from "./components/errorPage/ErrorPage";
-import Media from "./pages/media/Media";
+import Journey from "./pages/journey/Journey";
 import Draft from "./pages/editRequest/Draft";
 
 function Copyright() {
@@ -63,8 +63,8 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route exact path="/media">
-              <Media />
+            <Route exact path="/journey">
+              <Journey />
             </Route>
             <PrivateRoute exact path="/dashboard" component={NewDashboard} />
             <Route path="/login">
@@ -73,7 +73,10 @@ function App() {
             <PrivateRoute path="/request/new" component={Checkout} />
             <PrivateRoute exact path="/register" component={NewRegister} />
             <PrivateRoute exact path="/table" component={RequestTable} />
-            <PrivateRoute path="/request/:rid/view" component={ViewRequestcopy} />
+            <PrivateRoute
+              path="/request/:rid/view"
+              component={ViewRequestcopy}
+            />
             <PrivateRoute path="/draft/:rid/view" component={Draft} />
             <PrivateRoute exact path="/user/" component={Profile} />
             <Route path="*">

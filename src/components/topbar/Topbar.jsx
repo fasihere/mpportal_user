@@ -13,18 +13,17 @@ export default function Topbar() {
   const history = useHistory();
   const [error, setError] = useState();
   const [menu, setMenu] = useState("");
-  const [width, setWidth] = useState(window.innerWidth)
+  const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    window.addEventListener('resize', () => setWidth(window.innerWidth))
-  })
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
+  });
 
   useEffect(() => {
-    if(width >= 930){
-      setMenu("")
+    if (width >= 930) {
+      setMenu("");
     }
-  })
-
+  }, [width]);
 
   const handleLogout = async () => {
     setError("");
@@ -58,10 +57,14 @@ export default function Topbar() {
             />
           </li>
           <li className="item">
-            <Link className="link" to="/" onClick={() => {
-              setMenu("");
-              window.scroll(0,0)
-          }}>
+            <Link
+              className="link"
+              to="/"
+              onClick={() => {
+                setMenu("");
+                window.scroll(0, 0);
+              }}
+            >
               HOME
             </Link>
           </li>
@@ -85,8 +88,8 @@ export default function Topbar() {
           )}
 
           <li className="item">
-            <Link className="link" to="/media" onClick={() => setMenu("")}>
-              MEDIA
+            <Link className="link" to="/journey" onClick={() => setMenu("")}>
+              JOURNEY
             </Link>
           </li>
           <li className="item">
