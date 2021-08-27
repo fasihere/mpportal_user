@@ -6,12 +6,12 @@ import { SettingsRemoteRounded } from "@material-ui/icons";
 export default function Timeline() {
   const items = [
     {
-      title: "1996-1998",
+      title: "1996- 1998",
       cardSubtitle:
         "Dean joined KSU, the student wing of the Indian National Congress, and was chosen as the Unit secretary at New Man College Thodupuzha",
     },
     {
-      title: "1999-2000",
+      title: "1999- 2000",
       cardSubtitle:
         "Dean was elected as the KSU unit president at St.Joseph's college Molamattom and held position",
     },
@@ -117,7 +117,7 @@ export default function Timeline() {
   return (
     <div className="timeline">
       <div className="chrono">
-        <Chrono items={items} mode={menu} />
+        <Chrono items={items} slideShow mode={menu} />
       </div>
     </div>
   );

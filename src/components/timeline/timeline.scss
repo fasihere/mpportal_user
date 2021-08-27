@@ -35,17 +35,47 @@
   height: fit-content !important;
   min-height: 100px !important;
   line-height: 1.78rem !important;
-  // background-color: rgb(59, 57, 57) !important;
+  // background-color: rgb(113, 146, 255) !important;
   padding: 5px !important;
+  p {
+    // color: white !important;
+  }
 }
 ul.timeline-controls {
-  display: none;
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 50vw !important;
+
+  transform: translate(-50%, 0) !important;
 }
 .css-16u30nb-TimelineControlContainer {
-  display: none !important;
+  position: fixed !important;
+  bottom: 0;
+  transform: translate(-50%, 0) !important;
 }
+
+.css-vtfjjl-Circle:not(.using-icon).active::after {
+  background: #0f52ba !important;
+}
+.css-vtfjjl-Circle.active:not(.using-icon) {
+  transform: scale(1.05) !important;
+}
+.css-1f02b8t-TitleWrapper.active {
+  background: #0f52ba !important;
+  color: white !important;
+}
+// .eecm4uk3::after {
+//   background: rgb(253, 34, 81) !important;
+// }
+.e5foh872 {
+  background: #0f52ba !important;
+}
+
 @media only screen and (min-width: 840px) {
   .css-w2r0hh-TimelineContentSubTitle {
     font-size: 60% !important;
+  }
+  .css-vtfjjl-Circle:not(.using-icon).active::after {
+    transform: scale(1.5 !important);
   }
 }

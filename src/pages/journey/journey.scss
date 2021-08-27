@@ -8,7 +8,8 @@
 .journey-heading {
   font-weight: 900;
   text-align: start !important;
-  font-size: 2rem;
+  font-size: 2.2rem;
+  font-family: poppi;
 }
 .my-journey {
   background-color: rgb(255, 245, 245);
@@ -43,15 +44,17 @@
   width: 100vw !important;
   margin-top: 10px;
   .agro-mission {
-    margin: 0 !important;
+    margin: 0 0 1em 0 !important;
     padding-top: 1em !important;
     padding-bottom: 1em !important;
     background-color: #d5ffdd;
-    border-radius: 10px;
+    border-radius: 50px;
   }
-  hr {
-    margin-bottom: 0 !important;
+  .agro-heading {
+    font-size: 1.6rem !important;
+    font-weight: 500;
   }
+
   h1 {
     margin-top: 0 !important;
     font: white !important;
@@ -110,7 +113,7 @@
   margin-top: 1.6em;
 }
 .wrapper-videos {
-  background: rgb(155, 230, 253) !important;
+  background: #d5f3ff !important;
 }
 
 @media only screen and (min-width: 640px) {
@@ -127,6 +130,7 @@
 }
 @media only screen and (min-width: 1100px) {
   .grid-content {
+    padding-left: 6%;
     display: grid;
     grid-template-columns: 60% 40%;
     align-items: center;

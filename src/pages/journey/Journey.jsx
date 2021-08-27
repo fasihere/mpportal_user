@@ -8,8 +8,8 @@ export default function Journey() {
       <div className="media-page">
         <h1 className="journey-heading">my journey</h1>
         <div className="agro-mission">
-          <h1>
-            Mp 's youth agro mission
+          <h1 className="agro-heading">
+            Mp's youth agro mission
             <br />
             <span>2020</span>
           </h1>
@@ -44,10 +44,8 @@ export default function Journey() {
           <Timeline />
         </div>
         <div className="wrapper-videos">
-          <h1 className="heading">
-            RECENT MATTERS REPRESENTED BY <span>MP</span>
-          </h1>
-          <div className="videos">
+          <h1 className="heading">RECENT MATTERS</h1>
+          <div className="videos my-3">
             <div className="video-embed vid-1" data-aos="slide-up">
               <iframe
                 width="560"
