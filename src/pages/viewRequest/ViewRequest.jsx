@@ -53,7 +53,7 @@ export default function ViewRequest() {
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF();
             pdf.addImage(imgData, 'JPEG', 0, 0);
-            // pdf.output('dataurlnewwindow');
+            //pdf.output('dataurlnewwindow');
             pdf.save("download.pdf");
           });
       }

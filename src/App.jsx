@@ -83,7 +83,7 @@ function App() {
               <ErrorPage />
             </Route>
           </Switch>
-          <Box my={1} bgcolor="grey.500" color="white">
+          <Box my={1} bgcolor="grey.500" color="white" >
             <Copyright />
           </Box>
         </AuthProvider>

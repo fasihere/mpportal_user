@@ -170,20 +170,31 @@ export default function Draft() {
         }
     }
     try{
-        const res =  await axios.patch(baseUrl+`requests/`+path, body, config);
+        const res =  await axios.patch(baseUrl+"requests/"+path, body, config);
         console.log(res)
         setError()
     } catch(err){
-        console.log(err.response.data)
-        setError(err.response.data)
+        err.response && console.log(err.response.data)
     }
   };
 
   const handleNext = () => {
+    var go = true
     if(activeStep === steps.length - 1){
       handleSubmit();
     }
-    setActiveStep(activeStep + 1);
+    if(activeStep === steps.length - 2){
+        if(!state.requestBody || !state.requestSubject){
+        setError('Please fill request subject and content');
+        go = false;
+      }
+      else{
+        setError()
+      }
+    }
+    if(go){
+      setActiveStep(activeStep + 1);
+    }
   };
 
   const handleBack = () => {
@@ -202,7 +213,11 @@ export default function Draft() {
             </div>
         )
         }
-        return <SubmitDraft values={values} handleChange={handleChange}/>;
+        return <><SubmitDraft values={values} handleChange={handleChange}/>{error && 
+          <Typography variant="subtitle1" color="error" align="center">
+            {error}
+          </Typography>
+        }</>;
       case 1:
         return <DocumentUpload requestFiles={state.requestFiles} handleDocs={handleDocs}/>;
       default:
@@ -245,7 +260,6 @@ export default function Draft() {
                   <Typography variant="h6" gutterBottom>
                   Sorry, your request failed.
                   </Typography>
-                  {error && <Typography variant="subtitle1">Please fill Request subject and content</Typography>}
                   <div className={classes.button}>
                     <Button 
                     onClick={handleBack} 
