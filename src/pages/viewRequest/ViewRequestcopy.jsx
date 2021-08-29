@@ -48,7 +48,7 @@ export default function ViewRequestcopy() {
     },[path])
 
     const printDocument = () => {
-        const input = document.getElementById('divToPrint');
+        const input = document.getElementById('divToSave');
         input.style.display = "block"
         html2canvas(input)
           .then((canvas) => {
@@ -118,15 +118,16 @@ export default function ViewRequestcopy() {
                     <p className="requestContent">{req && req.requestBody}</p>
                 </div>
             </div>
-            <div id="divToPrint" style={{
+            <div id="divToSave" style={{
                 backgroundColor: 'white',
                 width: '210mm',
                 minHeight: '297mm',
+                fontSize: '15px',
                 display: 'none'
             }}>
                 <h2 className="title">#{path}</h2>
                 <div className="wrapper">
-                    <span className="date">{req && req.postedTime.slice(0,10).split("-").reverse().join("-")}</span>
+                <span className="date">{req && req.postedTime.slice(0,10).split("-").reverse().join("-")}</span>
                     <div className="subjectContainer">
                         <span>Subject: </span>
                         <p className="requestSubject">{req && req.requestSubject}</p>
