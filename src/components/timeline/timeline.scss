@@ -22,7 +22,7 @@
   max-width: 1000px;
   height: fit-content;
   min-height: none !important;
-  font-size: 2rem !important;
+  font-size: 1.9rem !important;
 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -31,6 +31,10 @@
 .css-w2r0hh-TimelineContentSubTitle {
   font-size: 50% !important;
 }
+.card-sub-title {
+  margin-left: 8.463px !important;
+}
+
 .timeline-card-content {
   transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   height: fit-content !important;
@@ -40,7 +44,7 @@
   padding: 5px !important;
 }
 ul.timeline-controls {
-  display: none;
+  // display: none;
   position: fixed !important;
   bottom: 0 !important;
   left: 50vw !important;
@@ -68,6 +72,14 @@ ul.timeline-controls {
 // }
 .e5foh872 {
   background: #0f52ba !important;
+}
+p.card-title {
+  font-size: 1.4rem;
+}
+
+.card-description {
+  // overflow: visible !important;
+  max-height: 200px !important;
 }
 
 @media only screen and (min-width: 840px) {
