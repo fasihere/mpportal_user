@@ -38,9 +38,7 @@ export default function Journey() {
           </div>
         </div>
         <div className="my-journey">
-          <h1 className="heading">
-            <span>My</span> journey...
-          </h1>
+          <h1 className="heading">My journey...</h1>
           <Timeline />
         </div>
         <div className="wrapper-videos">
