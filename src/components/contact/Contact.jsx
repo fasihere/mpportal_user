@@ -54,7 +54,7 @@ export default function Contact() {
                 </Col>
                 <Col xs={{ order: "first" }} md={{ span: 4, offset: 1 }} >
                     <div className="mail" >
-                        <img src="assets/images/undraw_contact_us_15o2.svg" />
+                        <img src="assets/images/shake.svg" />
 
                     </div>
 

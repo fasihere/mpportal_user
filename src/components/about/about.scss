@@ -2,11 +2,10 @@
 
 
 .start2{
-  
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin-top: 50px;
     box-sizing: border-box;
    text-align: center;
-   font-family: 'Roboto', sans-serif ;
    .h1{ 
     color: #1c3d65;
     font-weight: 900;
@@ -30,8 +29,7 @@ img{
     justify-content: center; 
     .abou{
     color:#1c3d65;
-    font-size: 23px;
-    font-weight: 700;
+    font-size: 16px;
     .s{
         color: #eda909;
     }
@@ -48,11 +46,12 @@ img{
        
        .icon{
         font-size: 30px;
-           color:#eda909;
+        color:#eda909;
        }
        .heading{
+           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
            font-weight: 700;
-           font-size: 25px;
+           font-size: 30px;
            color:white;
        }
         

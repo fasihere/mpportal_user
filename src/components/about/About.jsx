@@ -14,20 +14,7 @@ export default function About() {
         <Col className="p" md={{ span: 5, offset: 1 }}>
           <div>
             <p data-aos="fade-up" data-aos-duration="1000" className="abou">
-              <span span className="s">
-                Name:
-              </span>
-              Dean Kuriakose
-            </p>
-            <p data-aos="fade-up" data-aos-duration="1000" className="abou">
-              <span className="s">Constituency:</span> Idukki (Kerala)
-            </p>
-            <p data-aos="fade-up" data-aos-duration="1000" className="abou">
-              {" "}
-              <span span className="s">
-                Party Name:
-              </span>{" "}
-              Indian National Congress(INC)
+            Dean Kuriakose is the 12th Lok Sabha MP representing Idukki Constituency of Kerala state at the PARLIAMENT OF INDIA, Member of Standing Committee on Labour, Member of Consultative Committee at Ministry of Rural Development and Ministry of Panchayati Raj, State President of Indian Youth Congress, Kerala State. 
             </p>
           </div>
         </Col>
