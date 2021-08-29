@@ -5,6 +5,7 @@
     text-align: center;
     margin: 0.5em auto;
     text-transform: uppercase;
+    padding: 50px 10px;
   }
 }
 
@@ -39,6 +40,7 @@
   padding: 5px !important;
 }
 ul.timeline-controls {
+  display: none;
   position: fixed !important;
   bottom: 0 !important;
   left: 50vw !important;

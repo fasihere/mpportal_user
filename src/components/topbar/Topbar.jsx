@@ -17,6 +17,9 @@ export default function Topbar() {
 
   useEffect(() => {
     window.addEventListener("resize", () => setWidth(window.innerWidth));
+    return () => {
+      window.removeEventListener("resize", () => setWidth(window.innerWidth));
+    };
   });
 
   useEffect(() => {

@@ -1,7 +1,6 @@
 import "./timeline.scss";
 import React, { useEffect, useState } from "react";
 import { Chrono } from "react-chrono";
-import { SettingsRemoteRounded } from "@material-ui/icons";
 
 export default function Timeline() {
   const items = [
