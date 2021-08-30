@@ -125,7 +125,7 @@ export default function Topbar() {
 
         {isSignedIn ? (
           <ul className="list loggedIn">
-            <div className="iconContainer item">
+            <div className="iconContainer">
               <Link className="link" to="/user/">
                 <i class="fas fa-user"></i>
               </Link>
