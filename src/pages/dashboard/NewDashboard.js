@@ -11,7 +11,7 @@ import { useAuth } from '../../context/AuthContext';
 import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
 import Appbar from '../../components/topbar/Appbar';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -69,12 +69,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard() {
-  const { user, auth, selected } = useAuth()
+  const { user, auth, selected, isRegister } = useAuth()
   const history = useHistory()
   const classes = useStyles();
   
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  if(!isRegister){
+    <Redirect to="/register" />
+  }
   return (
     <div className={classes.root}>
       <Appbar />
@@ -100,7 +103,7 @@ export default function Dashboard() {
             <Grid item xs={12} lg={9}>
               <Paper className={classes.paper}>
                 <Typography  color="inherit" variant="body2" component="body2" className={classes.title}>
-                  Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem 
+                {isRegister && "Welcome Registered Person" } Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem 
                 </Typography>
               </Paper>
             </Grid>

@@ -33,9 +33,8 @@ export default function NewLogin() {
                   }
                   return false;
                 },
-              },
-            signInSuccessUrl: "/dashboard"
-        };
+              }
+       };
         var ui = new firebaseui.auth.AuthUI(auth)
         ui.start('#firebaseui-auth-container', uiConfig)
         ui.disableAutoSignIn();

@@ -67,17 +67,19 @@ export default function NewRegister() {
             var body = {
                 name,
                 mobileNo: user.phoneNumber.slice(3,13),
-                email,
                 address,
-                loksabha
+                loksabha,
+                pincode
+            }
+            if(email){
+              body = {...body, email}
             }
             if(loksabha == 'Idukki')
             body = {
               ...body,
               assembly: selectedLa,
               panchayat: selectedPanchayat,
-              ward: selectedWard,
-              pincode 
+              ward: selectedWard, 
             }
             const config = {
                 headers: {
@@ -92,7 +94,8 @@ export default function NewRegister() {
                 console.log("User has been registered")
               }).catch((error) => {
                 console.log(error)
-              });  
+              });
+            res && console.log("Registered Successfully")  
             res && setIsRegister(true)
             res && window.location.replace("/dashboard")
         }
@@ -128,6 +131,7 @@ export default function NewRegister() {
         }
     }
   if(isRegister){
+    console.log("Already Registered?")
     return <Redirect to="/dashboard" />
   }
   return (
@@ -260,7 +264,7 @@ export default function NewRegister() {
         </Grid> 
         <div className={classes.button}>
             <Button 
-            onClick={handleSubmit} 
+            onClick={(e) => handleSubmit(e)} 
             className={classes.button} 
             variant="contained"
             color="primary"
