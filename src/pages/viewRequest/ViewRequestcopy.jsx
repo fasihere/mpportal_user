@@ -28,6 +28,7 @@ export default function ViewRequestcopy() {
                 const res = await axios.get(baseUrl+path, config);
                 res && setReq(res.data)
                 var storageRef = storage.ref(`mpportal/user/${user.phoneNumber.slice(3,13)}/${path}`);
+                res && console.log(res.data.documents)
                 res.data.documents.map((fileName) => {
                     storageRef.child(`/${fileName}`).getDownloadURL()
                     .then((url) => {

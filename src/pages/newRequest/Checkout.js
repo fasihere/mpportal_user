@@ -186,9 +186,16 @@ export default function Checkout() {
     setLoading(true)
     var body = {
         ...values,
-        loksabha:"Idukki",
         status: "DRAFT",
         statusUser: "DRAFT"
+    }
+    if(state.loksabha == 'Other'){
+      delete body['assembly']
+      delete body['panchayat']
+      delete body['ward']
+    }
+    if(!state.email){
+      delete body['email']
     }
     const config = {
         headers: {
@@ -240,6 +247,48 @@ export default function Checkout() {
   const handleNext = () => {
 
     var go = true
+    if(activeStep == 0){
+      if(!state.name){
+        setError('Please fill your name')
+        go = false
+      }
+      else if(!state.mobileNo){
+        setError('Please fill your Mobile No')
+        go = false
+      }
+      else if(!state.address){
+        setError('Please fill your Address')
+        go = false
+      }
+      else if(!state.pincode){
+        setError('Please fill your Pincode')
+        go = false
+      }
+      else if(!state.loksabha){
+        setError('Please fill your Loksabha details')
+        go = false
+      }
+      else if(state.loksabha == 'Idukki'){
+        if(!state.assembly){
+          setError('Please fill your Loksabha Assembly')
+          go = false
+        }
+        else if(!state.panchayat){
+          setError('Please fill your Panchayat')
+          go = false
+        }
+        else if(!state.ward){
+          setError('Please fill your Ward')
+          go = false
+        }
+        else{
+          setError()
+        }
+      }
+      else{
+        setError()
+      }
+    }
     if(activeStep === steps.length - 3 && !rid){
       if(!state.requestBody || !state.requestSubject){
         setError('Please fill request subject and content');
@@ -278,7 +327,10 @@ export default function Checkout() {
             </div>
         )
         }
-        return <PersonalForm values={values} handleChange={handleChange}/>;
+        return <><PersonalForm values={values} handleChange={handleChange}/>{error && 
+          <Typography variant="subtitle1" color="error" align="center">
+            {error}
+          </Typography>}</>;
       case 1:
         return <><RequestForm values={values} handleChange={handleChange}/>{error && 
           <Typography variant="subtitle1" color="error" align="center">
