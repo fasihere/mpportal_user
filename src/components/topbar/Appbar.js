@@ -103,7 +103,7 @@ export default function Appbar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+          <Typography  variant="h6" color="inherit" noWrap className={classes.title}>
             Dashboard
           </Typography>
           <Tooltip title="Home">

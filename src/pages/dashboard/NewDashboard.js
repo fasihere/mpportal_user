@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import CreateIcon from '@material-ui/icons/Create';
-import RequestTable from '../../components/requestTable/requestNewTable/RequestTable'
+import RequestTable from '../../components/requestTable/requestNewTable/requestTable.jsx'
 import { useAuth } from '../../context/AuthContext';
 import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';

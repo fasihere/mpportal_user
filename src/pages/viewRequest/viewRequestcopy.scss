@@ -45,6 +45,9 @@
             font-weight: 500;
             font-style:  italic;
         }
+        li{
+            list-style: none;
+        }
     }
     .mt4 { 
         background-color: white;
@@ -182,6 +185,70 @@
         }
     }
 }
+
+@media only screen and(max-width:1050px) {
+.viewRequest{
+    .btn{
+        position: absolute;
+        text-align: center;
+        left: 20px;
+        width: 23vw;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 2px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    .download{
+        top: 110px;
+        background-color: teal;
+        &:hover{
+            background-color: rgb(0, 91, 91);
+        }
+    }
+    .back{
+        background-color: rgb(34, 128, 228);
+        top: 70px;
+        &:hover{
+            background-color: rgb(18, 91, 169);
+        }
+    }
+    .attachedDocs{
+        position: absolute;
+        top:70px;
+        left: 35vw;
+        width: 60vw;
+        border: 1px solid black;
+        min-height: 80px;
+        a{
+            text-decoration: none;
+            font-weight: 500;
+            font-style:  italic;
+        }
+    }
+    .mt4 {
+        position: relative;
+        left: auto;
+        width: 100vw;
+        min-width: 320px;
+        margin-top: 150px;
+        margin-left: 0;
+        min-height: 130vh;
+        padding-bottom: 200px;
+        .date{
+            margin-right: 20px;
+        }
+        .requestContent{
+            margin-bottom: 20px;
+        }
+    }
+    
+}
+}
+
 #divToSave{
     position: absolute;
     .title{
@@ -256,65 +323,3 @@
     }
 }
 
-@media only screen and(max-width:1050px) {
-.viewRequest{
-    .btn{
-        position: absolute;
-        text-align: center;
-        left: 20px;
-        width: 23vw;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 2px;
-        font-family: 'Roboto', sans-serif;
-        font-size: 15px;
-        cursor: pointer;
-    }
-
-    .download{
-        top: 110px;
-        background-color: teal;
-        &:hover{
-            background-color: rgb(0, 91, 91);
-        }
-    }
-    .back{
-        background-color: rgb(34, 128, 228);
-        top: 70px;
-        &:hover{
-            background-color: rgb(18, 91, 169);
-        }
-    }
-    .attachedDocs{
-        position: absolute;
-        top:70px;
-        left: 35vw;
-        width: 60vw;
-        border: 1px solid black;
-        min-height: 80px;
-        a{
-            text-decoration: none;
-            font-weight: 500;
-            font-style:  italic;
-        }
-    }
-    .mt4 {
-        position: relative;
-        left: auto;
-        width: 100vw;
-        min-width: 320px;
-        margin-top: 150px;
-        margin-left: 0;
-        min-height: 130vh;
-        padding-bottom: 200px;
-        .date{
-            margin-right: 20px;
-        }
-        .requestContent{
-            margin-bottom: 20px;
-        }
-    }
-    
-}
-}

@@ -135,6 +135,16 @@ export default function Checkout() {
   const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/'
   const location = useLocation()
   const path = location.pathname.split("/")[2];
+  const [orientation, setOrientation] = useState("horizontal")
+
+  useEffect(() => {
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      setOrientation("vertical")
+    }
+    else {
+      setOrientation("horizontal");
+    }
+  });
 
   useEffect(() => {
     const getReq = async() => {
@@ -369,7 +379,7 @@ export default function Checkout() {
           <Typography component="h1" variant="h4" align="center">
             New Request {rid}
           </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
+          <Stepper activeStep={activeStep} className={classes.stepper} orientation={orientation}>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>

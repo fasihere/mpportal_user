@@ -9,7 +9,7 @@ import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import NewLogin from "./pages/login/NewLogin";
 import ViewRequestcopy from "./pages/viewRequest/ViewRequestcopy";
-import RequestTable from "./components/requestTable/requestNewTable/RequestTable";
+import RequestTable from "./components/requestTable/requestNewTable/requestTable.jsx";
 import NewDashboard from "./pages/dashboard/NewDashboard";
 import Checkout from "./pages/newRequest/Checkout";
 import Grid from "@material-ui/core/Grid";
@@ -83,7 +83,7 @@ function App() {
               <ErrorPage />
             </Route>
           </Switch>
-          <Box my={1} bgcolor="grey.500" color="white" >
+          <Box my={1} bgcolor="grey.500" color="white">
             <Copyright />
           </Box>
         </AuthProvider>
