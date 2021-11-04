@@ -12,7 +12,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 
 export const mainListItems = (setSelected, setOpen) => (
   <div>
-    <ListSubheader inset>Requests</ListSubheader>
+    <ListSubheader inset>Request Status</ListSubheader>
     <Tooltip title="Pending Requests">
       <ListItem button onClick={() => {
         setSelected('Pending');
