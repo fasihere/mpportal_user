@@ -18,13 +18,14 @@
     }
 
     .wrapper{
-        width: 40%;
+        width: 600px;
         padding: 10px;
         padding-bottom: 60px;
         margin: 20px;
         position: relative;
         display: flex;
         justify-content: center;
+
         .left{
             flex:1;
             border-radius: 7px;
@@ -123,6 +124,14 @@
         .save{
             right: 100px;
             background-color: teal;
+        }
+    }
+}
+
+@media only screen and(max-width:583px) {
+    .profile{
+        .wrapper{
+            width: 98%;
         }
     }
 }

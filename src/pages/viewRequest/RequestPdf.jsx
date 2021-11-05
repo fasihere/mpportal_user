@@ -20,7 +20,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   title: {
-    fontWeight: 800
+    fontWeight: 800,
+    fontSize: "25px",
+    paddingTop: "10px",
   },
   mpImage: { height: "50px", width: "50px" },
   mainContainer: {
@@ -38,11 +40,7 @@ const styles = StyleSheet.create({
     borderColor: "grey",
     borderWidth: "1px",
     textAlign: "center",
-  },
-  requestDescription: {
-    color: "black",
-    textAlign: "left",
-    margin: 30,
+    fontSize: "15px",
   },
   flexTitleContainer: {
     display: "table",
@@ -52,28 +50,46 @@ const styles = StyleSheet.create({
     display: "table",
     flexDirection: "row",
   },
+  flexHeader: {
+    backgroundColor: "#b4e3ff",
+    borderWidth: "1px",
+    width: "25%",
+    padding: "5px",
+    textAlign: "center",
+    fontSize: "13px",
+  },
   flexItem: {
     borderColor: "grey",
     borderWidth: "1px",
     width: "25%",
     padding: "5px",
     textAlign: "center",
+    fontSize: "13px",
   },
   addressContainer: {
     width: "100%",
   },
   addressTitle: {
+    backgroundColor: "#b4e3ff",
     borderColor: "grey",
     borderWidth: "1px",
     width: "100%",
     alignItems: "center",
     padding: "5px",
+    fontSize: "13px",
   },
   addressContent: {
     borderColor: "grey",
     borderWidth: "1px",
     width: "100%",
-    padding: "10px",
+    padding: "10px 40px 10px 40px",
+    fontSize: "13px",
+    paddingRight: "50%",
+  },
+  requestDescription: {
+    fontSize: "13px",
+    width: "100%",
+    padding: "40px",
   },
 });
 
@@ -91,16 +107,16 @@ const RequestPdf = ({path, req}) => {
           </View>
           <View>
             <div style={styles.flexTitleContainer}>
-              <div style={styles.flexItem}>
+              <div style={styles.flexHeader}>
                 <Text>Request No</Text>
               </div>
-              <div style={styles.flexItem}>
+              <div style={styles.flexHeader}>
                 <Text>Subject</Text>
               </div>
-              <div style={styles.flexItem}>
+              <div style={styles.flexHeader}>
                 <Text>Date</Text>
               </div>
-              <div style={styles.flexItem}>
+              <div style={styles.flexHeader}>
                 <Text>Requested By</Text>
               </div>
             </div>
@@ -126,16 +142,16 @@ const RequestPdf = ({path, req}) => {
             <Text>APPLICANT DETAILS</Text>
           </View>
           <div style={styles.flexTitleContainer}>
-            <div style={styles.flexItem}>
+            <div style={styles.flexHeader}>
               <Text>L A Constituency</Text>
             </div>
-            <div style={styles.flexItem}>
+            <div style={styles.flexHeader}>
               <Text>L S Constituency</Text>
             </div>
-            <div style={styles.flexItem}>
+            <div style={styles.flexHeader}>
               <Text>Panchayat</Text>
             </div>
-            <div style={styles.flexItem}>
+            <div style={styles.flexHeader}>
               <Text>Ward</Text>
             </div>
           </div>
