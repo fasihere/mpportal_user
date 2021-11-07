@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { useLocation } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -66,11 +67,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Appbar(props) {
-  const { window } = props;
+  const { window, appBarTitle } = props;
   const { auth, setSelected } = useAuth();
   const classes = useStyles();
 
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+  const path = location.pathname.split("/")[1];
+
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -102,14 +107,16 @@ export default function Appbar(props) {
             noWrap
             className={classes.title}
           >
-            Requests
+            {appBarTitle}
           </Typography>
           <Tooltip title="Home">
             <IconButton
               edge="start"
               color="inherit"
               aria-label="open drawer"
-              onClick={(e) => window.location.replace("/")}
+              onClick={(e) => {
+                location.push("/dasboard");
+              }}
             >
               <HomeIcon />
             </IconButton>
@@ -136,13 +143,15 @@ export default function Appbar(props) {
         <Divider />
         <List>{secondaryListItems(auth, setMobileOpen)}</List>{" "}
       </Drawer>
-      <Drawer variant="permanent" className={classes.webDrawer} open={true}>
-        <div className={classes.toolbarIcon}></div>
-        <Divider />
-        <List>{mainListItems(setSelected, setMobileOpen)}</List>
-        <Divider />
-        <List>{secondaryListItems(auth, setMobileOpen)}</List>
-      </Drawer>
+      {path == "dashboard" && (
+        <Drawer variant="permanent" className={classes.webDrawer} open={true}>
+          <div className={classes.toolbarIcon}></div>
+          <Divider />
+          <List>{mainListItems(setSelected, setMobileOpen)}</List>
+          <Divider />
+          <List>{secondaryListItems(auth, setMobileOpen)}</List>
+        </Drawer>
+      )}
     </div>
   );
 }

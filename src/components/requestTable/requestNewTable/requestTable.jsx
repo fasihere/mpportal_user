@@ -6,8 +6,14 @@ import MOCK_DATA from "../../../MOCK_DATA.json";
 import { useAuth } from "../../../context/AuthContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import HourglassFullIcon from "@material-ui/icons/HourglassFull";
+import DoneIcon from "@material-ui/icons/Done";
+import DraftsIcon from "@material-ui/icons/Drafts";
 
-export default function RequestTable({ selected, date }) {
+export default function RequestTable({ selected, setSelected, date }) {
+  console.log("selected",selected);
   const { user } = useAuth();
   const columns = [
     { key: "1", title: "Request ID", dataIndex: "rid" },
@@ -113,9 +119,38 @@ export default function RequestTable({ selected, date }) {
     fetchData();
   }, [selected, date]);
 
+    const [value, setValue] = useState(0);
+
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+
   return (
     <div className="requestTable">
       <h1 style={{ align: "center" }}>{selected}</h1>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        aria-label="icon label tabs example"
+        variant="fullWidth"
+        className="tabsForMob"
+      >
+        <Tab
+          icon={<HourglassFullIcon />}
+          label="PENDING"
+          onClick={() => setSelected("PENDING")}
+        />
+        <Tab
+          icon={<DoneIcon />}
+          label="COMPLETED"
+          onClick={() => setSelected("COMPLETED")}
+        />
+        <Tab
+          icon={<DraftsIcon />}
+          label="DRAFTS"
+          onClick={() => setSelected("DRAFT")}
+        />
+      </Tabs>
       <Table columns={columns} dataSource={data} pagination={true} />
     </div>
   );

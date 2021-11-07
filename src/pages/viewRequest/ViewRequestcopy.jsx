@@ -6,17 +6,31 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import { storage } from "../../context/Firebase";
-import { Box } from "@material-ui/core";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import RequestPdf from "./RequestPdf";
+import Action from "./Action"
+import dk from "../../assets/images/dp.png";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import Appbar from "../../components/topbar/Appbar";
+
+
 
 export default function ViewRequestcopy() {
   const { user } = useAuth();
   const [req, setReq] = useState();
   const location = useLocation();
+      const [actions, setActions] = useState([]);
   const path = location.pathname.split("/")[2];
-  const baseUrl =
+  const baseRequestUrl =
     "https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests/";
+      const baseActionUrl =
+        "https://asia-south1-mpportal-e9873.cloudfunctions.net/app/";
+
   const tempDocArray = useRef();
 
   useEffect(() => {
@@ -27,7 +41,7 @@ export default function ViewRequestcopy() {
             Authorization: "Bearer " + (await user.getIdToken()),
           },
         };
-        const res = await axios.get(baseUrl + path, config);
+        const res = await axios.get(baseRequestUrl + path, config);
         res && setReq(res.data);
         var storageRef = storage.ref(
           `mpportal/user/${user.phoneNumber.slice(3, 13)}/${path}`
@@ -57,23 +71,27 @@ export default function ViewRequestcopy() {
       }
     };
     getReq();
+
+    const fetchActions = async () => {
+      try {
+        const config = {
+          headers: {
+            Authorization: "Bearer " + (await user.getIdToken()),
+          },
+        };
+        const res = await axios.get(
+          baseActionUrl + "requests/actions/" + path,
+          config
+        );
+        console.log("res", res)
+        setActions(res.data.details);
+      } catch (err) {
+        console.log(err.response);
+      }
+    };
+    fetchActions();
   }, []);
 
-  const printDocument = () => {
-    const input = document.getElementById("divToSave");
-    input.style.display = "block";
-    html2canvas(input)
-      .then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jsPDF();
-        pdf.addImage(imgData, "JPEG", 0, 0);
-        //window.open(pdf.output('bloburl','_blank'))
-        pdf.save(`request-${path}.pdf`);
-      })
-      .then(() => {
-        input.style.display = "none";
-      });
-  };
   if (!req) {
     return (
       <div className="loadingContainer">
@@ -83,123 +101,123 @@ export default function ViewRequestcopy() {
     );
   }
   return (
-    <div className="viewRequest" style={{ backgroundColor: "#dad0d0" }}>
-      <Link to="/dashboard" className="btn back">
-        <i className="fas fa-arrow-left"></i> Return
-      </Link>
-      <PDFDownloadLink
-        className="btn download"
-        document={<RequestPdf path={path} req={req} />}
-        fileName={`request-${path}.pdf`}
-        aria-label="Save PDF"
-      >
-        Save <i className="fas fa-file-download"></i>
-      </PDFDownloadLink>
-      <div id="divToDisplay" className="mt4">
-        <h2 className="title">#{path}</h2>
-        <div className="wrapper">
-          <span className="date">
-            {req && req.postedTime.slice(0, 10).split("-").reverse().join("-")}
-          </span>
-          <div className="subjectContainer">
-            <span>Subject: </span>
-            <p className="requestSubject">{req && req.requestSubject}</p>
-          </div>
-          <div className="sep"></div>
-          <div className="personalDetails">
-            <div className="inputContainer1">
-              <span>Requested by,</span>
-              <div className="inputItem">
-                <span className="name">{req && req.name}</span>
+    <div className="viewRequest" style={{ backgroundColor: "#e9ecef" }}>
+      <Appbar appBarTitle="View Request" />
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          <Grid item xs={4} sm={8} md={2}>
+            <Paper className="buttonsPaper">
+              <Stack direction="column" spacing={4} className="leftColumn">
+                <Button variant="contained" color="primary">
+                  <Link to="/dashboard">
+                    <i className="fas fa-arrow-left"></i> Return
+                  </Link>
+                </Button>
+                <Button variant="contained" color="success">
+                  <PDFDownloadLink
+                    document={<RequestPdf path={path} req={req} />}
+                    fileName={`request-${path}.pdf`}
+                    aria-label="Save PDF"
+                  >
+                    Save <i className="fas fa-file-download"></i>
+                  </PDFDownloadLink>{" "}
+                </Button>
+                <Divider variant="middle" />
+                <div className="attachedDocs">
+                  <h3>Documents Attached</h3>
+                  <ul ref={tempDocArray}></ul>
+                </div>
+              </Stack>
+            </Paper>
+          </Grid>
+          <Grid item xs={4} sm={8} md={6}>
+            <Paper className="pdfPaper">
+              <div className="mt4">
+                <div className="pdfTitle">
+                  <img src={dk} className="mpImage" />
+                  <div className="title">Request to Dean Kuriakose M P</div>
+                </div>
+                <div className="mainContainer">
+                  <div className="sectionTitle">REQUEST DETAILS</div>
+                  <div>
+                    <div className="flexTitleContainer">
+                      <div className="flexHeader">Request No</div>
+                      <div className="flexHeader">Subject</div>
+                      <div className="flexHeader">Date</div>
+                      <div className="flexHeader">Requested By</div>
+                    </div>
+                    <div className="flexContentContainer">
+                      <div className="flexItem">{path}</div>
+                      <div className="flexItem">
+                        {req && req.requestSubject}
+                      </div>
+                      <div className="flexItem">
+                        {req &&
+                          req.postedTime
+                            .slice(0, 10)
+                            .split("-")
+                            .reverse()
+                            .join("-")}
+                      </div>
+                      <div className="flexItem">{req && req.name}</div>
+                    </div>
+                  </div>
+                  <div className="sectionTitle">APPLICANT DETAILS</div>
+                  <div className="flexTitleContainer">
+                    <div className="flexHeader">L A Constituency</div>
+                    <div className="flexHeader">L S Constituency</div>
+                    <div className="flexHeader">Panchayat</div>
+                    <div className="flexHeader">Ward</div>
+                  </div>
+                  <div className="flexContentContainer">
+                    <div className="flexItem">{req && req.loksabha}</div>
+                    <div className="flexItem">{req && req.assembly}</div>
+                    <div className="flexItem">{req && req.panchayat}</div>
+                    <div className="flexItem">{req && req.ward}</div>
+                  </div>
+                  <div className="addressContainer">
+                    <div className="addressTitle">Address</div>
+                    <div className="addressContent">
+                      {req && req.address}
+                      {req && req.pincode}
+                    </div>
+                  </div>
+
+                  <div className="sectionTitle">REQUEST DESCRIPTION</div>
+                  <div className="requestDescription">
+                    {req && req.requestBody}
+                  </div>
+                </div>
               </div>
-              <div className="inputItem">
-                <span>LS Constituency :</span>
-                <span className="value">{req && req.loksabha}</span>
-              </div>
-              <div className="inputItem">
-                <span>LA Constituency :</span>
-                <span className="value">{req && req.assembly}</span>
-              </div>
-              <div className="inputItem">
-                <span>Panchayat :</span>
-                <span className="value">{req && req.panchayat}</span>
-              </div>
-              <div className="inputItem">
-                <span>Ward :</span>
-                <span className="value">{req && req.ward}</span>
-              </div>
-            </div>
-            <div className="inputContainer2">
-              <div className="inputItem">
-                <h5>Address :</h5>
-                <p>{req && req.address}</p>
-                <span>{req && req.pincode}</span>
-              </div>
-            </div>
-          </div>
-          <div className="sep"></div>
-          <p className="requestContent">{req && req.requestBody}</p>
-        </div>
-      </div>
-      <div
-        id="divToSave"
-        style={{
-          backgroundColor: "white",
-          width: "170mm",
-          maxHeight: "297mm",
-          fontSize: "15px",
-          display: "none",
-        }}
-      >
-        <h2 className="title">#{path}</h2>
-        <div className="wrapper">
-          <span className="date">
-            {req && req.postedTime.slice(0, 10).split("-").reverse().join("-")}
-          </span>
-          <div className="subjectContainer">
-            <span>Subject: </span>
-            <p className="requestSubject">{req && req.requestSubject}</p>
-          </div>
-          <div className="sep"></div>
-          <div className="personalDetails">
-            <div className="inputContainer1">
-              <span>Requested by,</span>
-              <div className="inputItem">
-                <span className="name">{req && req.name}</span>
-              </div>
-              <div className="inputItem">
-                <span>LS Constituency :</span>
-                <span className="value">{req && req.loksabha}</span>
-              </div>
-              <div className="inputItem">
-                <span>LA Constituency :</span>
-                <span className="value">{req && req.assembly}</span>
-              </div>
-              <div className="inputItem">
-                <span>Panchayat :</span>
-                <span className="value">{req && req.panchayat}</span>
-              </div>
-              <div className="inputItem">
-                <span>Ward :</span>
-                <span className="value">{req && req.ward}</span>
-              </div>
-            </div>
-            <div className="inputContainer2">
-              <div className="inputItem">
-                <h5>Address :</h5>
-                <p>{req && req.address}</p>
-                <span>{req && req.pincode}</span>
-              </div>
-            </div>
-          </div>
-          <div className="sep"></div>
-          <p className="requestContent">{req && req.requestBody}</p>
-        </div>
-      </div>
-      <div className="attachedDocs">
-        <h3>Documents Attached</h3>
-        <ul ref={tempDocArray}></ul>
-      </div>
+            </Paper>
+          </Grid>
+          <Grid item xs={4} sm={8} md={4}>
+            <Paper className="actionPaper">
+              <h3 className="actionTitle"> Actions </h3>
+              <Divider variant="middle" />
+              {actions.length > 0 ? (
+                actions.map((val, key) => {
+                  return (
+                    <Action
+                      aid={val.aid}
+                      actionSubject={val.actionSubject}
+                      actionBody={val.actionBody}
+                      actionNo={val.actionNo}
+                      actionReply={val.actionReply}
+                    />
+                  );
+                })
+              ) : (
+                <h4 className="noActions">- No actions taken -</h4>
+              )}{" "}
+            </Paper>
+          </Grid>
+        </Grid>
+      </Box>
     </div>
   );
 }

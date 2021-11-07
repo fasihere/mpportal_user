@@ -38,7 +38,7 @@ export default function Topbar() {
     }
   };
 
-  if (window.location.pathname == "/dashboard") {
+  if (window.location.pathname.split("/")[1] == "dashboard" || window.location.pathname.split("/")[1] == "request") {
     return <></>;
   }
   return (

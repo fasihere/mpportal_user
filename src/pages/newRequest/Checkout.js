@@ -20,6 +20,7 @@ import DocumentUpload from './DocumentUpload';
 import axios from 'axios'
 import { useAuth } from '../../context/AuthContext';
 import '../../components/loading.scss'
+import Appbar from '../../components/topbar/Appbar';
 
 function Copyright() {
   return (
@@ -84,41 +85,43 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const reducer = (state, action) => {
-  switch(action.type){
+  switch (action.type) {
     case "NAME":
-      return { ...state, name: action.payload }
+      return { ...state, name: action.payload };
     case "PHONE":
-      return { ...state, mobileNo: action.payload }
+      return { ...state, mobileNo: action.payload };
     case "EMAIL":
-      return { ...state, email: action.payload }
+      return { ...state, email: action.payload };
     case "ADDRESS":
-      return { ...state, address: action.payload }
+      return { ...state, address: action.payload };
     case "PINCODE":
-      return { ...state, pincode: action.payload }
+      return { ...state, pincode: action.payload };
     case "LOKSABHA":
-      return { ...state, loksabha: action.payload}
+      return { ...state, loksabha: action.payload };
     case "ASSEMBLY":
-      return { ...state, assembly: action.payload }
+      return { ...state, assembly: action.payload };
     case "PANCHAYAT":
-      return { ...state, panchayat: action.payload }
+      return { ...state, panchayat: action.payload };
     case "WARD":
-      return { ...state, ward: action.payload }
+      return { ...state, ward: action.payload };
     case "SUBJECT":
-      return { ...state, requestSubject: action.payload}
+      return { ...state, requestSubject: action.payload };
+    case "CATEGORY":
+      return { ...state, requestCategory: action.payload };
     case "BODY":
-      return { ...state, requestBody: action.payload}
+      return { ...state, requestBody: action.payload };
     case "FILES":
-      return {...state, requestFiles: action.payload}
+      return { ...state, requestFiles: action.payload };
     case "ALL":
-      return {}
-    default: 
-      return state
+      return {};
+    default:
+      return state;
   }
 }
 const initiailValues = {
    name: "", email: "", mobileNo: "", address: "", 
    pincode: 0, loksabha: "Idukki", assembly: "", panchayat: "", 
-   ward: "1", requestSubject: null, requestBody: null,
+  ward: "1", requestSubject: null, requestCategory: null, requestBody: null,
    requestFiles: []
   }
 
@@ -171,7 +174,7 @@ export default function Checkout() {
     }
      getReq()
 },[])
-  const values =  {
+  const values = {
     name: state.name,
     mobileNo: state.mobileNo,
     email: state.email,
@@ -182,8 +185,9 @@ export default function Checkout() {
     panchayat: state.panchayat,
     ward: state.ward,
     requestSubject: state.requestSubject,
+    requestCategory: state.requestCategory,
     requestBody: state.requestBody,
-  }
+  };
   const handleChange = selected => e => {
     dispatch({type: selected, payload: e.target.value})
   }
@@ -304,6 +308,10 @@ export default function Checkout() {
         setError('Please fill request subject and content');
         go = false;
       }
+      else if (!state.requestCategory) {
+        setError('Please select a request category');
+        go = false;
+      }
       else{
         setError()
       }
@@ -367,6 +375,7 @@ export default function Checkout() {
   return (
     <React.Fragment>
       <CssBaseline />
+      <Appbar appBarTitle="New Request" />
       {/* <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
@@ -379,7 +388,11 @@ export default function Checkout() {
           <Typography component="h1" variant="h4" align="center">
             New Request {rid}
           </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper} orientation={orientation}>
+          <Stepper
+            activeStep={activeStep}
+            className={classes.stepper}
+            orientation={orientation}
+          >
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
@@ -387,57 +400,72 @@ export default function Checkout() {
             ))}
           </Stepper>
           <React.Fragment>
-            {activeStep === steps.length ? ( !error ? (
-              <React.Fragment>
-                <Typography variant="h6" gutterBottom>
-                  {draft ? "Your request has been saved as draft.":"Thank you for your submission."}
-                </Typography>
-                { !draft && 
-                <Typography variant="subtitle1">
-                  Your Request Id is <strong>#{rid}</strong>. You will be sent an sms to the provided phone number as confirmation.
-                </Typography>
-                }
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => history.push('/dashboard')}
-                    className={classes.button}
-                  >
-                      RETURN TO DASHBOARD
-                  </Button>
-              </React.Fragment> ) : (
+            {activeStep === steps.length ? (
+              !error ? (
                 <React.Fragment>
                   <Typography variant="h6" gutterBottom>
-                  Sorry, your request failed.
+                    {draft
+                      ? "Your request has been saved as draft."
+                      : "Thank you for your submission."}
                   </Typography>
-                  {error && <Typography variant="subtitle1">Please fill Request subject and content</Typography>}
-                  <div className={classes.button}>
-                    <Button 
-                    onClick={handleBack} 
-                    className={classes.button} 
+                  {!draft && (
+                    <Typography variant="subtitle1">
+                      Your Request Id is <strong>#{rid}</strong>. You will be
+                      sent an sms to the provided phone number as confirmation.
+                    </Typography>
+                  )}
+                  <Button
                     variant="contained"
-                    color="primary">
-                        Back
+                    color="primary"
+                    onClick={() => history.push("/dashboard")}
+                    className={classes.button}
+                  >
+                    RETURN TO DASHBOARD
+                  </Button>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <Typography variant="h6" gutterBottom>
+                    Sorry, your request failed.
+                  </Typography>
+                  {error && (
+                    <Typography variant="subtitle1">
+                      Please fill Request subject and content
+                    </Typography>
+                  )}
+                  <div className={classes.button}>
+                    <Button
+                      onClick={handleBack}
+                      className={classes.button}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Back
                     </Button>
                   </div>
-                </React.Fragment>)
+                </React.Fragment>
+              )
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
-                    <Button onClick={handleBack} 
-                    className={classes.button}
-                    variant="contained"
-                    color="primary">
+                    <Button
+                      onClick={handleBack}
+                      className={classes.button}
+                      variant="contained"
+                      color="primary"
+                    >
                       Back
                     </Button>
                   )}
-                  {activeStep === (steps.length - 1) && (
-                    <Button onClick={() => setActiveStep(activeStep + 1)} 
+                  {activeStep === steps.length - 1 && (
+                    <Button
+                      onClick={() => setActiveStep(activeStep + 1)}
                       color="primary"
                       variant="contained"
-                      className={classes.button}>
+                      className={classes.button}
+                    >
                       Submit Later
                     </Button>
                   )}
@@ -449,7 +477,9 @@ export default function Checkout() {
                     }}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Submit Request' : 'Next'}
+                    {activeStep === steps.length - 1
+                      ? "Submit Request"
+                      : "Next"}
                   </Button>
                 </div>
               </React.Fragment>

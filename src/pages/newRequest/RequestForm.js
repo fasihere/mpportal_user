@@ -5,7 +5,7 @@ import { Grid, Button, Typography, TextField,
   IconButton, Select, MenuItem, InputLabel} from "@material-ui/core";
 
 
-export default function RequestForm({values:{requestSubject, requestBody}, handleChange}) {
+export default function RequestForm({values:{requestSubject, requestCategory, requestBody}, handleChange}) {
     const { user } = useAuth()
 
   return (
@@ -22,8 +22,33 @@ export default function RequestForm({values:{requestSubject, requestBody}, handl
             label="Subject"
             fullWidth
             value={requestSubject}
-            onChange={handleChange('SUBJECT')}
+            onChange={handleChange("SUBJECT")}
           />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            select
+            id="category"
+            name="category"
+            label="Category"
+            fullWidth
+            value={requestCategory}
+            onChange={handleChange("CATEGORY")}
+          >
+            <MenuItem key="a" value="a">
+              a
+            </MenuItem>
+            <MenuItem key="b" value="b">
+              b
+            </MenuItem>
+            <MenuItem key="c" value="c">
+              c
+            </MenuItem>
+            <MenuItem key="d" value="d">
+              d
+            </MenuItem>
+          </TextField>
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -37,7 +62,7 @@ export default function RequestForm({values:{requestSubject, requestBody}, handl
             multiline
             rows={10}
             value={requestBody}
-            onChange={handleChange('BODY')}
+            onChange={handleChange("BODY")}
           />
         </Grid>
       </Grid>

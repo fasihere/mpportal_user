@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard() {
-  const { user, auth, selected, isRegister } = useAuth()
+  const { user, auth, selected, setSelected, isRegister } = useAuth();
   const history = useHistory()
   const classes = useStyles();
   
@@ -80,7 +80,7 @@ export default function Dashboard() {
   }
   return (
     <div className={classes.root}>
-      <Appbar />
+      <Appbar appBarTitle="My Requests"/>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
@@ -112,7 +112,7 @@ export default function Dashboard() {
             {/* Requests */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <RequestTable selected={selected.toUpperCase()}/>
+                <RequestTable selected={selected.toUpperCase()} setSelected={setSelected}/>
               </Paper>
             </Grid>
           </Grid>
