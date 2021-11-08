@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import { Grid, makeStyles, Button, Typography, TextField,
   IconButton, Select, MenuItem, InputLabel, Paper} from "@material-ui/core";
+import Appbar from '../../components/topbar/Appbar';
 
   const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -135,142 +136,138 @@ export default function NewRegister() {
     return <Redirect to="/dashboard" />
   }
   return (
-    <Grid container  className={classes.layout}>
-        <Paper className={classes.paper}>
+    <Grid container className={classes.layout}>
+      <Appbar appBarTitle="Sign Up" />
+      <Paper className={classes.paper}>
         <Typography variant="h6" gutterBottom>
-            Personal Details
+          Personal Details
         </Typography>
         <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6}>
             <TextField
-                required
-                id="fullName"
-                name="fullName"
-                label="Full name"
-                fullWidth
-                autoComplete="given-name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+              required
+              id="fullName"
+              name="fullName"
+              label="Full name"
+              fullWidth
+              autoComplete="given-name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+          </Grid>
+          <Grid item xs={12} sm={6}>
             <TextField
-                id="email"
-                name="email"
-                label="Email Id"
-                fullWidth
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+              id="email"
+              name="email"
+              label="Email Id"
+              fullWidth
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            </Grid>
-            <Grid item xs={12}>
+          </Grid>
+          <Grid item xs={12}>
             <TextField
-                required
-                id="address"
-                name="address"
-                label="Address"
-                fullWidth
-                autoComplete="shipping address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
+              required
+              id="address"
+              name="address"
+              label="Address"
+              fullWidth
+              autoComplete="shipping address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
             />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+          </Grid>
+          <Grid item xs={12} sm={6}>
             <TextField
-                required
-                id="pincode"
-                name="pincode"
-                label="Pincode"
-                fullWidth
-                autoComplete="shipping postal-code"
-                value={pincode}
-                onChange={(e) => setPincode(e.target.value)}
+              required
+              id="pincode"
+              name="pincode"
+              label="Pincode"
+              fullWidth
+              autoComplete="shipping postal-code"
+              value={pincode}
+              onChange={(e) => setPincode(e.target.value)}
             />
-            </Grid>
-            <Grid item xs={12} sm ={6}>
+          </Grid>
+          <Grid item xs={12} sm={6}>
             <TextField
-                id="loksabha"
-                name="loksabha"
-                label="Loksabha Constituency"
-                value={loksabha}
-                onChange={(e) => setLoksabha(e.target.value)}
-                select
-                fullWidth
+              id="loksabha"
+              name="loksabha"
+              label="Loksabha Constituency"
+              value={loksabha}
+              onChange={(e) => setLoksabha(e.target.value)}
+              select
+              fullWidth
             >
-               <MenuItem value="Idukki">Idukki</MenuItem>
-               <MenuItem value="Other">Other</MenuItem>
+              <MenuItem value="Idukki">Idukki</MenuItem>
+              <MenuItem value="Other">Other</MenuItem>
             </TextField>
-            </Grid>
-            {loksabha === "Idukki" && 
+          </Grid>
+          {loksabha === "Idukki" && (
             <>
-              <Grid
-              item
-              md={4}
-              xs={12}
-              >
-              <TextField
-              required
-              select
-              fullWidth
-              label="LA Constituency"
-              value={selectedLa}
-              onChange={changeLa}
-              inputProps={{ 'aria-label': 'Without label' }}
-              >
-                  {la.map(x => {
-                  return <MenuItem value={x.name}>{x.name}</MenuItem>
+              <Grid item md={4} xs={12}>
+                <TextField
+                  required
+                  select
+                  fullWidth
+                  label="LA Constituency"
+                  value={selectedLa}
+                  onChange={changeLa}
+                  inputProps={{ "aria-label": "Without label" }}
+                >
+                  {la.map((x) => {
+                    return <MenuItem value={x.name}>{x.name}</MenuItem>;
                   })}
-              </TextField>
+                </TextField>
               </Grid>
-              <Grid
-              item
-              md={4}
-              xs={12}
-              >
-              <TextField
-              required
-              select
-              fullWidth
-              label="Panchayat"
-              value={selectedPanchayat}
-              onChange={changePanchayat}
-              >
-              {panchayat.map(x => {
-                  return <MenuItem value={x.panchayat[0]}>{x.panchayat[0]}</MenuItem>
-              })}
-              </TextField>
-              </Grid>
-              <Grid
-              item
-              md={4}
-              xs={12}
-              >
-              <TextField
-              required
-              select
-              fullWidth
-              label="Ward"
-              value={selectedWard}
-              onChange={(e) => {
-                  setSelectedWard(e.target.value)
-              }}>
-                  {wards.map(x => {
-                      return <MenuItem value={x}>{x}</MenuItem>
+              <Grid item md={4} xs={12}>
+                <TextField
+                  required
+                  select
+                  fullWidth
+                  label="Panchayat"
+                  value={selectedPanchayat}
+                  onChange={changePanchayat}
+                >
+                  {panchayat.map((x) => {
+                    return (
+                      <MenuItem value={x.panchayat[0]}>
+                        {x.panchayat[0]}
+                      </MenuItem>
+                    );
                   })}
-              </TextField>
+                </TextField>
               </Grid>
-            </>}
-        </Grid> 
+              <Grid item md={4} xs={12}>
+                <TextField
+                  required
+                  select
+                  fullWidth
+                  label="Ward"
+                  value={selectedWard}
+                  onChange={(e) => {
+                    setSelectedWard(e.target.value);
+                  }}
+                >
+                  {wards.map((x) => {
+                    return <MenuItem value={x}>{x}</MenuItem>;
+                  })}
+                </TextField>
+              </Grid>
+            </>
+          )}
+        </Grid>
         <div className={classes.button}>
-            <Button 
-            onClick={(e) => handleSubmit(e)} 
-            className={classes.button} 
+          <Button
+            onClick={(e) => handleSubmit(e)}
+            className={classes.button}
             variant="contained"
             color="primary"
-            disabled={loading}>
-                Register
-            </Button>
+            disabled={loading}
+          >
+            Register
+          </Button>
         </div>
       </Paper>
     </Grid>

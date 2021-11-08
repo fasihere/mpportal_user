@@ -38,7 +38,9 @@ export default function Topbar() {
     }
   };
 
-  if (window.location.pathname.split("/")[1] == "dashboard" || window.location.pathname.split("/")[1] == "request") {
+  const page = window.location.pathname.split("/")[1]
+
+  if (page == "dashboard" || page == "request" || page == "user" || page == "draft" || page == "register") {
     return <></>;
   }
   return (
@@ -83,7 +85,7 @@ export default function Topbar() {
                 to="/dashboard"
                 onClick={() => setMenu("")}
               >
-                DASHBOARD
+                REQUESTS
               </Link>
             </li>
           ) : (

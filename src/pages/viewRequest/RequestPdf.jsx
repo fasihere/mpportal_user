@@ -111,6 +111,9 @@ const RequestPdf = ({path, req}) => {
                 <Text>Request No</Text>
               </div>
               <div style={styles.flexHeader}>
+                <Text>Category</Text>
+              </div>
+              <div style={styles.flexHeader}>
                 <Text>Subject</Text>
               </div>
               <div style={styles.flexHeader}>
@@ -123,6 +126,9 @@ const RequestPdf = ({path, req}) => {
             <div style={styles.flexContentContainer}>
               <div style={styles.flexItem}>
                 <Text>{path}</Text>
+              </div>
+              <div style={styles.flexItem}>
+                <Text>{req && req.requestCategory}</Text>
               </div>
               <div style={styles.flexItem}>
                 <Text>{req && req.requestSubject}</Text>

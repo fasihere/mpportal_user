@@ -36,7 +36,10 @@
           th:nth-child(1) { //to hide the request id column
             display: none;
           }
-          th:nth-child(4) { //to hide the status column
+          th:nth-child(2) { //to hide the request category column
+            display: none;
+          }
+          th:nth-child(5) { //to hide the status column
             display: none;
           }
         }
@@ -46,7 +49,10 @@
           td:nth-child(1) { //to hide rows under the request id column
             display: none;
           }
-          td:nth-child(4) { //to hide rows under the status column
+          td:nth-child(2) { //to hide rows under the request category column
+            display: none;
+          }
+          td:nth-child(5) { //to hide rows under the status column
             display: none;
           }
         }

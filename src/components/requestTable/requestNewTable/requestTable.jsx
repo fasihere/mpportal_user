@@ -13,12 +13,20 @@ import DoneIcon from "@material-ui/icons/Done";
 import DraftsIcon from "@material-ui/icons/Drafts";
 
 export default function RequestTable({ selected, setSelected, date }) {
-  console.log("selected",selected);
+  console.log("selected", selected);
   const { user } = useAuth();
   const columns = [
     { key: "1", title: "Request ID", dataIndex: "rid" },
     {
       key: "2",
+      title: "Category",
+      dataIndex: "requestCategory",
+      sorter: (record1, record2) => {
+        return record1.requestCategory > record2.requestCategory;
+      },
+    },
+    {
+      key: "3",
       title: "Subject",
       dataIndex: "requestSubject",
       sorter: (record1, record2) => {
@@ -26,7 +34,7 @@ export default function RequestTable({ selected, setSelected, date }) {
       },
     },
     {
-      key: "3",
+      key: "4",
       title: "Date",
       dataIndex: "postedTime",
       render: (date) => (
@@ -36,9 +44,9 @@ export default function RequestTable({ selected, setSelected, date }) {
         return record1.postedTime > record2.postedTime;
       },
     },
-    { key: "4", title: "Status", dataIndex: "statusUser" },
+    { key: "5", title: "Status", dataIndex: "statusUser" },
     {
-      key: "5",
+      key: "6",
       title: "Action",
       render: (rowData) => {
         if (selected === "DRAFT") {
@@ -103,10 +111,12 @@ export default function RequestTable({ selected, setSelected, date }) {
             },
           };
           const body = { statusUser: selected };
+          console.log("body :", body);
           const res = await axios.post(baseUrl, body, config);
           console.log(await user.getIdToken());
           setData(res.data.details);
           res && console.log("Fetched requests");
+          console.log("response", res);
         } catch (err) {
           console.log(await user.getIdToken());
           console.log(err.response);
@@ -119,11 +129,11 @@ export default function RequestTable({ selected, setSelected, date }) {
     fetchData();
   }, [selected, date]);
 
-    const [value, setValue] = useState(0);
+  const [value, setValue] = useState(0);
 
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-    };
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <div className="requestTable">

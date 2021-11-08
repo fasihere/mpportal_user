@@ -147,7 +147,11 @@ export default function Checkout() {
     else {
       setOrientation("horizontal");
     }
-  });
+  },[]);
+
+  useEffect(() => {
+    console.log("state", state)
+  }, [state])
 
   useEffect(() => {
     const getReq = async() => {
@@ -216,16 +220,18 @@ export default function Checkout() {
           'Authorization':'Bearer '+ await user.getIdToken()
         }
     }
-    try{
+    try {
+      console.log("body : ", body);
+      console.log("config : ", config);
         const res =  await axios.post(baseUrl+'requests/new', body, config);
-        console.log(res.data)
+        console.log("response : ", res.data)
         res.data && setRid(res.data.rid)
-        console.log(res.data)
+        console.log("response : ", res.data)
         setLoading(false)
         setDraft(true)
         setError()
     } catch(err){
-        err.response && console.log(err.response.data)
+        err.response && console.log("error : ", err.response.data)
     }
 };
 

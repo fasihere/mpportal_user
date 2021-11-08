@@ -1,5 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -11,12 +13,17 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import HomeIcon from "@material-ui/icons/Home";
 import Tooltip from "@material-ui/core/Tooltip";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import CloseIcon from "@material-ui/icons/Close";
 import { mainListItems, secondaryListItems } from "./Sidebar";
 import clsx from "clsx";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import LanguageIcon from "@material-ui/icons/Language";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+
 
 const drawerWidth = 240;
 
@@ -30,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   toolbarIcon: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "flex-start",
     padding: "0 8px",
     ...theme.mixins.toolbar,
   },
@@ -38,13 +45,23 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
   },
   menuButton: {
-    marginRight: 36,
     [theme.breakpoints.up("sm")]: {
       display: "none",
     },
   },
-  menuButtonHidden: {
-    display: "none",
+  homeButton: {
+    paddingBottom: "20px",
+    paddingRight: "20px",
+    paddingLeft: "20px",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  langButton: {
+    color: "white",
+    "& span": {
+      color: "white",
+    },
   },
   title: {
     flexGrow: 1,
@@ -64,43 +81,64 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
     },
   },
+  links: {
+    color: "white",
+  }
 }));
 
 export default function Appbar(props) {
-  const { window, appBarTitle } = props;
+  const { appBarTitle } = props;
   const { auth, setSelected } = useAuth();
   const classes = useStyles();
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const path = location.pathname.split("/")[1];
+  const [lang, setLang] = useState("ENGLISH");
+  const [anchorEl, setAnchorEl] = useState(null);
+    const [isLangVisible, setIsLangVisible] = useState(true);
 
-
+    useEffect(() => {
+      if (window.matchMedia("(max-width: 583px)").matches) {
+        setIsLangVisible(false);
+      } else {
+        setIsLangVisible(true);
+      }
+    },[]);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  const toggleLang = (event) => {
+    setLang(event.target.value);
+    setAnchorEl(null);
+  };
+
   const container =
-    window !== undefined ? () => window().document.body : undefined;
+    props.window !== undefined ? () => props.window().document.body : undefined;
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerToggle}
-            className={clsx(
-              classes.menuButton,
-              mobileOpen && classes.menuButtonHidden
-            )}
-          >
-            <MenuIcon />
-          </IconButton>
+          {appBarTitle != "My Requests" && (
+            <Tooltip title="Back to My Requests">
+              <IconButton edge="start" color="inherit">
+                <Link to="/dashboard" className={classes.links}>
+                  <KeyboardBackspaceIcon fontSize="large" />
+                </Link>
+              </IconButton>
+            </Tooltip>
+          )}
           <Typography
             variant="h6"
             color="inherit"
@@ -109,23 +147,57 @@ export default function Appbar(props) {
           >
             {appBarTitle}
           </Typography>
-          <Tooltip title="Home">
-            <IconButton
-              edge="start"
+          <Tooltip title="Toggle Language">
+            <Button
+              id="basic-button"
+              aria-controls="basic-menu"
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+              endIcon={<LanguageIcon />}
               color="inherit"
-              aria-label="open drawer"
-              onClick={(e) => {
-                location.push("/dasboard");
-              }}
+              className={classes.langButton}
             >
-              <HomeIcon />
+              {isLangVisible && lang}
+            </Button>
+          </Tooltip>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem onClick={toggleLang} value="ENGLISH">
+              ENGLISH
+            </MenuItem>
+            <MenuItem onClick={toggleLang} value="മലയാളം">
+              മലയാളം
+            </MenuItem>
+          </Menu>
+          <Tooltip title="Home">
+            <IconButton className={classes.homeButton}>
+              <Link to="/" className={classes.links}>
+                <HomeIcon />
+              </Link>
             </IconButton>
           </Tooltip>
+          <IconButton
+            edge="end"
+            color="inherit"
+            onClick={handleDrawerToggle}
+            className={classes.menuButton}
+          >
+            <MenuIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
         container={container}
         variant="temporary"
+        anchor="right"
         open={mobileOpen}
         className={classes.mobDrawer}
         onClose={handleDrawerToggle}
@@ -141,7 +213,7 @@ export default function Appbar(props) {
         <Divider />
         <List>{mainListItems(setSelected, setMobileOpen)}</List>
         <Divider />
-        <List>{secondaryListItems(auth, setMobileOpen)}</List>{" "}
+        <List>{secondaryListItems(auth, setMobileOpen)}</List>
       </Drawer>
       {path == "dashboard" && (
         <Drawer variant="permanent" className={classes.webDrawer} open={true}>

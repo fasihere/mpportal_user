@@ -9,6 +9,8 @@ import HourglassFullIcon from '@material-ui/icons/HourglassFull';
 import DoneIcon from '@material-ui/icons/Done';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import Tooltip from '@material-ui/core/Tooltip'
+import HomeIcon from "@material-ui/icons/Home";
+
 
 export const mainListItems = (setSelected, setOpen) => (
   <div>
@@ -49,19 +51,27 @@ export const mainListItems = (setSelected, setOpen) => (
   </div>
 );
 
-export const secondaryListItems = (auth) =>  (
+export const secondaryListItems = (auth) => (
   <div>
     <ListSubheader inset>User</ListSubheader>
     <Tooltip title="User profile">
-      <ListItem button onClick={() => window.location.replace('/user/')}>
+      <ListItem button onClick={() => window.location.replace("/user/")}>
         <ListItemIcon>
           <AccountCircleIcon />
         </ListItemIcon>
         <ListItemText primary="User Profile" />
       </ListItem>
     </Tooltip>
+    <Tooltip title="Back to home">
+      <ListItem button onClick={() => window.location.replace("/")}>
+        <ListItemIcon>
+          <HomeIcon />
+        </ListItemIcon>
+        <ListItemText primary="Home" />
+      </ListItem>
+    </Tooltip>
     <Tooltip title="Log Out">
-    <ListItem button onClick={() => auth.signOut()}>
+      <ListItem button onClick={() => auth.signOut()}>
         <ListItemIcon>
           <ExitToAppIcon />
         </ListItemIcon>

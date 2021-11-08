@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
+import Appbar from "../../components/topbar/Appbar"
 
 
 
@@ -129,6 +130,7 @@ export default function Profile() {
 
   return (
     <div className="profile">
+      <Appbar appBarTitle="My Profile" />
       <h2 className="title">Profile</h2>
       <div className="wrapper">
         <Paper
@@ -282,11 +284,7 @@ export default function Profile() {
                 Save &nbsp;<i className="fas fa-edit"></i>
               </Button>
             ) : (
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={handleEdit}
-              >
+              <Button color="primary" variant="contained" onClick={handleEdit}>
                 Edit &nbsp;<i className="fas fa-edit"></i>
               </Button>
             )}

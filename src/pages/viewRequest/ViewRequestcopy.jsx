@@ -1,7 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import "./viewRequestcopy.scss";
-import html2canvas from "html2canvas";
-import { jsPDF } from "jspdf";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
@@ -17,10 +15,12 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Appbar from "../../components/topbar/Appbar";
+import Fab from "@material-ui/core/Fab";
+import SaveAltIcon from "@material-ui/icons/SaveAlt";
 
 
 
-export default function ViewRequestcopy() {
+export default function ViewRequestcopy() { 
   const { user } = useAuth();
   const [req, setReq] = useState();
   const location = useLocation();
@@ -110,29 +110,29 @@ export default function ViewRequestcopy() {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           <Grid item xs={4} sm={8} md={2}>
-            <Paper className="buttonsPaper">
-              <Stack direction="column" spacing={4} className="leftColumn">
-                <Button variant="contained" color="primary">
-                  <Link to="/dashboard">
-                    <i className="fas fa-arrow-left"></i> Return
-                  </Link>
-                </Button>
-                <Button variant="contained" color="success">
-                  <PDFDownloadLink
-                    document={<RequestPdf path={path} req={req} />}
-                    fileName={`request-${path}.pdf`}
-                    aria-label="Save PDF"
-                  >
-                    Save <i className="fas fa-file-download"></i>
-                  </PDFDownloadLink>{" "}
-                </Button>
-                <Divider variant="middle" />
-                <div className="attachedDocs">
-                  <h3>Documents Attached</h3>
-                  <ul ref={tempDocArray}></ul>
+            <Stack direction="column" spacing={4} className="leftColumn">
+              <PDFDownloadLink
+                document={<RequestPdf path={path} req={req} />}
+                fileName={`request-${path}.pdf`}
+                aria-label="Save PDF"
+              >
+                <Fab
+                  variant="extended"
+                  size="large"
+                  color="primary"
+                  className="SavePdfButton"
+                >
+                 <SaveAltIcon /> &nbsp; Save PDF
+                </Fab>
+              </PDFDownloadLink>
+              <Paper className="attachedDocs">
+                <div>
+                  <h5>Documents Attached</h5>
+                  <Divider />
+                  <ul ref={tempDocArray} className="docsList"></ul>
                 </div>
-              </Stack>
-            </Paper>
+              </Paper>
+            </Stack>
           </Grid>
           <Grid item xs={4} sm={8} md={6}>
             <Paper className="pdfPaper">
@@ -146,12 +146,16 @@ export default function ViewRequestcopy() {
                   <div>
                     <div className="flexTitleContainer">
                       <div className="flexHeader">Request No</div>
+                      <div className="flexHeader">Category</div>
                       <div className="flexHeader">Subject</div>
                       <div className="flexHeader">Date</div>
                       <div className="flexHeader">Requested By</div>
                     </div>
                     <div className="flexContentContainer">
                       <div className="flexItem">{path}</div>
+                      <div className="flexItem">
+                        {req && req.requestCategory}
+                      </div>
                       <div className="flexItem">
                         {req && req.requestSubject}
                       </div>

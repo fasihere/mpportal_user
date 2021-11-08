@@ -13,6 +13,7 @@ import DocumentUpload from './DocumentUpload';
 import axios from 'axios'
 import { useAuth } from '../../context/AuthContext';
 import '../../components/loading.scss'
+import Appbar from '../../components/topbar/Appbar';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -230,6 +231,7 @@ export default function Draft() {
     <React.Fragment>
       <CssBaseline />
       <main className={classes.layout}>
+        <Appbar appBarTitle="Draft Request" />
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
             Draft
@@ -242,43 +244,50 @@ export default function Draft() {
             ))}
           </Stepper>
           <React.Fragment>
-            {activeStep === steps.length ? ( !error ? (
-              <React.Fragment>
-                <Typography variant="subtitle1">
-                  Your Request Id is <strong>#{path}</strong>. You will be sent an sms to the provided phone number as confirmation.
-                </Typography>
-                <Button
+            {activeStep === steps.length ? (
+              !error ? (
+                <React.Fragment>
+                  <Typography variant="subtitle1">
+                    Your Request Id is <strong>#{path}</strong>. You will be
+                    sent an sms to the provided phone number as confirmation.
+                  </Typography>
+                  <Button
                     variant="contained"
                     color="primary"
-                    onClick={(e) => window.location.replace('/dashboard')}
+                    onClick={(e) => window.location.replace("/dashboard")}
                     className={classes.button}
                   >
-                      RETURN TO DASHBOARD
+                    RETURN TO DASHBOARD
                   </Button>
-              </React.Fragment> ) : (
+                </React.Fragment>
+              ) : (
                 <React.Fragment>
                   <Typography variant="h6" gutterBottom>
-                  Sorry, your request failed.
+                    Sorry, your request failed.
                   </Typography>
                   <div className={classes.button}>
-                    <Button 
-                    onClick={handleBack} 
-                    className={classes.button} 
-                    variant="contained"
-                    color="primary">
-                        Back
+                    <Button
+                      onClick={handleBack}
+                      className={classes.button}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Back
                     </Button>
                   </div>
-                </React.Fragment>)
+                </React.Fragment>
+              )
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
-                    <Button onClick={handleBack} 
-                    className={classes.button}
-                    variant="contained"
-                    color="primary">
+                    <Button
+                      onClick={handleBack}
+                      className={classes.button}
+                      variant="contained"
+                      color="primary"
+                    >
                       Back
                     </Button>
                   )}
@@ -290,7 +299,9 @@ export default function Draft() {
                     }}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Submit Request' : 'Next'}
+                    {activeStep === steps.length - 1
+                      ? "Submit Request"
+                      : "Next"}
                   </Button>
                 </div>
               </React.Fragment>
