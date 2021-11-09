@@ -42,6 +42,7 @@ export default function ViewRequestcopy() {
           },
         };
         const res = await axios.get(baseRequestUrl + path, config);
+        console.log("response :", res.data);
         res && setReq(res.data);
         var storageRef = storage.ref(
           `mpportal/user/${user.phoneNumber.slice(3, 13)}/${path}`
