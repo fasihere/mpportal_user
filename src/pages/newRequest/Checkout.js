@@ -423,6 +423,7 @@ export default function Checkout() {
                   <Button
                     variant="contained"
                     color="primary"
+                    align="center"
                     onClick={() => history.push("/dashboard")}
                     className={classes.button}
                   >

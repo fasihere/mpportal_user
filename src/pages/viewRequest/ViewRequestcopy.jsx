@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "./viewRequestcopy.scss";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
@@ -12,7 +12,6 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Appbar from "../../components/topbar/Appbar";
 import Fab from "@material-ui/core/Fab";
@@ -94,6 +93,7 @@ export default function ViewRequestcopy() {
   }, []);
 
   if (!req) {
+
     return (
       <div className="loadingContainer">
         <span></span>
@@ -218,7 +218,7 @@ export default function ViewRequestcopy() {
                 })
               ) : (
                 <h4 className="noActions">- No actions taken -</h4>
-              )}{" "}
+              )}
             </Paper>
           </Grid>
         </Grid>

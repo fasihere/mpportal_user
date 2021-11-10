@@ -23,7 +23,7 @@ import Appbar from '../../components/topbar/Appbar';
       },
     },
     paper: {
-      marginTop: theme.spacing(3),
+      marginTop: theme.spacing(10),
       marginBottom: theme.spacing(3),
       padding: theme.spacing(2),
       [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {

@@ -10,19 +10,21 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import IconButton from "@mui/material/IconButton";
 import { CircularProgress } from "@material-ui/core";
+import InputAdornment from "@mui/material/InputAdornment";
+
 
 export default function DocumentUpload({ requestFiles, rid, handleDocs }) {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
    const [fileList, setFileList] = useState(requestFiles);
    const [isSizeExceeded, setIsSizeExceeded] = useState(false);
-   const [isFileTypeAllowed, setIsFileTypeAllowed] = useState(false);
+   const [isFileTypeNotAllowed, setIsFileTypeNotAllowed] = useState(false);
    const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/jpg", "application/pdf", "application/msword", "video/*" , "audio/*"];
 
   const maxSize = 3145728;
    const { user } = useAuth();
    
-   const checkIsFileTypeAllowed = (file) => {
+   const checkIsFileTypeNotAllowed = (file) => {
       if (ALLOWED_FILE_TYPES.includes(file.type) || file.type.split("/")[0] === "video" || file.type.split("/")[0] === "audio") {
          return true;
       } else {
@@ -61,20 +63,19 @@ export default function DocumentUpload({ requestFiles, rid, handleDocs }) {
 
    function handleFileChange(e) {
       setIsSizeExceeded(false);
-      setIsFileTypeAllowed(false);
-     setFile(e.target.files[0]);
-     if(file.size > maxSize){
+      setIsFileTypeNotAllowed(false);
+      if (e.target.files[0].size > maxSize) {
         setIsSizeExceeded(true);
-      setFile(null);
-     }
-      if (!checkIsFileTypeAllowed(file)) {
-         setIsFileTypeAllowed(true);
-         setFile(null);
+        setFile(null);
       }
-     
-     else {
-       setIsSizeExceeded(false);
-     }
+      else if (!checkIsFileTypeNotAllowed(e.target.files[0])) {
+        setIsFileTypeNotAllowed(true);
+        setFile(null);
+      } else {
+        setIsSizeExceeded(false);
+        setIsFileTypeNotAllowed(false);
+        setFile(e.target.files[0]);
+      }
   }
 
   function handleFileNameChange(e) {
@@ -151,20 +152,40 @@ export default function DocumentUpload({ requestFiles, rid, handleDocs }) {
                     label="File Name"
                     variant="standard"
                     onChange={handleFileNameChange}
+                    helperText="Enter a name for this file"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            component="span"
+                            size="small"
+                            onClick={handleAddFile}
+                          >
+                            Add
+                          </Button>
+                        </InputAdornment>
+                      ),
+                    }}
+                    style={{
+                      marginLeft: "50%",
+                      transform: "translate(-50%, 0px)",
+                      marginTop: "5%",
+                    }}
                   />
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    component="span"
-                    onClick={handleAddFile}
-                  >
-                    Add
-                  </Button>
                 </Grid>
               ) : (
                 <Grid item xs={12}>
                   {fileList.length < 3 ? (
-                    <label htmlFor="contained-button-file">
+                    <label
+                      htmlFor="contained-button-file"
+                      style={{
+                        marginLeft: "50%",
+                        transform: "translate(-50%, 0px)",
+                        marginTop: "5%",
+                      }}
+                    >
                       <input
                         id="contained-button-file"
                         multiple
@@ -191,21 +212,31 @@ export default function DocumentUpload({ requestFiles, rid, handleDocs }) {
                     </Typography>
                   )}
                 </Grid>
-                    )}
-                    <Grid item xs={12}>
-                        {isSizeExceeded ? (
-                          <Typography variant="subtitle2" align="center" color="error" sx={{ mt: 2, mb: 2 }}>
-                             File size exceeded.
-                           </Typography>
-                        ) : null}
-                    </Grid>
-                     <Grid item xs={12}>
-                        {isFileTypeAllowed ? (
-                          <Typography variant="subtitle2" align="center" color="error" sx={{ mt: 2, mb: 2 }}>
-                             File type not allowed.
-                           </Typography>
-                        ) : null}
-                        </Grid>
+              )}
+              <Grid item xs={12}>
+                {isSizeExceeded ? (
+                  <Typography
+                    variant="subtitle2"
+                    align="center"
+                    color="error"
+                    sx={{ mt: 2, mb: 2 }}
+                  >
+                    File size exceeded.
+                  </Typography>
+                ) : null}
+              </Grid>
+              <Grid item xs={12}>
+                {isFileTypeNotAllowed ? (
+                  <Typography
+                    variant="subtitle2"
+                    align="center"
+                    color="error"
+                    sx={{ mt: 2, mb: 2 }}
+                  >
+                    File type not allowed.
+                  </Typography>
+                ) : null}
+              </Grid>
             </Grid>
           </Grid>
         </Box>
@@ -245,7 +276,7 @@ export default function DocumentUpload({ requestFiles, rid, handleDocs }) {
                           <FileDownloadIcon />
                         </IconButton>
                       ) : (
-                        <CircularProgress size={20} />
+                        <CircularProgress size={20} sx={{ ml: 8 }} />
                       )}
                     </ListItem>
                     <Divider />

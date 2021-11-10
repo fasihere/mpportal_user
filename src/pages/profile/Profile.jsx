@@ -11,6 +11,8 @@ import Grid from "@mui/material/Grid";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Appbar from "../../components/topbar/Appbar"
+import CreateIcon from "@material-ui/icons/Create";
+
 
 
 
@@ -160,6 +162,7 @@ export default function Profile() {
                   margin="normal"
                   fullWidth
                   disabled={!edit}
+                  variant="standard"
                 />
               </Grid>
               <Grid item xs={4} sm={4} md={6}>
@@ -170,6 +173,7 @@ export default function Profile() {
                   margin="normal"
                   fullWidth
                   disabled={!edit}
+                  variant="standard"
                 />
               </Grid>
               <Grid item xs={4} sm={4} md={6}>
@@ -183,6 +187,7 @@ export default function Profile() {
                     readOnly: true,
                   }}
                   disabled={!edit}
+                  variant="standard"
                 />
               </Grid>
               <Grid item xs={4} sm={4} md={6}>
@@ -195,6 +200,7 @@ export default function Profile() {
                   fullWidth
                   margin="normal"
                   disabled={!edit}
+                  variant="standard"
                 >
                   <MenuItem disabled>-- Select --</MenuItem>
                   {la.map((x) => {
@@ -216,6 +222,7 @@ export default function Profile() {
                   fullWidth
                   margin="normal"
                   disabled={!edit}
+                  variant="standard"
                 >
                   <MenuItem disabled>-- Select --</MenuItem>
                   {panchayat.map((x) => {
@@ -237,6 +244,7 @@ export default function Profile() {
                   fullWidth
                   margin="normal"
                   disabled={!edit}
+                  variant="standard"
                 >
                   <MenuItem disabled>-- Select --</MenuItem>
                   {wards.map((x) => {
@@ -260,6 +268,8 @@ export default function Profile() {
                   shrink
                   margin="normal"
                   disabled={!edit}
+                  variant="standard"
+                  InputLabelProps={{ shrink: true }}
                 />
               </Grid>
               <Grid item xs={4} sm={8} md={12}>
@@ -271,6 +281,7 @@ export default function Profile() {
                   fullWidth
                   margin="normal"
                   disabled={!edit}
+                  variant="standard"
                 />
               </Grid>
             </Grid>
@@ -285,7 +296,8 @@ export default function Profile() {
               </Button>
             ) : (
               <Button color="primary" variant="contained" onClick={handleEdit}>
-                Edit &nbsp;<i className="fas fa-edit"></i>
+                Edit &nbsp;
+                <CreateIcon />
               </Button>
             )}
           </Box>

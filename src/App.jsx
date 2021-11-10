@@ -23,7 +23,7 @@ import Draft from "./pages/editRequest/Draft";
 
 function Copyright() {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} id="footerDiv">
       <Grid item xs={12} sm={3}>
         <Typography variant="body2" color="white" align="center">
           <Link color="inherit" href="">
