@@ -12,6 +12,8 @@ import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
 import Appbar from '../../components/topbar/Appbar';
 import { useHistory, Redirect } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
+
 
 function Copyright() {
   return (
@@ -75,35 +77,50 @@ export default function Dashboard() {
   
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  const { t } = useTranslation();
+
+
   if(!isRegister){
     <Redirect to="/register" />
   }
   return (
     <div className={classes.root}>
-      <Appbar appBarTitle="My Requests"/>
+      <Appbar appBarTitle={t("myRequests")} />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-        <Grid container spacing={3}>
-            <Grid item xs={12} lg={3} style={{textAlign: "center"}}>
-              <Link to="/request/new" style={{textDecoration: "none", color: "white"}}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} lg={3} style={{ textAlign: "center" }}>
+              <Link
+                to="/request/new"
+                style={{ textDecoration: "none", color: "white" }}
+              >
                 <Fab
                   variant="extended"
                   size="large"
                   color="primary"
                   aria-label="add"
                   className={classes.margin}
-                  onClick={() => history.push('/request/new')}
+                  onClick={() => history.push("/request/new")}
                 >
-                  <CreateIcon className={classes.create}/>
-                    New Request
+                  <CreateIcon className={classes.create} />
+                  New Request
                 </Fab>
               </Link>
             </Grid>
             <Grid item xs={12} lg={9}>
               <Paper className={classes.paper}>
-                <Typography  color="inherit" variant="body2" component="body2" className={classes.title}>
-                {isRegister && "Welcome Registered Person" } Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem 
+                <Typography
+                  color="inherit"
+                  variant="body2"
+                  component="body2"
+                  className={classes.title}
+                >
+                  {isRegister && "Welcome Registered Person"} Lorem Lorem Lorem
+                  Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem
+                  Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem
+                  Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem
+                  Lorem Lorem Lorem
                 </Typography>
               </Paper>
             </Grid>
@@ -112,7 +129,10 @@ export default function Dashboard() {
             {/* Requests */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <RequestTable selected={selected.toUpperCase()} setSelected={setSelected}/>
+                <RequestTable
+                  selected={selected.toUpperCase()}
+                  setSelected={setSelected}
+                />
               </Paper>
             </Grid>
           </Grid>

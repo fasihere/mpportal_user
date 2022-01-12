@@ -5,18 +5,55 @@ import { IDUKKI_DATA } from "../register/laList";
 import axios from "axios";
 //import { makeStyles } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
 import Appbar from "../../components/topbar/Appbar"
 import CreateIcon from "@material-ui/icons/Create";
+import {
+  Grid,
+  makeStyles,
+  Button,
+  Typography,
+  TextField,
+  IconButton,
+  Select,
+  MenuItem,
+  InputLabel,
+  Paper,
+} from "@material-ui/core";
 
-
+ const useStyles = makeStyles((theme) => ({
+   layout: {
+     minHeight: "calc(100vh - 50px)",
+     width: "auto",
+     marginLeft: theme.spacing(2),
+     marginRight: theme.spacing(2),
+     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+       width: 600,
+       marginLeft: "auto",
+       marginRight: "auto",
+     },
+   },
+   paper: {
+     marginTop: theme.spacing(10),
+     marginBottom: theme.spacing(3),
+     padding: theme.spacing(2),
+     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+       marginTop: theme.spacing(6),
+       marginBottom: theme.spacing(6),
+       padding: theme.spacing(3),
+     },
+   },
+   buttons: {
+     display: "flex",
+     justifyContent: "flex-end",
+   },
+   button: {
+     marginTop: theme.spacing(3),
+   },
+ }));
 
 
 export default function Profile() {
+      const classes = useStyles();
   const [success, setSuccess] = useState(false);
   const [edit, setEdit] = useState(false);
   const baseUrl =
@@ -25,6 +62,7 @@ export default function Profile() {
   const { user } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [loksabha, setLoksabha] = useState("Idukki");
   const [mobileNo, setMobileNo] = useState();
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState(null);
@@ -52,6 +90,7 @@ export default function Profile() {
       setMobileNo(res.data.mobileNo);
       setAddress(res.data.address);
       setPincode(res.data.pincode);
+      setLoksabha(res.data.loksabha);
       setStoredLa(res.data.assembly);
       setStoredPanchayat(res.data.panchayat);
       setStoredWard(res.data.ward);
@@ -129,6 +168,180 @@ export default function Profile() {
       setWards(list);
     }
   };
+
+  return (
+    <Grid container className={classes.layout}>
+      <Appbar appBarTitle="My Profile" />
+      <Paper className={classes.paper}>
+        <Typography variant="h6" gutterBottom>
+          Profile
+        </Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              disabled={!edit}
+              id="fullName"
+              name="fullName"
+              label="Full name"
+              fullWidth
+              autoComplete="given-name"
+              defaultValue={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              disabled={!edit}
+              id="email"
+              name="email"
+              label="Email Id"
+              fullWidth
+              autoComplete="email"
+              defaultValue={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              multiline
+              maxRows={4}
+              disabled={!edit}
+              required
+              id="address"
+              name="address"
+              label="Address"
+              fullWidth
+              autoComplete="shipping address"
+              defaultValue={address}
+              InputLabelProps={{ shrink: true }}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              disabled={!edit}
+              required
+              id="pincode"
+              name="pincode"
+              label="Pincode"
+              fullWidth
+              autoComplete="shipping postal-code"
+              defaultValue={pincode}
+              onChange={(e) => setPincode(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              disabled={!edit}
+              id="loksabha"
+              name="loksabha"
+              label="Loksabha Constituency"
+              defaultValue={loksabha}
+              onChange={(e) => setLoksabha(e.target.value)}
+              select
+              fullWidth
+            >
+              <MenuItem value="Idukki">Idukki</MenuItem>
+              <MenuItem value="Other">Other</MenuItem>
+            </TextField>
+          </Grid>
+          {loksabha === "Idukki" && (
+            <>
+              <Grid item md={4} xs={12}>
+                <TextField
+                  disabled={!edit}
+                  required
+                  select
+                  fullWidth
+                  label="LA Constituency"
+                  value={selectedLa}
+                  onChange={(e) => changeLa(e)}
+                  inputProps={{ "aria-label": "Without label" }}
+                >
+                  <MenuItem disabled>-- Select --</MenuItem>
+                  {la.map((x) => {
+                    return (
+                      <MenuItem key={x.name} value={x.name}>
+                        {x.name}
+                      </MenuItem>
+                    );
+                  })}
+                </TextField>
+              </Grid>
+              <Grid item md={4} xs={12}>
+                <TextField
+                  disabled={!edit}
+                  required
+                  select
+                  fullWidth
+                  label="Panchayat"
+                  value={selectedPanchayat}
+                  onChange={(e) => changePanchayat(e)}
+                >
+                  <MenuItem disabled>-- Select --</MenuItem>
+                  {panchayat.map((x) => {
+                    return (
+                      <MenuItem key={x.panchayat[0]} value={x.panchayat[0]}>
+                        {x.panchayat[0]}
+                      </MenuItem>
+                    );
+                  })}
+                </TextField>
+              </Grid>
+              <Grid item md={4} xs={12}>
+                <TextField
+                  disabled={!edit}
+                  required
+                  select
+                  fullWidth
+                  label="Ward"
+                  value={selectedWard}
+                  onChange={(e) => {
+                    setSelectedWard(e.target.value);
+                  }}
+                >
+                  <MenuItem disabled>-- Select --</MenuItem>
+                  {wards.map((x) => {
+                    return (
+                      <MenuItem key={x} value={x}>
+                        {x}
+                      </MenuItem>
+                    );
+                  })}
+                </TextField>
+              </Grid>
+            </>
+          )}
+        </Grid>
+        {edit ? (
+          <div>
+            <Button
+              className={classes.button}
+              color="success"
+              variant="contained"
+              onClick={handleSubmit}
+            >
+              Save
+            </Button>
+          </div>
+        ) : (
+          <div>
+            <Button
+              className={classes.button}
+              color="primary"
+              variant="contained"
+              onClick={handleEdit}
+            >
+              Edit &nbsp;
+              <CreateIcon />
+            </Button>
+          </div>
+        )}
+      </Paper>
+    </Grid>
+  );
 
   return (
     <div className="profile">

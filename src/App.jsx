@@ -6,6 +6,7 @@ import Home from "./pages/home/Home";
 import Register from "./pages/register/Register";
 import Profile from "./pages/profile/Profile";
 import { AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import NewLogin from "./pages/login/NewLogin";
 import ViewRequestcopy from "./pages/viewRequest/ViewRequestcopy";
@@ -21,31 +22,41 @@ import ErrorPage from "./components/errorPage/ErrorPage";
 import Journey from "./pages/journey/Journey";
 import Draft from "./pages/editRequest/Draft";
 
+
 function Copyright() {
-  return (
-    <Grid container spacing={2} id="footerDiv">
-      <Grid item xs={12} sm={3}>
-        <Typography variant="body2" color="white" align="center">
-          <Link color="inherit" href="">
-            Privacy Policy
-          </Link>{" "}
-        </Typography>
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <Typography variant="body2" color="white" align="center">
-          Powered By{" "}
-          <Link href="https://tensors.in">
-            <img src="/assets/images/logof.png" width="90px" />
-          </Link>
-        </Typography>
-      </Grid>
-      <Grid item xs={12} sm={3}>
-        <Typography variant="body2" color="white" align="center">
-          © {new Date().getFullYear()} Dean Kuriakose. All rights reserved
-        </Typography>
-      </Grid>
-    </Grid>
-  );
+  const { pending } = useAuth();
+  //make the footer disappear when pending is true
+  if (pending) {
+    return null;
+  }
+  else {
+    return (
+      <Box my={1} bgcolor="grey.500" color="white">
+        <Grid container spacing={2} id="footerDiv">
+          <Grid item xs={12} sm={3}>
+            <Typography variant="body2" color="white" align="center">
+              <Link color="inherit" href="">
+                Privacy Policy
+              </Link>{" "}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography variant="body2" color="white" align="center">
+              Powered By{" "}
+              <Link href="https://tensors.in">
+                <img src="/assets/images/logof.png" width="90px" />
+              </Link>
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <Typography variant="body2" color="white" align="center">
+              © {new Date().getFullYear()} Dean Kuriakose. All rights reserved
+            </Typography>
+          </Grid>
+        </Grid>
+      </Box>
+    );
+  }
 }
 
 function App() {
@@ -83,9 +94,7 @@ function App() {
               <ErrorPage />
             </Route>
           </Switch>
-          <Box my={1} bgcolor="grey.500" color="white">
-            <Copyright />
-          </Box>
+              <Copyright />
         </AuthProvider>
       </Router>
     </div>

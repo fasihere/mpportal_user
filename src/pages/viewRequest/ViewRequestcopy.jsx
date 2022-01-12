@@ -6,7 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 import { storage } from "../../context/Firebase";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import RequestPdf from "./RequestPdf";
-import Action from "./Action"
+import Action from "./Action";
 import dk from "../../assets/images/dp.png";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -16,19 +16,19 @@ import Divider from "@mui/material/Divider";
 import Appbar from "../../components/topbar/Appbar";
 import Fab from "@material-ui/core/Fab";
 import SaveAltIcon from "@material-ui/icons/SaveAlt";
+import { useTranslation } from "react-i18next";
 
-
-
-export default function ViewRequestcopy() { 
+export default function ViewRequestcopy() {
   const { user } = useAuth();
   const [req, setReq] = useState();
   const location = useLocation();
-      const [actions, setActions] = useState([]);
+  const [actions, setActions] = useState([]);
   const path = location.pathname.split("/")[2];
   const baseRequestUrl =
     "https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests/";
-      const baseActionUrl =
-        "https://asia-south1-mpportal-e9873.cloudfunctions.net/app/";
+  const baseActionUrl =
+    "https://asia-south1-mpportal-e9873.cloudfunctions.net/app/";
+  const { t } = useTranslation();
 
   const tempDocArray = useRef();
 
@@ -83,7 +83,7 @@ export default function ViewRequestcopy() {
           baseActionUrl + "requests/actions/" + path,
           config
         );
-        console.log("res", res)
+        console.log("res", res);
         setActions(res.data.details);
       } catch (err) {
         console.log(err.response);
@@ -93,7 +93,6 @@ export default function ViewRequestcopy() {
   }, []);
 
   if (!req) {
-
     return (
       <div className="loadingContainer">
         <span></span>
@@ -103,7 +102,7 @@ export default function ViewRequestcopy() {
   }
   return (
     <div className="viewRequest" style={{ backgroundColor: "#e9ecef" }}>
-      <Appbar appBarTitle="View Request" />
+      <Appbar appBarTitle={t("viewRequest")} />
       <Box sx={{ flexGrow: 1 }}>
         <Grid
           container
@@ -123,7 +122,7 @@ export default function ViewRequestcopy() {
                   color="primary"
                   className="SavePdfButton"
                 >
-                 <SaveAltIcon /> &nbsp; Save PDF
+                  <SaveAltIcon /> &nbsp; Save PDF
                 </Fab>
               </PDFDownloadLink>
               <Paper className="attachedDocs">
@@ -217,7 +216,7 @@ export default function ViewRequestcopy() {
                   );
                 })
               ) : (
-                <h4 className="noActions">- No actions taken -</h4>
+                <h5 className="noActions">- {t("noActionsTaken")} -</h5>
               )}
             </Paper>
           </Grid>
@@ -226,4 +225,3 @@ export default function ViewRequestcopy() {
     </div>
   );
 }
-

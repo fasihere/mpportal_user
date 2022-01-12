@@ -1,0 +1,23 @@
+{
+  "viewRequest": "View Request",
+  "noActionsTaken": "No actions taken",
+  "myRequests": "My Requests",
+  "requestStatus": "Request Status",
+  "pending": "Pending",
+  "completed": "Completed",
+  "drafts": "Drafts",
+  "user": "User",
+  "userProfile": "User Profile",
+  "home": "Home",
+  "logout": "Logout",
+  "newRequest": "New Request",
+  "requestID": "Request ID",
+  "category": "Category",
+  "status": "Status",
+  "date": "Date",
+  "action": "Action",
+  "view": "View",
+  "edit": "Edit", 
+  "subject": "Subject",
+  "welcomeRegisteredPerson": "Welcome registered person"
+}

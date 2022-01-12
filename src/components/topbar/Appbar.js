@@ -23,7 +23,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import LanguageIcon from "@material-ui/icons/Language";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-
+import { useTranslation } from "react-i18next";
 
 const drawerWidth = 240;
 
@@ -50,9 +50,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   homeButton: {
-    paddingBottom: "20px",
-    paddingRight: "20px",
-    paddingLeft: "20px",
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
@@ -81,9 +78,12 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
     },
   },
+  //make the color of the icon white
   links: {
-    color: "white",
-  }
+      "& svg": {
+        color: "white",
+      }
+  },
 }));
 
 export default function Appbar(props) {
@@ -94,17 +94,20 @@ export default function Appbar(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const path = location.pathname.split("/")[1];
-  const [lang, setLang] = useState("ENGLISH");
+  const { i18n } = useTranslation();
+  const [lang, setLang] = useState(
+    `${i18n.language === "en" ? "ENGLISH" : "മലയാളം"}`
+  );
   const [anchorEl, setAnchorEl] = useState(null);
-    const [isLangVisible, setIsLangVisible] = useState(true);
+  const [isLangVisible, setIsLangVisible] = useState(true);
 
-    useEffect(() => {
-      if (window.matchMedia("(max-width: 583px)").matches) {
-        setIsLangVisible(false);
-      } else {
-        setIsLangVisible(true);
-      }
-    },[]);
+  useEffect(() => {
+    if (window.matchMedia("(max-width: 583px)").matches) {
+      setIsLangVisible(false);
+    } else {
+      setIsLangVisible(true);
+    }
+  }, []);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -118,7 +121,12 @@ export default function Appbar(props) {
   };
 
   const toggleLang = (event) => {
-    setLang(event.target.value);
+    setLang(event.target.outerText);
+    if (event.target.outerText === "ENGLISH") {
+      i18n.changeLanguage("en");
+    } else if (event.target.outerText === "മലയാളം") {
+      i18n.changeLanguage("ml");
+    }
     setAnchorEl(null);
   };
 
@@ -128,15 +136,15 @@ export default function Appbar(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="absolute" className={classes.appBar}>
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
-          {appBarTitle != "My Requests" && (
+          {path != "dashboard" && (
             <Tooltip title="Back to My Requests">
+            <Link to="/dashboard" className={classes.links}>
               <IconButton edge="start" color="inherit">
-                <Link to="/dashboard" className={classes.links}>
                   <KeyboardBackspaceIcon fontSize="large" />
-                </Link>
-              </IconButton>
+                  </IconButton>
+                  </Link>
             </Tooltip>
           )}
           <Typography
@@ -169,20 +177,22 @@ export default function Appbar(props) {
             MenuListProps={{
               "aria-labelledby": "basic-button",
             }}
+            //select option based on language selected in i18n
+            selected={lang}
           >
-            <MenuItem onClick={toggleLang} value="ENGLISH">
+            <MenuItem onClick={toggleLang} value="en">
               ENGLISH
             </MenuItem>
-            <MenuItem onClick={toggleLang} value="മലയാളം">
+            <MenuItem onClick={toggleLang} value="ml">
               മലയാളം
             </MenuItem>
           </Menu>
           <Tooltip title="Home">
+          <Link to="/" className={classes.links}>
             <IconButton className={classes.homeButton}>
-              <Link to="/" className={classes.links}>
                 <HomeIcon />
-              </Link>
-            </IconButton>
+                </IconButton>
+                </Link>
           </Tooltip>
           <IconButton
             edge="end"
