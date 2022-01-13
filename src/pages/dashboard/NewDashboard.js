@@ -104,7 +104,7 @@ export default function Dashboard() {
                   onClick={() => history.push("/request/new")}
                 >
                   <CreateIcon className={classes.create} />
-                  New Request
+                  {t("newRequest")}
                 </Fab>
               </Link>
             </Grid>
@@ -116,7 +116,7 @@ export default function Dashboard() {
                   component="body2"
                   className={classes.title}
                 >
-                  {isRegister && "Welcome Registered Person"} Lorem Lorem Lorem
+                  {isRegister && t("welcomeRegisteredPerson")} Lorem Lorem Lorem
                   Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem
                   Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem
                   Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem

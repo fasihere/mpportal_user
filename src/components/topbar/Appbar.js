@@ -14,7 +14,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import HomeIcon from "@material-ui/icons/Home";
 import Tooltip from "@material-ui/core/Tooltip";
 import CloseIcon from "@material-ui/icons/Close";
-import { mainListItems, secondaryListItems } from "./Sidebar";
+import SecondaryListItems from "./SecondaryListItems";
+import MainListItems from "./MainListItems"
 import clsx from "clsx";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
@@ -221,17 +222,17 @@ export default function Appbar(props) {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems(setSelected, setMobileOpen)}</List>
+        <List>{MainListItems(setSelected, setMobileOpen)}</List>
         <Divider />
-        <List>{secondaryListItems(auth, setMobileOpen)}</List>
+        <List>{SecondaryListItems(auth, setMobileOpen)}</List>
       </Drawer>
       {path == "dashboard" && (
         <Drawer variant="permanent" className={classes.webDrawer} open={true}>
           <div className={classes.toolbarIcon}></div>
           <Divider />
-          <List>{mainListItems(setSelected, setMobileOpen)}</List>
+          <List>{MainListItems(setSelected, setMobileOpen)}</List>
           <Divider />
-          <List>{secondaryListItems(auth, setMobileOpen)}</List>
+          <List>{SecondaryListItems(auth, setMobileOpen)}</List>
         </Drawer>
       )}
     </div>

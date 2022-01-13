@@ -11,15 +11,18 @@ import Tab from "@mui/material/Tab";
 import HourglassFullIcon from "@material-ui/icons/HourglassFull";
 import DoneIcon from "@material-ui/icons/Done";
 import DraftsIcon from "@material-ui/icons/Drafts";
+import { useTranslation } from "react-i18next";
+
 
 export default function RequestTable({ selected, setSelected, date }) {
   console.log("selected", selected);
+    const { t } = useTranslation();
   const { user } = useAuth();
   const columns = [
-    { key: "1", title: "Request ID", dataIndex: "rid" },
+    { key: "1", title: `${t("requestID")}`, dataIndex: "rid" },
     {
       key: "2",
-      title: "Category",
+      title: `${t("category")}`,
       dataIndex: "requestCategory",
       sorter: (record1, record2) => {
         return record1.requestCategory > record2.requestCategory;
@@ -27,7 +30,7 @@ export default function RequestTable({ selected, setSelected, date }) {
     },
     {
       key: "3",
-      title: "Subject",
+      title: `${t("subject")}`,
       dataIndex: "requestSubject",
       sorter: (record1, record2) => {
         return record1.requestSubject > record2.requestSubject;
@@ -35,7 +38,7 @@ export default function RequestTable({ selected, setSelected, date }) {
     },
     {
       key: "4",
-      title: "Date",
+      title: `${t("date")}`,
       dataIndex: "postedTime",
       render: (date) => (
         <div>{date.slice(0, 10).split("-").reverse().join("-")}</div>
@@ -44,21 +47,21 @@ export default function RequestTable({ selected, setSelected, date }) {
         return record1.postedTime > record2.postedTime;
       },
     },
-    { key: "5", title: "Status", dataIndex: "statusUser" },
+    { key: "5", title: `${t("status")}`, dataIndex: "statusUser" },
     {
       key: "6",
-      title: "Action",
+      title: `${t("action")}`,
       render: (rowData) => {
         if (selected === "DRAFT") {
           return (
             <Link className="btn" to={"/draft/" + rowData.rid + "/view"}>
-              View
+              {t("view")}
             </Link>
           );
         }
         return (
           <Link className="btn" to={"/request/" + rowData.rid + "/view"}>
-            View
+            {t("view")}
           </Link>
         );
       },
@@ -137,7 +140,7 @@ export default function RequestTable({ selected, setSelected, date }) {
 
   return (
     <div className="requestTable">
-      <h1 style={{ align: "center" }}>{selected}</h1>
+      <h1 style={{ align: "center" }}>{t(`${selected}`)}</h1>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -147,17 +150,17 @@ export default function RequestTable({ selected, setSelected, date }) {
       >
         <Tab
           icon={<HourglassFullIcon />}
-          label="PENDING"
+          label={t("PENDING")}
           onClick={() => setSelected("PENDING")}
         />
         <Tab
           icon={<DoneIcon />}
-          label="COMPLETED"
+          label={t("COMPLETED")}
           onClick={() => setSelected("COMPLETED")}
         />
         <Tab
           icon={<DraftsIcon />}
-          label="DRAFTS"
+          label={t("DRAFT")}
           onClick={() => setSelected("DRAFT")}
         />
       </Tabs>
