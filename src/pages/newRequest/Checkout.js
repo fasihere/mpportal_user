@@ -21,6 +21,7 @@ import axios from 'axios'
 import { useAuth } from '../../context/AuthContext';
 import '../../components/loading.scss'
 import Appbar from '../../components/topbar/Appbar';
+  import { useTranslation } from "react-i18next";  
 
 function Copyright() {
   return (
@@ -126,6 +127,7 @@ const initiailValues = {
   }
 
 export default function Checkout() {
+              const { t } = useTranslation();
   const { user } = useAuth()
   const history = useHistory()
   const classes = useStyles();
@@ -338,7 +340,12 @@ export default function Checkout() {
     setError()
     setActiveStep(activeStep - 1);
   };
-  const steps = ['Personal details', 'Request details', 'Documents Upload', 'Review your request']
+  const steps = [
+    t("personalDetails"),
+    t("RequestDetails"),
+    t("documentsUpload"),
+    t("reviewYourRequest"),
+  ];
 
   function getStepContent(step) {
     switch (step) {
@@ -381,7 +388,7 @@ export default function Checkout() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Appbar appBarTitle="New Request" />
+      <Appbar appBarTitle={t("newRequest")} />
       {/* <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
@@ -392,7 +399,7 @@ export default function Checkout() {
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            New Request {rid}
+            {t("newRequest")} {rid}
           </Typography>
           <Stepper
             activeStep={activeStep}
@@ -412,12 +419,13 @@ export default function Checkout() {
                   <Typography variant="h6" gutterBottom>
                     {draft
                       ? "Your request has been saved as draft."
-                      : "Thank you for your submission."}
+                      : t("thankyouForYourSubmission")}
                   </Typography>
                   {!draft && (
                     <Typography variant="subtitle1">
-                      Your Request Id is <strong>#{rid}</strong>. You will be
-                      sent an sms to the provided phone number as confirmation.
+                      {t("yourRequestIdIs")} <strong>#{rid}</strong>.{" "}
+                      {t("YouWillBeSentAn")}
+                      confirmation.
                     </Typography>
                   )}
                   <Button
@@ -427,7 +435,7 @@ export default function Checkout() {
                     onClick={() => history.push("/dashboard")}
                     className={classes.button}
                   >
-                    RETURN TO DASHBOARD
+                    {t("returnToDashboard")}
                   </Button>
                 </React.Fragment>
               ) : (
@@ -447,7 +455,7 @@ export default function Checkout() {
                       variant="contained"
                       color="primary"
                     >
-                      Back
+                      {t("back")}
                     </Button>
                   </div>
                 </React.Fragment>
@@ -463,7 +471,7 @@ export default function Checkout() {
                       variant="contained"
                       color="primary"
                     >
-                      Back
+                      {t("back")}
                     </Button>
                   )}
                   {activeStep === steps.length - 1 && (
@@ -473,7 +481,7 @@ export default function Checkout() {
                       variant="contained"
                       className={classes.button}
                     >
-                      Submit Later
+                      {t("submitLater")}
                     </Button>
                   )}
                   <Button
@@ -485,8 +493,8 @@ export default function Checkout() {
                     className={classes.button}
                   >
                     {activeStep === steps.length - 1
-                      ? "Submit Request"
-                      : "Next"}
+                      ? t("submitRequest")
+                      : t("next")}
                   </Button>
                 </div>
               </React.Fragment>

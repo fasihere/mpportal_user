@@ -122,12 +122,12 @@ export default function ViewRequestcopy() {
                   color="primary"
                   className="SavePdfButton"
                 >
-                  <SaveAltIcon /> &nbsp; Save PDF
+                  <SaveAltIcon /> &nbsp; {t("savePdf")}
                 </Fab>
               </PDFDownloadLink>
               <Paper className="attachedDocs">
                 <div>
-                  <h5>Documents Attached</h5>
+                  <h5>{t("documentsAttached")}</h5>
                   <Divider />
                   <ul ref={tempDocArray} className="docsList"></ul>
                 </div>
@@ -139,17 +139,17 @@ export default function ViewRequestcopy() {
               <div className="mt4">
                 <div className="pdfTitle">
                   <img src={dk} className="mpImage" />
-                  <div className="title">Request to Dean Kuriakose M P</div>
+                  <div className="title">{t("requestToDeanKuriakoseMP")}</div>
                 </div>
                 <div className="mainContainer">
-                  <div className="sectionTitle">REQUEST DETAILS</div>
+                  <div className="sectionTitle">{t("requestDetails")}</div>
                   <div>
                     <div className="flexTitleContainer">
-                      <div className="flexHeader">Request No</div>
-                      <div className="flexHeader">Category</div>
-                      <div className="flexHeader">Subject</div>
-                      <div className="flexHeader">Date</div>
-                      <div className="flexHeader">Requested By</div>
+                      <div className="flexHeader">{t("requestNo")}</div>
+                      <div className="flexHeader">{t("category")}</div>
+                      <div className="flexHeader">{t("subject")}</div>
+                      <div className="flexHeader">{t("date")}</div>
+                      <div className="flexHeader">{t("requestedBy")}</div>
                     </div>
                     <div className="flexContentContainer">
                       <div className="flexItem">{path}</div>
@@ -170,28 +170,34 @@ export default function ViewRequestcopy() {
                       <div className="flexItem">{req && req.name}</div>
                     </div>
                   </div>
-                  <div className="sectionTitle">APPLICANT DETAILS</div>
+                  <div className="sectionTitle">{t("applicantDetails")}</div>
                   <div className="flexTitleContainer">
-                    <div className="flexHeader">L A Constituency</div>
-                    <div className="flexHeader">L S Constituency</div>
-                    <div className="flexHeader">Panchayat</div>
-                    <div className="flexHeader">Ward</div>
+                    <div className="flexHeader">{t("LAConstituency")}</div>
+                    <div className="flexHeader">{t("LSConstituency")}</div>
+                    <div className="flexHeader">{t("panchayat")}</div>
+                    <div className="flexHeader">{t("ward")}</div>
                   </div>
                   <div className="flexContentContainer">
-                    <div className="flexItem">{req && req.loksabha}</div>
-                    <div className="flexItem">{req && req.assembly}</div>
-                    <div className="flexItem">{req && req.panchayat}</div>
+                    <div className="flexItem">
+                      {req && t(`${req.assembly}`)}
+                    </div>
+                    <div className="flexItem">
+                      {req && t(`${req.loksabha}`)}
+                    </div>
+                    <div className="flexItem">
+                      {req && t(`${req.panchayat}`)}
+                    </div>
                     <div className="flexItem">{req && req.ward}</div>
                   </div>
                   <div className="addressContainer">
-                    <div className="addressTitle">Address</div>
+                    <div className="addressTitle">{t("address")}</div>
                     <div className="addressContent">
                       {req && req.address}
                       {req && req.pincode}
                     </div>
                   </div>
 
-                  <div className="sectionTitle">REQUEST DESCRIPTION</div>
+                  <div className="sectionTitle">{t("requestDescription")}</div>
                   <div className="requestDescription">
                     {req && req.requestBody}
                   </div>
@@ -201,7 +207,7 @@ export default function ViewRequestcopy() {
           </Grid>
           <Grid item xs={4} sm={8} md={4}>
             <Paper className="actionPaper">
-              <h3 className="actionTitle"> Actions </h3>
+              <h3 className="actionTitle"> {t("Actions")} </h3>
               <Divider variant="middle" />
               {actions.length > 0 ? (
                 actions.map((val, key) => {

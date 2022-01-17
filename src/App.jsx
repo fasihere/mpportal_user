@@ -20,6 +20,7 @@ import Box from "@material-ui/core/Box";
 import NewRegister from "./pages/register/NewRegister";
 import ErrorPage from "./components/errorPage/ErrorPage";
 import Journey from "./pages/journey/Journey";
+import IdukkiCare from "./pages/idukkiCare/IdukkiCare";
 import Draft from "./pages/editRequest/Draft";
 
 
@@ -77,6 +78,9 @@ function App() {
             <Route exact path="/journey">
               <Journey />
             </Route>
+            <Route exact path="/idukki-care">
+              <IdukkiCare />
+            </Route>
             <PrivateRoute exact path="/dashboard" component={NewDashboard} />
             <Route path="/login">
               <NewLogin />
@@ -94,7 +98,7 @@ function App() {
               <ErrorPage />
             </Route>
           </Switch>
-              <Copyright />
+          <Copyright />
         </AuthProvider>
       </Router>
     </div>

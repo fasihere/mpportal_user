@@ -9,6 +9,7 @@ import {
   Image
 } from "@react-pdf/renderer";
 import dk from "../../assets/images/dp.png"
+import { useTranslation } from "react-i18next";
 
 
 const styles = StyleSheet.create({
@@ -93,7 +94,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const RequestPdf = ({path, req}) => {
+const RequestPdf = ({ path, req }) => {
+    const { t } = useTranslation();
   return (
     <Document>
       <Page size="A4">
@@ -163,10 +165,10 @@ const RequestPdf = ({path, req}) => {
           </div>
           <div style={styles.flexContentContainer}>
             <div style={styles.flexItem}>
-              <Text>{req && req.loksabha}</Text>
+              <Text>{req && req.assembly}</Text>
             </div>
             <div style={styles.flexItem}>
-              <Text>{req && req.assembly}</Text>
+              <Text>{req && req.loksabha}</Text>
             </div>
             <div style={styles.flexItem}>
               <Text>{req && req.panchayat}</Text>

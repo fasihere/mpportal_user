@@ -3,9 +3,13 @@ import { IDUKKI_DATA } from '../register/laList'
 import { useAuth } from '../../context/AuthContext'
 import { Link, useLocation } from 'react-router-dom'
 import { Grid, makeStyles, Button, Typography, TextField,
-  IconButton, Select, MenuItem, InputLabel} from "@material-ui/core";
+  IconButton, Select, MenuItem, InputLabel
+} from "@material-ui/core";
+  import { useTranslation } from "react-i18next";
 
-export default function PersonalForm({values:{name, email, mobileNo, address, pincode, loksabha}, handleChange}) {
+
+export default function PersonalForm({ values: { name, email, mobileNo, address, pincode, loksabha }, handleChange }) {
+      const { t } = useTranslation();
   const { pending, isSignedIn, user, auth } = useAuth()
     const [error, setError] = useState(false)
     const [la, setLa] = useState([])
@@ -47,7 +51,7 @@ export default function PersonalForm({values:{name, email, mobileNo, address, pi
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Personal Details {loksabha}
+        {t("personalDetails")} {t(`${loksabha}`)}
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
@@ -55,11 +59,11 @@ export default function PersonalForm({values:{name, email, mobileNo, address, pi
             required
             id="fullName"
             name="fullName"
-            label="Full name"
+            label={t("fullName")}
             fullWidth
             autoComplete="given-name"
             value={name}
-            onChange={handleChange('NAME')}
+            onChange={handleChange("NAME")}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -67,22 +71,22 @@ export default function PersonalForm({values:{name, email, mobileNo, address, pi
             required
             id="phoneNo"
             name="phoneNo"
-            label="Phone No"
+            label={t("phoneNo")}
             fullWidth
             autoComplete="phone-number"
             value={mobileNo}
-            onChange={handleChange('PHONE')}
+            onChange={handleChange("PHONE")}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             id="email"
             name="email"
-            label="Email Id"
+            label={t("emailId")}
             fullWidth
             autoComplete="email"
             value={email}
-            onChange={handleChange('EMAIL')}
+            onChange={handleChange("EMAIL")}
           />
         </Grid>
         <Grid item xs={12}>
@@ -90,11 +94,11 @@ export default function PersonalForm({values:{name, email, mobileNo, address, pi
             required
             id="address"
             name="address"
-            label="Address"
+            label={t("address")}
             fullWidth
             autoComplete="shipping address"
             value={address}
-            onChange={handleChange('ADDRESS')}
+            onChange={handleChange("ADDRESS")}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -102,87 +106,87 @@ export default function PersonalForm({values:{name, email, mobileNo, address, pi
             required
             id="pincode"
             name="pincode"
-            label="Pincode"
+            label={t("pincode")}
             fullWidth
             autoComplete="shipping postal-code"
             value={pincode}
-            onChange={handleChange('PINCODE')}
+            onChange={handleChange("PINCODE")}
           />
         </Grid>
-        <Grid item xs={12} sm ={6}>
+        <Grid item xs={12} sm={6}>
           <TextField
             select
             id="loksabha"
             name="loksabha"
-            label="Loksabha Constituency"
+            label={t("loksabhaConstituency")}
             value={loksabha}
-            onChange={handleChange('LOKSABHA')}
+            onChange={handleChange("LOKSABHA")}
             fullWidth
           >
-            <MenuItem selected value="Idukki">Idukki</MenuItem>
-            <MenuItem value="Other">Other</MenuItem>
+            <MenuItem selected value="Idukki">
+              {t("Idukki")}
+            </MenuItem>
+            <MenuItem value="Other">{t("Other")}</MenuItem>
           </TextField>
         </Grid>
-        {loksabha == "Idukki" && 
-        <>
-          <Grid
-            item
-            md={4}
-            xs={12}
-            >
-            <TextField
-            required
-            select
-            fullWidth
-            label="LA Constituency"
-            value={selectedLa}
-            onChange={changeLa}
-            inputProps={{ 'aria-label': 'Without label' }}
-            >
-              {la.map(x => {
-              return <MenuItem value={x.name}>{x.name}</MenuItem>
-              })}
-          </TextField>
+        {loksabha == "Idukki" && (
+          <>
+            <Grid item md={4} xs={12}>
+              <TextField
+                required
+                select
+                fullWidth
+                label={t("LAConstituency")}
+                value={selectedLa}
+                onChange={changeLa}
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                {la.map((x) => {
+                  return (
+                    <MenuItem value={x.name}>
+                      {t(`${x.name}`)}
+                    </MenuItem>
+                  );
+                })}
+              </TextField>
             </Grid>
-            <Grid
-            item
-            md={4}
-            xs={12}
-            >
-            <TextField
-            required
-            select
-            fullWidth
-            label="Panchayat"
-            value={selectedPanchayat}
-            onChange={changePanchayat}
-            >
-            {panchayat.map(x => {
-                return <MenuItem value={x.panchayat[0]}>{x.panchayat[0]}</MenuItem>
-            })}
-          </TextField>
+            <Grid item md={4} xs={12}>
+              <TextField
+                required
+                select
+                fullWidth
+                label={t("panchayat")}
+                value={selectedPanchayat}
+                onChange={changePanchayat}
+              >
+                {panchayat.map((x) => {
+                  return (
+                    <MenuItem value={x.panchayat[0]}>
+                      {t(`${x.panchayat[0]}`)}
+                    </MenuItem>
+                  );
+                })}
+              </TextField>
             </Grid>
-            <Grid
-            item
-            md={4}
-            xs={12}
-            >
-            <TextField
-            required
-            select
-            fullWidth
-            label="Ward"
-            value={selectedWard}
-            onChange={(e) => {
-              setSelectedWard(e.target.value)
-              handleChange('WARD')(e)
-            }}>
-              {wards.map(x => {
-                  return <MenuItem value={x}>{x}</MenuItem>
-              })}
-          </TextField>
-          </Grid>
-        </>}
+            <Grid item md={4} xs={12}>
+              <TextField
+                required
+                select
+                fullWidth
+                label={t("ward")}
+                value={selectedWard}
+                onChange={(e) => {
+                  setSelectedWard(e.target.value);
+                  handleChange("WARD")(e);
+                }}
+              >
+                {wards.map((x) => {
+                  return <MenuItem value={x}>{x}</MenuItem>;
+                })}
+              </TextField>
+            </Grid>
+          </>
+        )}
       </Grid>
     </React.Fragment>
   );

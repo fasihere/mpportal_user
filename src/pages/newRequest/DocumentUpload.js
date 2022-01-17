@@ -11,9 +11,11 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import IconButton from "@mui/material/IconButton";
 import { CircularProgress } from "@material-ui/core";
 import InputAdornment from "@mui/material/InputAdornment";
+  import { useTranslation } from "react-i18next";  
 
 
 export default function DocumentUpload({ requestFiles, rid, handleDocs }) {
+            const { t } = useTranslation();
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("");
    const [fileList, setFileList] = useState(requestFiles);
@@ -118,10 +120,10 @@ export default function DocumentUpload({ requestFiles, rid, handleDocs }) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Upload Related Files (Optional)
+        {t("uploadRelatedFiles(Optional)")}
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        Files added: {fileList.length}/3
+        {t("filesAdded")}: {fileList.length}/3
       </Typography>
       <Grid container direction="column" alignItems="center" spacing={2}>
         <Box border={1} margin={4} padding={3}>
@@ -136,23 +138,23 @@ export default function DocumentUpload({ requestFiles, rid, handleDocs }) {
             <Grid item container xs={12} justify="center">
               <Grid item xs={12}>
                 <Typography variant="subtitle1" align="center">
-                  Image, audio, video and document files are accepted. <br />{" "}
-                  (max-size per file: 3MB)
+                  {t("image,audio,videoAndDocumentFilesAreAccepted")} <br /> (
+                  {t("max-sizePerFile")}: 3MB)
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="subtitle2" align="center">
-                  Upto 3 documents are accepted.
+                  {t("upto3DocumentsAreAccepted")}
                 </Typography>
               </Grid>
               {file ? (
                 <Grid item xs={12} justify="center">
                   <TextField
                     id="outlined-basic"
-                    label="File Name"
+                    label={t("fileName")}
                     variant="standard"
                     onChange={handleFileNameChange}
-                    helperText="Enter a name for this file"
+                    helperText={t("enterANameForThisFile")}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -163,7 +165,7 @@ export default function DocumentUpload({ requestFiles, rid, handleDocs }) {
                             size="small"
                             onClick={handleAddFile}
                           >
-                            Add
+                            {t("add")}
                           </Button>
                         </InputAdornment>
                       ),
@@ -198,7 +200,7 @@ export default function DocumentUpload({ requestFiles, rid, handleDocs }) {
                         color="primary"
                         component="span"
                       >
-                        Select File
+                        {t("selectFile")}
                       </Button>
                     </label>
                   ) : (
@@ -242,7 +244,7 @@ export default function DocumentUpload({ requestFiles, rid, handleDocs }) {
         </Box>
         <Grid item xs={12} md={6} alignItems="center" justify="center">
           <Typography sx={{ mt: 4, mb: 2 }} variant="h6" align="center">
-            Uploaded Files
+            {t("uploadedFiles")}
           </Typography>
           {fileList.length > 0 ? (
             <List dense={true}>
@@ -286,7 +288,7 @@ export default function DocumentUpload({ requestFiles, rid, handleDocs }) {
             </List>
           ) : (
             <Typography variant="subtitle1" align="center">
-              -No files uploaded-
+              -{t("noFilesUploaded")}-
             </Typography>
           )}
         </Grid>

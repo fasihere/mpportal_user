@@ -5,6 +5,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
+  import { useTranslation } from "react-i18next";  
+
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -18,78 +20,82 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Review({values}) {
+export default function Review({ values }) {
+          const { t } = useTranslation();
   const classes = useStyles();
 
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Request Details 
+        {t("requestDetails")}
       </Typography>
       <List disablePadding>
-          <ListItem className="" key="">
-            <ListItemText primary={values.requestSubject} secondary={values.requestBody} />
-          </ListItem>
+        <ListItem className="" key="">
+          <ListItemText
+            primary={values.requestSubject}
+            secondary={values.requestBody}
+          />
+        </ListItem>
       </List>
       <Grid container spacing={2}>
         <Grid item container direction="column" xs={12} sm={12}>
           <Typography variant="h6" gutterBottom className={classes.title}>
-            Personal details
+            {t("personalDetails")}
           </Typography>
           <Grid container>
             <Grid item xs={6}>
-                <Typography gutterBottom>Full Name</Typography>
+              <Typography gutterBottom>{t("fullName")}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>{values.name}</Typography>
+              <Typography gutterBottom>{values.name}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>Phone Number</Typography>
+              <Typography gutterBottom>{t("phoneNo")}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>+91 {values.mobileNo}</Typography>
+              <Typography gutterBottom>+91 {values.mobileNo}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>Email</Typography>
+              <Typography gutterBottom>{t("emailId")}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>{values.email}</Typography>
+              <Typography gutterBottom>{values.email}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>Address</Typography>
+              <Typography gutterBottom>{t("address")}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>{values.address}</Typography>
+              <Typography gutterBottom>{values.address}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>Pincode</Typography>
+              <Typography gutterBottom>{t("pincode")}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>{values.pincode}</Typography>
+              <Typography gutterBottom>{values.pincode}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>Loksabha Constituency</Typography>
+              <Typography gutterBottom>{t("loksabhaConstituency")}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>Idukki</Typography>
+              <Typography gutterBottom>{t("Idukki")}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>LA Constituency</Typography>
+              <Typography gutterBottom>{t("LAConstituency")}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>{values.assembly}</Typography>
+              <Typography gutterBottom>{t(`${values.assembly}`)}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>Panchayat</Typography>
+              <Typography gutterBottom>{t("panchayat")}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>{values.panchayat}</Typography>
+              <Typography gutterBottom>{t(`${values.panchayat}`)}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>Ward</Typography>
+              <Typography gutterBottom>{t("ward")}</Typography>
             </Grid>
             <Grid item xs={6}>
-                <Typography gutterBottom>{values.ward}</Typography>
+              <Typography gutterBottom>{values.ward}</Typography>
             </Grid>
           </Grid>
         </Grid>

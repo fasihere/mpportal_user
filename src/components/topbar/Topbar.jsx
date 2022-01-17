@@ -104,14 +104,9 @@ export default function Topbar() {
           </li>
 
           <li className="item">
-            <a
-              className="link text-light"
-              href="http://www.idukkicare.org/"
-              onClick={() => setMenu("")}
-              target="_blank"
-            >
+            <Link className="link" to="/idukki-care" onClick={() => setMenu("")}>
               IDUKKI CARE
-            </a>
+            </Link>
           </li>
           <li className="item">
             <a

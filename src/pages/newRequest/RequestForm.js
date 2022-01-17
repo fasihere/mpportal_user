@@ -2,16 +2,18 @@ import React from 'react';
 import { useAuth } from '../../context/AuthContext'
 import { Link, useLocation } from 'react-router-dom'
 import { Grid, Button, Typography, TextField,
-  IconButton, Select, MenuItem, InputLabel} from "@material-ui/core";
+  IconButton, Select, MenuItem, InputLabel
+} from "@material-ui/core";
+  import { useTranslation } from "react-i18next";  
 
 
-export default function RequestForm({values:{requestSubject, requestCategory, requestBody}, handleChange}) {
+export default function RequestForm({ values: { requestSubject, requestCategory, requestBody }, handleChange }) {
+        const { t } = useTranslation();
     const { user } = useAuth()
-
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Request Details
+        {t("requestDetails")}
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12}>
@@ -19,7 +21,7 @@ export default function RequestForm({values:{requestSubject, requestCategory, re
             required
             id="subject"
             name="subject"
-            label="Subject"
+            label={t("subject")}
             fullWidth
             value={requestSubject}
             onChange={handleChange("SUBJECT")}
@@ -31,7 +33,7 @@ export default function RequestForm({values:{requestSubject, requestCategory, re
             select
             id="category"
             name="category"
-            label="Category"
+            label={t("category")}
             fullWidth
             value={requestCategory}
             onChange={handleChange("CATEGORY")}
@@ -55,10 +57,10 @@ export default function RequestForm({values:{requestSubject, requestCategory, re
             required
             id="body"
             name="body"
-            label="Request Content"
+            label={t("requestContent")}
             fullWidth
             variant="filled"
-            helperText="Write your request here"
+            helperText={t("writeYourRequestHere")}
             multiline
             rows={10}
             value={requestBody}
