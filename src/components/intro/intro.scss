@@ -2,7 +2,7 @@
 
 .intro{
     //add the image in assets folder as background
-    background: url("../../assets/images/cover.png"), whitesmoke;
+    background: url("../../assets/images/cover4.png"), whitesmoke;
     background-size: cover;
     display: flex;
     align-items: center;
@@ -10,7 +10,10 @@
     height: calc(100vh - 50px);
     @include mobile{
         height: 100;
-        background-position: left;
+        background-position: right;
+        align-items: flex-end;
+        // move background image a little bit to the right
+        background-position-x: calc(100vw + 140px);
     }
 
     .left{
@@ -19,6 +22,8 @@
         flex-direction: column;
         align-items: center;
         background: rgba(255, 255, 255, 0.9);
+        margin: 10%;
+        border-radius: 5px;
         h1{
             font-size: 30px;
             font-family: 'Roboto', sans-serif;
@@ -45,6 +50,10 @@
             &:hover{
                 background-color: rgb(10, 85, 165);
             }
+        }
+        @include mobile{
+        margin: 5%;
+        align-items: unset;
         }
     }
     .right{
