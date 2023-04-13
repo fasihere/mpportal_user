@@ -97,7 +97,7 @@ export default function Draft() {
   const [state, dispatch] = useReducer(reducer, initiailValues)
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
-  const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/'
+  const baseUrl = 'https://idukkimpportal.azurewebsites.net/'
   const location = useLocation()
   const path = location.pathname.split("/")[2];
 

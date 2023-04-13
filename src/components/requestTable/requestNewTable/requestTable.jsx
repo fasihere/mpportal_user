@@ -69,7 +69,7 @@ export default function RequestTable({ selected, setSelected, date }) {
   ];
   const [data, setData] = useState([]);
   const baseUrl =
-    "https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests/";
+    "https://idukkimpportal.azurewebsites.net/requests/";
   function yyyymmdd(dateIn) {
     var yyyy = dateIn.getFullYear();
     var mm = dateIn.getMonth() + 1; // getMonth() is zero-based

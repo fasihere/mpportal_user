@@ -18,7 +18,7 @@ export default function PersonalForm({ values: { name, email, mobileNo, address,
     const [selectedLa, setSelectedLa] = useState("")
     const [selectedPanchayat, setSelectedPanchayat] = useState("")
     const [selectedWard, setSelectedWard] = useState(1)
-    const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/'
+    const baseUrl = 'https://idukkimpportal.azurewebsites.net/'
     const location = useLocation()
     const path = location.pathname.split("/")[2];
 

@@ -10,7 +10,7 @@ export default function EditRequest() {
     const history = useHistory()
     const location = useLocation()
     const path = location.pathname.split("/")[2];
-    const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests/'
+    const baseUrl = 'https://idukkimpportal.azurewebsites.net/requests/'
 
     const { user } = useAuth()
     const [name, setName] = useState("")

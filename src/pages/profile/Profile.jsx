@@ -57,7 +57,7 @@ export default function Profile() {
   const [success, setSuccess] = useState(false);
   const [edit, setEdit] = useState(false);
   const baseUrl =
-    "https://asia-south1-mpportal-e9873.cloudfunctions.net/app/users/";
+    "https://idukkimpportal.azurewebsites.net/users/";
 
   const { user } = useAuth();
   const [name, setName] = useState("");

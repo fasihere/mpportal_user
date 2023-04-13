@@ -16,7 +16,7 @@ export default function ViewRequestcopy() {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
   const baseUrl =
-    "https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests/";
+    "https://idukkimpportal.azurewebsites.net/requests/";
   const tempDocArray = useRef();
 
   useEffect(() => {
