@@ -60,7 +60,7 @@ export default function NewRegister() {
     const [selectedWard, setSelectedWard] = useState()
     const [loading, setLoading] = useState(false)
 
-    const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/users'
+    const baseUrl = 'https://idukkimpportal.azurewebsites.net/users'
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true)

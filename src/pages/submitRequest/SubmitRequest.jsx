@@ -11,7 +11,7 @@ export default function SubmitRequest() {
     const [req, setReq] = useState()
     const location = useLocation()
     const path = location.pathname.split("/")[2];
-    const baseUrl = 'https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests/'
+    const baseUrl = 'https://idukkimpportal.azurewebsites.net/requests/'
     useEffect(() => {
         const getReq = async() => {
             const config = {

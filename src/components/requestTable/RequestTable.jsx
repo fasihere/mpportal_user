@@ -16,7 +16,7 @@ export default function RequestTable({ selected }) {
   const [loading, setLoading] = useState(true);
 
   const baseUrl =
-    "https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests/";
+    "https://idukkimpportal.azurewebsites.net/requests/";
   useEffect(() => {
     const fetchData = async () => {
       try {

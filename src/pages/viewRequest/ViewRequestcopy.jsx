@@ -25,9 +25,9 @@ export default function ViewRequestcopy() {
   const [actions, setActions] = useState([]);
   const path = location.pathname.split("/")[2];
   const baseRequestUrl =
-    "https://asia-south1-mpportal-e9873.cloudfunctions.net/app/requests/";
+    "https://idukkimpportal.azurewebsites.net/requests/";
   const baseActionUrl =
-    "https://asia-south1-mpportal-e9873.cloudfunctions.net/app/";
+    "https://idukkimpportal.azurewebsites.net/";
   const { t } = useTranslation();
 
   const tempDocArray = useRef();
